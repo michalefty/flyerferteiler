@@ -157,8 +157,8 @@
       ],
       "households": 6,
       "name": "Asternweg",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "auf_der_birkenhöhe": {
       "coords": [
