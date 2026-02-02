@@ -15,40 +15,40 @@
         49.9171121,
         9.1510974
       ],
-      "households": 20,
+      "households": 5,
       "name": "Agathastraße",
       "sector": 1,
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "akazienweg": {
       "coords": [
         49.918898,
         9.1470636
       ],
-      "households": 20,
+      "households": 5,
       "name": "Akazienweg",
       "sector": 2,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "alexandrastraße": {
       "coords": [
         49.9169889,
         9.1501162
       ],
-      "households": 20,
+      "households": 5,
       "name": "Alexandrastraße",
       "sector": 3,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "alte_kleinwallstädter_straße": {
       "coords": [
         49.9036888,
         9.1504841
       ],
-      "households": 20,
+      "households": 5,
       "name": "Alte Kleinwallstädter Straße",
       "sector": 4,
       "status": "free",
@@ -59,18 +59,18 @@
         49.91925,
         9.1527744
       ],
-      "households": 20,
+      "households": 1,
       "name": "Am Altenbach",
       "sector": 5,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "am_berg": {
       "coords": [
         49.92285,
         9.2035983
       ],
-      "households": 20,
+      "households": 5,
       "name": "Am Berg",
       "sector": 6,
       "status": "free",
@@ -81,7 +81,7 @@
         49.9303406,
         9.2255846
       ],
-      "households": 20,
+      "households": 5,
       "name": "Am Friedrichsberg",
       "sector": 7,
       "status": "free",
@@ -92,7 +92,7 @@
         49.9283736,
         9.2222865
       ],
-      "households": 20,
+      "households": 5,
       "name": "Am Lenzengrund",
       "sector": 8,
       "status": "free",
@@ -103,7 +103,7 @@
         49.9150135,
         9.1635604
       ],
-      "households": 20,
+      "households": 2,
       "name": "Am Sportplatz",
       "sector": 9,
       "status": "free",
@@ -114,7 +114,7 @@
         49.9147885,
         9.1622451
       ],
-      "households": 20,
+      "households": 5,
       "name": "Am Spottenberg",
       "sector": 10,
       "status": "free",
@@ -125,7 +125,7 @@
         49.9099848,
         9.1567462
       ],
-      "households": 20,
+      "households": 9,
       "name": "Am Weiher",
       "sector": 1,
       "status": "free",
@@ -136,7 +136,7 @@
         49.9127184,
         9.1571697
       ],
-      "households": 20,
+      "households": 2,
       "name": "Amselweg",
       "sector": 2,
       "status": "free",
@@ -147,7 +147,7 @@
         49.9106063,
         9.1521728
       ],
-      "households": 20,
+      "households": 1,
       "name": "An der Geeb",
       "sector": 3,
       "status": "free",
@@ -158,18 +158,18 @@
         49.9159955,
         9.1515098
       ],
-      "households": 20,
+      "households": 5,
       "name": "Annastraße",
       "sector": 4,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "asternweg": {
       "coords": [
         49.9057351,
         9.1541697
       ],
-      "households": 20,
+      "households": 5,
       "name": "Asternweg",
       "sector": 5,
       "status": "free",
@@ -180,29 +180,29 @@
         49.8980191,
         9.1841103
       ],
-      "households": 20,
+      "households": 5,
       "name": "Auf der Birkenhöhe",
       "sector": 6,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "bahnhofstraße": {
       "coords": [
         49.91833,
         9.1477234
       ],
-      "households": 20,
+      "households": 5,
       "name": "Bahnhofstraße",
       "sector": 7,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "bergweg": {
       "coords": [
         49.913884,
         9.165947
       ],
-      "households": 20,
+      "households": 2,
       "name": "Bergweg",
       "sector": 8,
       "status": "free",
@@ -213,7 +213,7 @@
         49.9149676,
         9.1694687
       ],
-      "households": 20,
+      "households": 5,
       "name": "Berliner Ring",
       "sector": 9,
       "status": "free",
@@ -224,7 +224,7 @@
         49.9062423,
         9.1541565
       ],
-      "households": 20,
+      "households": 3,
       "name": "Blumenstraße",
       "sector": 10,
       "status": "free",
@@ -235,7 +235,7 @@
         49.9066658,
         9.1521144
       ],
-      "households": 20,
+      "households": 2,
       "name": "Breiter Weg",
       "sector": 1,
       "status": "free",
@@ -246,7 +246,7 @@
         49.9142071,
         9.1677132
       ],
-      "households": 20,
+      "households": 3,
       "name": "Breslauer Straße",
       "sector": 2,
       "status": "free",
@@ -257,7 +257,7 @@
         49.909338,
         9.154457
       ],
-      "households": 20,
+      "households": 5,
       "name": "Brunnengasse",
       "sector": 3,
       "status": "free",
@@ -268,7 +268,7 @@
         49.9137653,
         9.1668754
       ],
-      "households": 20,
+      "households": 1,
       "name": "Danziger Straße",
       "sector": 4,
       "status": "free",
@@ -279,7 +279,7 @@
         49.9217871,
         9.1883963
       ],
-      "households": 20,
+      "households": 5,
       "name": "Doktor-Albert-Hoffa-Straße",
       "sector": 5,
       "status": "free",
@@ -290,7 +290,7 @@
         49.9229655,
         9.2085314
       ],
-      "households": 20,
+      "households": 5,
       "name": "Doktor-Karl-Reus-Straße",
       "sector": 6,
       "status": "free",
@@ -301,29 +301,29 @@
         49.8954017,
         9.1908972
       ],
-      "households": 20,
+      "households": 2,
       "name": "Dorfstraße",
       "sector": 7,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "dornauer_ring": {
       "coords": [
         49.8974669,
         9.1866522
       ],
-      "households": 20,
+      "households": 5,
       "name": "Dornauer Ring",
       "sector": 8,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "dornauer_weg": {
       "coords": [
         49.9076077,
         9.1536848
       ],
-      "households": 20,
+      "households": 5,
       "name": "Dornauer Weg",
       "sector": 9,
       "status": "free",
@@ -334,7 +334,7 @@
         49.9228683,
         9.2065556
       ],
-      "households": 20,
+      "households": 5,
       "name": "Dr.-Gerhard-Rüdiger-Straße",
       "sector": 10,
       "status": "free",
@@ -345,7 +345,7 @@
         49.9131369,
         9.1590577
       ],
-      "households": 20,
+      "households": 5,
       "name": "Drosselweg",
       "sector": 1,
       "status": "free",
@@ -356,7 +356,7 @@
         49.9103909,
         9.1623231
       ],
-      "households": 20,
+      "households": 5,
       "name": "Dürerstraße",
       "sector": 2,
       "status": "free",
@@ -367,7 +367,7 @@
         49.913549,
         9.1847764
       ],
-      "households": 20,
+      "households": 5,
       "name": "Ebersbacher Straße",
       "sector": 3,
       "status": "free",
@@ -378,7 +378,7 @@
         49.9168631,
         9.1674962
       ],
-      "households": 20,
+      "households": 5,
       "name": "Egerländer Straße",
       "sector": 4,
       "status": "free",
@@ -389,7 +389,7 @@
         49.9140079,
         9.1524908
       ],
-      "households": 20,
+      "households": 5,
       "name": "Elisenstraße",
       "sector": 5,
       "status": "free",
@@ -400,18 +400,18 @@
         49.896246,
         9.1894773
       ],
-      "households": 20,
+      "households": 5,
       "name": "Erlenstraße",
       "sector": 6,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "eulenweg": {
       "coords": [
         49.913873,
         9.1573605
       ],
-      "households": 20,
+      "households": 1,
       "name": "Eulenweg",
       "sector": 7,
       "status": "free",
@@ -422,7 +422,7 @@
         49.9132432,
         9.1580228
       ],
-      "households": 20,
+      "households": 5,
       "name": "Fasanenweg",
       "sector": 8,
       "status": "free",
@@ -433,7 +433,7 @@
         49.9132151,
         9.1599202
       ],
-      "households": 20,
+      "households": 2,
       "name": "Finkenweg",
       "sector": 9,
       "status": "free",
@@ -444,7 +444,7 @@
         49.9050027,
         9.1546499
       ],
-      "households": 20,
+      "households": 2,
       "name": "Fliederweg",
       "sector": 10,
       "status": "free",
@@ -455,7 +455,7 @@
         49.9079055,
         9.1592239
       ],
-      "households": 20,
+      "households": 5,
       "name": "Flurweg",
       "sector": 1,
       "status": "free",
@@ -466,7 +466,7 @@
         49.9100195,
         9.1560325
       ],
-      "households": 20,
+      "households": 2,
       "name": "Franz-Schüßler-Straße",
       "sector": 2,
       "status": "free",
@@ -477,7 +477,7 @@
         49.9127681,
         9.1540087
       ],
-      "households": 20,
+      "households": 5,
       "name": "Friedenstraße",
       "sector": 3,
       "status": "free",
@@ -488,7 +488,7 @@
         49.9108988,
         9.1503559
       ],
-      "households": 20,
+      "households": 5,
       "name": "Friedhofstraße",
       "sector": 4,
       "status": "free",
@@ -499,7 +499,7 @@
         49.9095202,
         9.1612858
       ],
-      "households": 20,
+      "households": 5,
       "name": "Goethestraße",
       "sector": 5,
       "status": "free",
@@ -510,7 +510,7 @@
         49.9091791,
         9.1621855
       ],
-      "households": 20,
+      "households": 5,
       "name": "Grünewaldstraße",
       "sector": 6,
       "status": "free",
@@ -521,7 +521,7 @@
         49.914012,
         9.1608812
       ],
-      "households": 20,
+      "households": 5,
       "name": "Hasenhecke",
       "sector": 7,
       "status": "free",
@@ -532,18 +532,18 @@
         49.9168701,
         9.1491313
       ],
-      "households": 20,
+      "households": 1,
       "name": "Helenenstraße",
       "sector": 8,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "hintere_dorfstraße": {
       "coords": [
         49.9093022,
         9.1507039
       ],
-      "households": 20,
+      "households": 5,
       "name": "Hintere Dorfstraße",
       "sector": 9,
       "status": "free",
@@ -554,7 +554,7 @@
         49.9271273,
         9.2276532
       ],
-      "households": 20,
+      "households": 5,
       "name": "Hohe-Wart-Straße",
       "sector": 10,
       "status": "free",
@@ -565,7 +565,7 @@
         49.9067867,
         9.1574164
       ],
-      "households": 20,
+      "households": 3,
       "name": "Hollerweg",
       "sector": 1,
       "status": "free",
@@ -576,7 +576,7 @@
         49.9309741,
         9.2254911
       ],
-      "households": 20,
+      "households": 5,
       "name": "Holzwiesenweg",
       "sector": 2,
       "status": "free",
@@ -587,7 +587,7 @@
         49.9112747,
         9.1525738
       ],
-      "households": 20,
+      "households": 5,
       "name": "Höfchen",
       "sector": 3,
       "status": "free",
@@ -598,7 +598,7 @@
         49.9095593,
         9.1597751
       ],
-      "households": 20,
+      "households": 5,
       "name": "Höhfeldstraße",
       "sector": 4,
       "status": "free",
@@ -609,7 +609,7 @@
         49.9076925,
         9.1617346
       ],
-      "households": 20,
+      "households": 6,
       "name": "Höhwaldweg",
       "sector": 5,
       "status": "free",
@@ -620,40 +620,40 @@
         49.9151887,
         9.1511123
       ],
-      "households": 20,
+      "households": 5,
       "name": "Im Hag",
       "sector": 6,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "im_steinetz": {
       "coords": [
         49.916445,
         9.1501632
       ],
-      "households": 20,
+      "households": 5,
       "name": "Im Steinetz",
       "sector": 7,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "industriestraße": {
       "coords": [
         49.9195603,
         9.1489082
       ],
-      "households": 20,
+      "households": 5,
       "name": "Industriestraße",
       "sector": 8,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "jahnstraße": {
       "coords": [
         49.9077208,
         9.1521171
       ],
-      "households": 20,
+      "households": 1,
       "name": "Jahnstraße",
       "sector": 9,
       "status": "free",
@@ -664,7 +664,7 @@
         49.9128865,
         9.153453
       ],
-      "households": 20,
+      "households": 5,
       "name": "Jägersgarten",
       "sector": 10,
       "status": "free",
@@ -675,7 +675,7 @@
         49.9165567,
         9.1677985
       ],
-      "households": 20,
+      "households": 5,
       "name": "Karlsbader Straße",
       "sector": 1,
       "status": "free",
@@ -686,18 +686,18 @@
         49.9175484,
         9.1498202
       ],
-      "households": 20,
+      "households": 5,
       "name": "Karolinenstraße",
       "sector": 2,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "kirchgasse": {
       "coords": [
         49.9091865,
         9.152126
       ],
-      "households": 20,
+      "households": 2,
       "name": "Kirchgasse",
       "sector": 3,
       "status": "free",
@@ -708,7 +708,7 @@
         49.9114307,
         9.1483394
       ],
-      "households": 20,
+      "households": 5,
       "name": "Kleewiesenweg",
       "sector": 4,
       "status": "free",
@@ -719,18 +719,18 @@
         49.8959378,
         9.1835091
       ],
-      "households": 20,
+      "households": 5,
       "name": "Kleinwallstädter Straße",
       "sector": 5,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "konrad-adenauer-straße": {
       "coords": [
         49.9124206,
         9.1553622
       ],
-      "households": 20,
+      "households": 5,
       "name": "Konrad-Adenauer-Straße",
       "sector": 6,
       "status": "free",
@@ -741,7 +741,7 @@
         49.9075409,
         9.1616786
       ],
-      "households": 20,
+      "households": 3,
       "name": "Kurmainzer Ring",
       "sector": 7,
       "status": "free",
@@ -752,7 +752,7 @@
         49.9130926,
         9.1548614
       ],
-      "households": 20,
+      "households": 5,
       "name": "Kurt-Schumacher-Straße",
       "sector": 8,
       "status": "free",
@@ -763,7 +763,7 @@
         49.9151507,
         9.1668475
       ],
-      "households": 20,
+      "households": 5,
       "name": "Königsberger Straße",
       "sector": 9,
       "status": "free",
@@ -774,7 +774,7 @@
         49.9143659,
         9.148727
       ],
-      "households": 20,
+      "households": 5,
       "name": "Kübler Ring",
       "sector": 10,
       "status": "free",
@@ -785,7 +785,7 @@
         49.9135024,
         9.1606588
       ],
-      "households": 20,
+      "households": 5,
       "name": "Lerchenweg",
       "sector": 1,
       "status": "free",
@@ -796,51 +796,51 @@
         49.8973234,
         9.1884777
       ],
-      "households": 20,
+      "households": 5,
       "name": "Lindenstraße",
       "sector": 2,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "luisenstraße": {
       "coords": [
         49.9158,
         9.1505728
       ],
-      "households": 20,
+      "households": 5,
       "name": "Luisenstraße",
       "sector": 3,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "margarethenstraße": {
       "coords": [
         49.9166616,
         9.152379
       ],
-      "households": 20,
+      "households": 3,
       "name": "Margarethenstraße",
       "sector": 4,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "marienstraße": {
       "coords": [
         49.9159906,
         9.1543102
       ],
-      "households": 20,
+      "households": 5,
       "name": "Marienstraße",
       "sector": 5,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "meisenweg": {
       "coords": [
         49.9137668,
         9.1613383
       ],
-      "households": 20,
+      "households": 5,
       "name": "Meisenweg",
       "sector": 6,
       "status": "free",
@@ -851,7 +851,7 @@
         49.9076922,
         9.1502215
       ],
-      "households": 20,
+      "households": 5,
       "name": "Märzbrückenweg",
       "sector": 7,
       "status": "free",
@@ -862,7 +862,7 @@
         49.912396,
         9.1603376
       ],
-      "households": 20,
+      "households": 5,
       "name": "Mühlbachstraße",
       "sector": 8,
       "status": "free",
@@ -873,7 +873,7 @@
         49.9119541,
         9.1527433
       ],
-      "households": 20,
+      "households": 2,
       "name": "Mühlweg",
       "sector": 9,
       "status": "free",
@@ -884,7 +884,7 @@
         49.9054021,
         9.155572
       ],
-      "households": 20,
+      "households": 2,
       "name": "Nelkenweg",
       "sector": 10,
       "status": "free",
@@ -895,7 +895,7 @@
         49.9127173,
         9.1478955
       ],
-      "households": 20,
+      "households": 5,
       "name": "Niedernberger Straße",
       "sector": 1,
       "status": "free",
@@ -906,7 +906,7 @@
         49.9130847,
         9.1523807
       ],
-      "households": 20,
+      "households": 5,
       "name": "Ober der Steinhohle",
       "sector": 2,
       "status": "free",
@@ -917,7 +917,7 @@
         49.9087026,
         9.1534925
       ],
-      "households": 20,
+      "households": 1,
       "name": "Pfortengasse",
       "sector": 3,
       "status": "free",
@@ -928,7 +928,7 @@
         49.9128332,
         9.1619282
       ],
-      "households": 20,
+      "households": 2,
       "name": "Pommernstraße",
       "sector": 4,
       "status": "free",
@@ -939,7 +939,7 @@
         49.9079771,
         9.1580107
       ],
-      "households": 20,
+      "households": 5,
       "name": "Prof.-Dr.-Dölger-Straße",
       "sector": 5,
       "status": "free",
@@ -950,7 +950,7 @@
         49.9056173,
         9.158515
       ],
-      "households": 20,
+      "households": 5,
       "name": "Rainweg",
       "sector": 6,
       "status": "free",
@@ -961,18 +961,18 @@
         49.9168355,
         9.1525753
       ],
-      "households": 20,
+      "households": 5,
       "name": "Renatastraße",
       "sector": 7,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "ringstraße": {
       "coords": [
         49.9265724,
         9.2159138
       ],
-      "households": 20,
+      "households": 5,
       "name": "Ringstraße",
       "sector": 8,
       "status": "free",
@@ -983,18 +983,18 @@
         49.9156962,
         9.1535721
       ],
-      "households": 20,
+      "households": 5,
       "name": "Ritastraße",
       "sector": 9,
-      "status": "taken",
-      "user": "micha"
+      "status": "free",
+      "user": ""
     },
     "rosenweg": {
       "coords": [
         49.9054912,
         9.1564613
       ],
-      "households": 20,
+      "households": 5,
       "name": "Rosenweg",
       "sector": 10,
       "status": "free",
@@ -1005,7 +1005,7 @@
         49.9117163,
         9.1638841
       ],
-      "households": 20,
+      "households": 5,
       "name": "Schafbrückenweg",
       "sector": 1,
       "status": "free",
@@ -1016,7 +1016,7 @@
         49.9110561,
         9.1654451
       ],
-      "households": 20,
+      "households": 5,
       "name": "Schillerstraße",
       "sector": 2,
       "status": "free",
@@ -1027,7 +1027,7 @@
         49.913122,
         9.1646782
       ],
-      "households": 20,
+      "households": 5,
       "name": "Schlesierstraße",
       "sector": 3,
       "status": "free",
@@ -1038,7 +1038,7 @@
         49.9281608,
         9.2256209
       ],
-      "households": 20,
+      "households": 5,
       "name": "Schloßbergstraße",
       "sector": 4,
       "status": "free",
@@ -1049,7 +1049,7 @@
         49.907865,
         9.1601508
       ],
-      "households": 20,
+      "households": 5,
       "name": "Schulstraße",
       "sector": 5,
       "status": "free",
@@ -1060,7 +1060,7 @@
         49.9142508,
         9.1605889
       ],
-      "households": 20,
+      "households": 2,
       "name": "Schwalbenring",
       "sector": 6,
       "status": "free",
@@ -1071,7 +1071,7 @@
         49.9138046,
         9.1846582
       ],
-      "households": 20,
+      "households": 5,
       "name": "Sodentalstraße",
       "sector": 7,
       "status": "free",
@@ -1082,7 +1082,7 @@
         49.9090391,
         9.1516706
       ],
-      "households": 20,
+      "households": 4,
       "name": "Spessartstraße",
       "sector": 8,
       "status": "free",
@@ -1093,7 +1093,7 @@
         49.9129999,
         9.1527348
       ],
-      "households": 20,
+      "households": 5,
       "name": "Steinhohle",
       "sector": 9,
       "status": "free",
@@ -1104,7 +1104,7 @@
         49.9136027,
         9.1627187
       ],
-      "households": 20,
+      "households": 5,
       "name": "Sudetenstraße",
       "sector": 10,
       "status": "free",
@@ -1115,18 +1115,18 @@
         49.8972061,
         9.1857668
       ],
-      "households": 20,
+      "households": 5,
       "name": "Sulzbacher Straße",
       "sector": 1,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "südring": {
       "coords": [
         49.9044556,
         9.1524126
       ],
-      "households": 20,
+      "households": 5,
       "name": "Südring",
       "sector": 2,
       "status": "free",
@@ -1137,7 +1137,7 @@
         49.9147457,
         9.1582229
       ],
-      "households": 20,
+      "households": 5,
       "name": "Theodor-Heuss-Straße",
       "sector": 3,
       "status": "free",
@@ -1148,7 +1148,7 @@
         49.9146613,
         9.1520629
       ],
-      "households": 20,
+      "households": 5,
       "name": "Theresienstraße",
       "sector": 4,
       "status": "free",
@@ -1159,7 +1159,7 @@
         49.9049706,
         9.1569298
       ],
-      "households": 20,
+      "households": 5,
       "name": "Tulpenweg",
       "sector": 5,
       "status": "free",
@@ -1170,7 +1170,7 @@
         49.9135722,
         9.16706
       ],
-      "households": 20,
+      "households": 5,
       "name": "Wachenbachweg",
       "sector": 6,
       "status": "free",
@@ -1181,7 +1181,7 @@
         49.9123904,
         9.1608739
       ],
-      "households": 20,
+      "households": 5,
       "name": "Wiesenstraße",
       "sector": 7,
       "status": "free",
@@ -1192,7 +1192,7 @@
         49.9234763,
         9.2071312
       ],
-      "households": 20,
+      "households": 5,
       "name": "Wingertstraße",
       "sector": 8,
       "status": "free",
