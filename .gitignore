@@ -25,6 +25,5 @@ config.py
 bin/
 lib/
 pyvenv.cfg 
-gcloud.sh 
-new*.sh
+scripts/
 sync.log
