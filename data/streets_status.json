@@ -18,8 +18,8 @@
       "households": 5,
       "name": "Agathastraße",
       "sector": 1,
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "akazienweg": {
       "coords": [
@@ -579,8 +579,8 @@
       "households": 5,
       "name": "Holzwiesenweg",
       "sector": 2,
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "torge"
     },
     "höfchen": {
       "coords": [
