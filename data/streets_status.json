@@ -197,8 +197,8 @@
       ],
       "households": 1,
       "name": "Berliner Ring",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "blumenstraße": {
       "coords": [
