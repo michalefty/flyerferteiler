@@ -2,36 +2,94 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flyer-Planer: {{ metadata.city }}</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { font-family: sans-serif; margin: 20px; }
-        #map { height: 500px; width: 100%; border-radius: 8px; margin-bottom: 20px; }
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .street-list { max-height: 500px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
-        .taken { text-decoration: line-through; color: gray; }
-        .sector-tag { font-size: 0.8em; background: #eee; padding: 2px 5px; margin-right: 5px; }
+        :root {
+            --primary-color: #2c3e50;
+            --free-color: #27ae60;
+            --taken-color: #e74c3c;
+            --info-color: #3498db;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background-color: #f4f7f6; }
+        
+        /* Statistik Bar */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .stat-card h4 { margin: 0; font-size: 0.8em; color: #7f8c8d; text-transform: uppercase; }
+        .stat-card p { margin: 5px 0 0; font-size: 1.4em; font-weight: bold; color: var(--primary-color); }
+        .stat-card.highlight p { color: var(--info-color); }
+
+        #map { height: 450px; width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        
+        .container { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 900px) { .container { grid-template-columns: 1fr 350px; } }
+
+        .street-list-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .street-list { max-height: 500px; overflow-y: auto; list-style: none; padding: 0; }
+        
+        .street-item { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; border-bottom: 1px solid #eee;
+        }
+        .street-item.status-taken { background: #f9f9f9; opacity: 0.7; }
+        .street-name { font-weight: bold; display: block; }
+        .sector-tag { font-size: 0.75em; background: #ebf2f7; padding: 2px 6px; border-radius: 4px; margin-right: 8px; }
+
+        button { background: var(--free-color); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+        .user-badge { color: var(--taken-color); font-size: 0.85em; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1>Flyer-Verteilung {{ metadata.city }} ({{ metadata.plz }})</h1>
-    <p>Stand: {{ metadata.date }} | Straßen gesamt: {{ metadata.total_streets }}</p>
+
+    <h1>Flyer-Verteilung {{ metadata.city }}</h1>
+    
+    <div class="stats-container">
+        <div class="stat-card">
+            <h4>Straßen offen</h4>
+            <p id="stats-open">-</p>
+        </div>
+        <div class="stat-card">
+            <h4>Straßen vergeben</h4>
+            <p id="stats-taken">-</p>
+        </div>
+        <div class="stat-card highlight">
+            <h4>Haushalte (vergeben)</h4>
+            <p id="stats-households">-</p>
+        </div>
+    </div>
 
     <div id="map"></div>
 
-    <div class="controls">
-        <div class="street-list">
+    <div class="container">
+        <div class="street-list-container">
             <h3>Straßenliste</h3>
-            <ul id="list">
+            <ul class="street-list">
                 {% for id, s in streets.items() %}
-                <li class="{{ s.status }}">
-                    <span class="sector-tag">Sekt. {{ s.sector }}</span>
-                    {{ s.name }} ({{ s.households }} Haushalte)
-                    {% if s.status == 'free' %}
-                    <button onclick="takeStreet('{{ id }}')">Übernehmen</button>
-                    {% else %}
-                    - Erledigt von: {{ s.user }}
-                    {% endif %}
+                <li class="street-item {% if s.status == 'taken' %}status-taken{% endif %}">
+                    <div>
+                        <span class="street-name"><span class="sector-tag">Sekt. {{ s.sector }}</span>{{ s.name }}</span>
+                        <small>{{ s.households }} Haushalte</small>
+                    </div>
+                    <div>
+                        {% if s.status == 'free' %}
+                        <button onclick="takeStreet('{{ id }}')">Annehmen</button>
+                        {% else %}
+                        <span class="user-badge">{{ s.user }}</span>
+                        {% endif %}
+                    </div>
                 </li>
                 {% endfor %}
             </ul>
@@ -41,43 +99,64 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const map = L.map('map');
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         const streets = {{ streets|tojson }};
         const markers = [];
+        
+        // --- Statistik Berechnung ---
+        let openCount = 0;
+        let takenCount = 0;
+        let takenHouseholds = 0;
 
         Object.keys(streets).forEach(id => {
             const s = streets[id];
-            const color = s.status === 'free' ? 'blue' : 'red';
-            const marker = L.circleMarker(s.coords, {
-                color: color,
-                radius: 6,
-                fillOpacity: 0.7
-            }).addTo(map);
-
-            marker.bindPopup(`<b>${s.name}</b><br>Sektor: ${s.sector}<br>
-                ${s.status === 'free' ? `<button onclick="takeStreet('${id}')">Übernehmen</button>` : `Belegt von ${s.user}`}`);
+            const isFree = s.status === 'free';
             
+            // Stats hochzählen
+            if (isFree) {
+                openCount++;
+            } else {
+                takenCount++;
+                takenHouseholds += s.households;
+            }
+
+            const color = isFree ? '#27ae60' : '#e74c3c';
+            const marker = L.circleMarker(s.coords, { color: color, fillOpacity: 0.6, radius: 7 }).addTo(map);
+            marker.bindPopup(`<b>${s.name}</b><br>${isFree ? 'Frei' : 'Belegt von ' + s.user}`);
             markers.push(L.latLng(s.coords[0], s.coords[1]));
         });
 
-        // Automatischer Zoom auf alle gefundenen Straßen
-        if (markers.length > 0) {
-            const bounds = L.latLngBounds(markers);
-            map.fitBounds(bounds, { padding: [30, 30] });
+        // Stats in HTML schreiben
+        document.getElementById('stats-open').innerText = openCount;
+        document.getElementById('stats-taken').innerText = takenCount;
+        document.getElementById('stats-households').innerText = takenHouseholds;
+
+        // --- Karten-Zustand ---
+        const lastCenter = localStorage.getItem('mapCenter');
+        const lastZoom = localStorage.getItem('mapZoom');
+
+        if (lastCenter && lastZoom) {
+            map.setView(JSON.parse(lastCenter), lastZoom);
+        } else if (markers.length > 0) {
+            map.fitBounds(L.latLngBounds(markers), { padding: [40, 40] });
         } else {
             map.setView({{ metadata.center|tojson }}, 13);
         }
 
         function takeStreet(id) {
-            const name = prompt("Bitte gib deinen Namen ein:");
-            if (name) {
+            let userName = localStorage.getItem('userName');
+            if (!userName) {
+                userName = prompt("Dein Name:");
+                if (userName) localStorage.setItem('userName', userName);
+            }
+            if (userName) {
+                localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
+                localStorage.setItem('mapZoom', map.getZoom());
                 fetch('/update', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({id: id, status: 'taken', user: name})
+                    body: JSON.stringify({id: id, status: 'taken', user: userName})
                 }).then(() => location.reload());
             }
         }
