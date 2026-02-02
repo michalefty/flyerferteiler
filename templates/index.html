@@ -8,16 +8,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; }
-        body { font-family: sans-serif; margin: 0; padding: 15px; background: #f4f7f6; }
-        .stats-bar { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-        .stat-card { background: white; padding: 10px; border-radius: 8px; flex: 1; min-width: 120px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        #map { height: 450px; width: 100%; border-radius: 12px; margin-bottom: 15px; }
-        .controls { display: flex; gap: 10px; margin-bottom: 15px; }
+        :root { --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background: #f4f7f6; }
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: white; padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stat-card h4 { margin: 0; font-size: 0.7em; color: #7f8c8d; text-transform: uppercase; }
+        .stat-card p { margin: 5px 0 0; font-size: 1.2em; font-weight: bold; }
+        #map { height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .btn { border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
+        .btn-blue { background: var(--info); }
+        .btn-dark { background: var(--primary); }
+        .btn-grey { background: #95a5a6; }
         .street-list { background: white; padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
-        .street-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
-        .btn-bulk { background: #3498db; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
-        .btn-take { background: var(--free); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .sector-tag { font-size: 0.7em; background: #eee; padding: 2px 5px; border-radius: 3px; margin-right: 5px; }
     </style>
 </head>
 <body>
@@ -26,22 +31,24 @@
     <div class="stats-bar">
         <div class="stat-card"><h4>Offen</h4><p id="s-open">-</p></div>
         <div class="stat-card"><h4>Vergeben</h4><p id="s-taken">-</p></div>
-        <div class="stat-card" style="color: #3498db;"><h4>Häuser</h4><p id="s-house">-</p></div>
+        <div class="stat-card" style="border-bottom: 3px solid var(--info);"><h4>Häuser (belegt)</h4><p id="s-house">-</p></div>
     </div>
 
-<div class="controls">
-    <button id="selectBtn" class="btn-bulk" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
-    <button class="btn-bulk" style="background:#2c3e50" onclick="exportToPDF()">📄 PDF Export (für Austeiler)</button>
-    <button class="btn-bulk" style="background:#95a5a6" onclick="resetName()">Name ändern</button>
-</div>
+    <div class="controls">
+        <button id="selectBtn" class="btn btn-blue" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
+        <button class="btn btn-dark" onclick="exportToPDF()">📄 PDF Export</button>
+        <button class="btn btn-grey" onclick="resetName()">Name ändern</button>
+    </div>
+
     <div id="map"></div>
 
     <div class="street-list">
+        <h3>Straßenübersicht</h3>
         <ul id="main-list" style="list-style:none; padding:0;">
             {% for id, s in streets.items() %}
             <li class="street-item">
-                <span><b>{{ s.name }}</b> ({{ s.households }} Häuser)</span>
-                {% if s.status == 'free' %}<button class="btn-take" onclick="handleUpdate('{{ id }}')">Annehmen</button>
+                <span><span class="sector-tag">S{{ s.sector }}</span><b>{{ s.name }}</b><br><small>{{ s.households }} Häuser</small></span>
+                {% if s.status == 'free' %}<button style="background:var(--free); color:white; border:none; padding:5px; border-radius:4px;" onclick="handleUpdate('{{ id }}')">Annehmen</button>
                 {% else %}<span style="color:var(--taken)">{{ s.user }}</span>{% endif %}
             </li>
             {% endfor %}
@@ -51,22 +58,33 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const map = L.map('map');
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(map);
 
         const streets = {{ streets|tojson }};
-        const markers = {};
         const markerGroup = [];
 
         let openC = 0, takenC = 0, houseC = 0;
 
+        // --- Marker & Popups ---
         Object.keys(streets).forEach(id => {
             const s = streets[id];
             const isFree = s.status === 'free';
             if(isFree) openC++; else { takenC++; houseC += s.households; }
 
-            const m = L.circleMarker(s.coords, { color: isFree ? '#27ae60' : '#e74c3c', radius: 7, fillOpacity: 0.6 }).addTo(map);
-            m.bindPopup(`<b>${s.name}</b><br>${s.households} Häuser<br><br>${isFree ? `<button onclick="handleUpdate('${id}')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Straße übernehmen</button>` : 'Belegt'}`);
-            markers[id] = m;
+            const color = isFree ? '#27ae60' : '#e74c3c';
+            const m = L.circleMarker(s.coords, { color: color, radius: 8, fillOpacity: 0.7 }).addTo(map);
+            
+            // Popup-Inhalt mit Häuseranzahl
+            const popupHtml = `
+                <div style="text-align:center;">
+                    <b style="font-size:1.1em;">${s.name}</b><br>
+                    <span style="color:#666;">Sektor ${s.sector}</span><br>
+                    <div style="margin: 10px 0; font-weight:bold; color:var(--info);">🏠 ${s.households} Häuser</div>
+                    ${isFree ? `<button onclick="handleUpdate('${id}')" style="background:#27ae60; color:white; border:none; padding:8px 12px; border-radius:4px; cursor:pointer; font-weight:bold;">Straße übernehmen</button>` 
+                             : `<span style="color:#e74c3c">Übernommen von ${s.user}</span>`}
+                </div>
+            `;
+            m.bindPopup(popupHtml);
             markerGroup.push(L.latLng(s.coords[0], s.coords[1]));
         });
 
@@ -74,32 +92,41 @@
         document.getElementById('s-taken').innerText = takenC;
         document.getElementById('s-house').innerText = houseC;
 
+        // --- Karten-Status ---
         const lastC = localStorage.getItem('mapCenter'), lastZ = localStorage.getItem('mapZoom');
         if(lastC) map.setView(JSON.parse(lastC), lastZ);
-        else map.fitBounds(L.latLngBounds(markerGroup), {padding: [30,30]});
+        else if(markerGroup.length > 0) map.fitBounds(L.latLngBounds(markerGroup), {padding: [30,30]});
 
-        // Bereichsauswahl Logik
+        // --- Bereichsauswahl (Quadrat) ---
         let isSelecting = false, rect = null, start = null;
         function toggleSelectionMode() {
             isSelecting = !isSelecting;
-            document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : '#3498db';
+            document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : '';
             map.dragging[isSelecting ? 'disable' : 'enable']();
             map.getContainer().style.cursor = isSelecting ? 'crosshair' : '';
         }
 
-        map.on('mousedown', e => { if(!isSelecting) return; start = e.latlng; rect = L.rectangle([start, start], {color: '#3498db', weight: 1}).addTo(map); });
+        map.on('mousedown', e => { if(!isSelecting) return; start = e.latlng; rect = L.rectangle([start, start], {color: '#3498db', weight: 2, fillOpacity: 0.2}).addTo(map); });
         map.on('mousemove', e => { if(isSelecting && rect) rect.setBounds([start, e.latlng]); });
         map.on('mouseup', e => {
             if(!isSelecting || !rect) return;
             const b = rect.getBounds();
             const ids = Object.keys(streets).filter(id => streets[id].status === 'free' && b.contains(streets[id].coords));
-            if(ids.length > 0 && confirm(`${ids.length} Straßen übernehmen?`)) handleUpdate(ids);
+            
+            if(ids.length > 0) {
+                // Summe der Häuser im gewählten Bereich berechnen
+                const sumHäuser = ids.reduce((sum, id) => sum + streets[id].households, 0);
+                if(confirm(`${ids.length} Straßen mit insgesamt ${sumHäuser} Häusern übernehmen?`)) {
+                    handleUpdate(ids);
+                }
+            }
             map.removeLayer(rect); rect = null; toggleSelectionMode();
         });
 
+        // --- Daten-Update ---
         function handleUpdate(id) {
             let name = localStorage.getItem('userName');
-            if(!name) { name = prompt("Name:"); if(name) localStorage.setItem('userName', name); }
+            if(!name) { name = prompt("Bitte gib deinen Namen ein:"); if(name) localStorage.setItem('userName', name); }
             if(!name) return;
 
             localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
@@ -112,57 +139,18 @@
             }).then(() => location.reload());
         }
 
-        function resetName() { const n = prompt("Neuer Name:"); if(n) localStorage.setItem('userName', n); }
-    async function exportToPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'mm', 'a4');
-    const userName = localStorage.getItem('userName') || "Austeiler";
-
-    // Titel und Info
-    doc.setFontSize(18);
-    doc.text(`Flyer-Plan: ${userName}`, 10, 20);
-    doc.setFontSize(10);
-    doc.text(`Gebiet: {{ metadata.city }} | Datum: ${new Date().toLocaleDateString()}`, 10, 28);
-
-    // 1. Karte als Bild aufnehmen
-    const mapElement = document.getElementById('map');
-    const canvas = await html2canvas(mapElement, {
-        useCORS: true, // Wichtig für OpenStreetMap Kacheln
-        logging: false
-    });
-    const imgData = canvas.toDataURL('image/png');
-    
-    // Karte ins PDF (Breite 190mm, Höhe proportional)
-    doc.addImage(imgData, 'PNG', 10, 35, 190, 100);
-
-    // 2. Liste der vergebenen Straßen für diesen User filtern
-    doc.setFontSize(14);
-    doc.text("Deine Straßenliste:", 10, 145);
-    doc.setFontSize(10);
-    
-    let yPos = 155;
-    let totalHäuser = 0;
-    
-    Object.keys(streets).forEach(id => {
-        const s = streets[id];
-        if (s.user === userName) {
-            doc.text(`- ${s.name} (${s.households} Häuser)`, 15, yPos);
-            totalHäuser += s.households;
-            yPos += 7;
-            
-            // Neue Seite wenn voll
-            if (yPos > 280) {
-                doc.addPage();
-                yPos = 20;
-            }
+        // --- PDF Export ---
+        async function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const userName = localStorage.getItem('userName') || "Austeiler";
+            doc.text(`Flyer-Plan für ${userName}`, 10, 15);
+            const canvas = await html2canvas(document.getElementById('map'), { useCORS: true });
+            doc.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 25, 190, 100);
+            doc.save(`Plan_${userName}.pdf`);
         }
-    });
 
-    doc.setFontSize(12);
-    doc.text(`Gesamtzahl Häuser: ${totalHäuser}`, 10, yPos + 5);
-
-    doc.save(`Flyerplan_${userName}.pdf`);
-}
+        function resetName() { const n = prompt("Neuer Name:"); if(n) localStorage.setItem('userName', n); }
     </script>
 </body>
 </html>
