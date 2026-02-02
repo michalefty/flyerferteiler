@@ -47,8 +47,8 @@
       ],
       "households": 3,
       "name": "Alte Kleinwallstädter Straße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "am_altenbach": {
       "coords": [
@@ -167,8 +167,8 @@
       ],
       "households": 5,
       "name": "Auf der Birkenhöhe",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "bahnhofstraße": {
       "coords": [
@@ -257,8 +257,8 @@
       ],
       "households": 2,
       "name": "Doktor-Albert-Hoffa-Straße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "doktor-karl-reus-straße": {
       "coords": [
@@ -727,8 +727,8 @@
       ],
       "households": 3,
       "name": "Lindenstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "luisenstraße": {
       "coords": [
@@ -977,8 +977,8 @@
       ],
       "households": 35,
       "name": "Sodentalstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "spessartstraße": {
       "coords": [
@@ -1027,8 +1027,8 @@
       ],
       "households": 9,
       "name": "Südring",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "theodor-heuss-straße": {
       "coords": [
