@@ -27,3 +27,4 @@ lib/
 pyvenv.cfg 
 gcloud.sh 
 new*.sh
+sync.log
