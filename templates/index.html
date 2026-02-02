@@ -1,62 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>Flyer-Planer</title>
+    <meta charset="UTF-8">
+    <title>Flyer-Planer: {{ metadata.city }}</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        #map { height: 400px; width: 100%; margin-bottom: 20px; }
-        .free { color: green; }
-        .taken { color: red; text-decoration: line-through; }
-        .sector-badge { background: #eee; padding: 2px 5px; border-radius: 4px; }
+        body { font-family: sans-serif; margin: 20px; }
+        #map { height: 500px; width: 100%; border-radius: 8px; margin-bottom: 20px; }
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .street-list { max-height: 500px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
+        .taken { text-decoration: line-through; color: gray; }
+        .sector-tag { font-size: 0.8em; background: #eee; padding: 2px 5px; margin-right: 5px; }
     </style>
 </head>
 <body>
-    <h1>Planung: {{ metadata.city }}</h1>
-    <p>Soll-Menge pro Person: {{ metadata.target_per_person }} Flyer</p>
+    <h1>Flyer-Verteilung {{ metadata.city }} ({{ metadata.plz }})</h1>
+    <p>Stand: {{ metadata.date }} | Straßen gesamt: {{ metadata.total_streets }}</p>
 
     <div id="map"></div>
 
-    <div id="controls">
-        <h3>Straßenliste (Sektoren 1-{{ (metadata.total_households / metadata.target_per_person)|round|int }})</h3>
-        <ul id="list">
-            {% for id, s in streets.items() %}
-            <li id="item-{{ id }}" class="{{ s.status }}">
-                <span class="sector-badge">Sektor {{ s.sector }}</span>
-                <strong>{{ s.name }}</strong> ({{ s.households }} Stk.)
-                {% if s.status == 'free' %}
-                <button onclick="selectStreet('{{ id }}')">Übernehmen</button>
-                {% else %}
-                - Belegt durch {{ s.user }}
-                {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
+    <div class="controls">
+        <div class="street-list">
+            <h3>Straßenliste</h3>
+            <ul id="list">
+                {% for id, s in streets.items() %}
+                <li class="{{ s.status }}">
+                    <span class="sector-tag">Sekt. {{ s.sector }}</span>
+                    {{ s.name }} ({{ s.households }} Haushalte)
+                    {% if s.status == 'free' %}
+                    <button onclick="takeStreet('{{ id }}')">Übernehmen</button>
+                    {% else %}
+                    - Erledigt von: {{ s.user }}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([50.1, 9.1], 14); // Koordinaten aus Metadata nutzen
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        const map = L.map('map');
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
 
-        var streets = {{ streets|tojson }};
-        
-        // Marker für jede Straße setzen
+        const streets = {{ streets|tojson }};
+        const markers = [];
+
         Object.keys(streets).forEach(id => {
-            var s = streets[id];
-            var color = s.status === 'free' ? 'green' : 'red';
-            var marker = L.circleMarker(s.coords, { color: color, radius: 8 }).addTo(map);
+            const s = streets[id];
+            const color = s.status === 'free' ? 'blue' : 'red';
+            const marker = L.circleMarker(s.coords, {
+                color: color,
+                radius: 6,
+                fillOpacity: 0.7
+            }).addTo(map);
+
+            marker.bindPopup(`<b>${s.name}</b><br>Sektor: ${s.sector}<br>
+                ${s.status === 'free' ? `<button onclick="takeStreet('${id}')">Übernehmen</button>` : `Belegt von ${s.user}`}`);
             
-            marker.bindPopup(`<b>${s.name}</b><br>${s.households} Haushalte<br>
-                             ${s.status === 'free' ? `<button onclick="selectStreet('${id}')">Reservieren</button>` : 'Belegt'}`);
+            markers.push(L.latLng(s.coords[0], s.coords[1]));
         });
 
-        function selectStreet(id) {
-            const user = prompt("Dein Name:");
-            if (user) {
+        // Automatischer Zoom auf alle gefundenen Straßen
+        if (markers.length > 0) {
+            const bounds = L.latLngBounds(markers);
+            map.fitBounds(bounds, { padding: [30, 30] });
+        } else {
+            map.setView({{ metadata.center|tojson }}, 13);
+        }
+
+        function takeStreet(id) {
+            const name = prompt("Bitte gib deinen Namen ein:");
+            if (name) {
                 fetch('/update', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({id: id, status: 'taken', user: user})
+                    body: JSON.stringify({id: id, status: 'taken', user: name})
                 }).then(() => location.reload());
             }
         }
