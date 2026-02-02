@@ -15,8 +15,6 @@
         #map { height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .btn { border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
-        .btn-blue { background: var(--info); }
-        .btn-dark { background: var(--primary); }
         .street-list { background: white; padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
         .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
     </style>
@@ -27,12 +25,12 @@
     <div class="stats-bar">
         <div class="stat-card"><h4>Offen</h4><p id="s-open">-</p></div>
         <div class="stat-card"><h4>Vergeben</h4><p id="s-taken">-</p></div>
-        <div class="stat-card" style="border-bottom: 3px solid var(--info);"><h4>Häuser (belegt)</h4><p id="s-house">-</p></div>
+        <div class="stat-card"><h4>Häuser (belegt)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
 
     <div class="controls">
-        <button id="selectBtn" class="btn btn-blue" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
-        <button class="btn btn-dark" onclick="exportToPDF()">📄 PDF Export</button>
+        <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
+        <button class="btn" style="background:var(--primary)" onclick="exportToPDF()">📄 PDF Export</button>
         <button class="btn" style="background:#95a5a6" onclick="resetName()">Name ändern</button>
     </div>
 
@@ -58,7 +56,6 @@
         const streets = {{ streets|tojson }};
         const markers = {};
         const markerGroup = [];
-
         let openC = 0, takenC = 0, houseC = 0;
 
         Object.keys(streets).forEach(id => {
@@ -66,14 +63,12 @@
             const isFree = s.status === 'free';
             if(isFree) openC++; else { takenC++; houseC += s.households; }
 
-            const color = isFree ? '#27ae60' : '#e74c3c';
-            const m = L.circleMarker(s.coords, { color: color, radius: 8, fillOpacity: 0.7, weight: 3 }).addTo(map);
-            
+            const m = L.circleMarker(s.coords, { color: isFree ? '#27ae60' : '#e74c3c', radius: 8, fillOpacity: 0.7, weight: 3 }).addTo(map);
             m.bindPopup(`
                 <div style="text-align:center;">
                     <b>${s.name}</b><br>🏠 ${s.households} Häuser<br><br>
-                    ${isFree ? `<button onclick="handleUpdate('${id}')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Straße übernehmen</button>` 
-                             : `<span style="color:#e74c3c">Belegt von ${s.user}</span>`}
+                    ${isFree ? `<button onclick="handleUpdate('${id}')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Übernehmen</button>` 
+                             : `<span style="color:#e74c3c">Bei ${s.user}</span>`}
                 </div>
             `);
             markers[id] = m;
@@ -88,18 +83,14 @@
         if(lastC) map.setView(JSON.parse(lastC), lastZ);
         else if(markerGroup.length > 0) map.fitBounds(L.latLngBounds(markerGroup), {padding: [30,30]});
 
-        // --- Highlighting ---
         function highlightMarkers(ids) {
             Object.keys(markers).forEach(id => {
                 const isFree = streets[id].status === 'free';
                 markers[id].setStyle({ color: isFree ? '#27ae60' : '#e74c3c', radius: 8, weight: 3 });
             });
-            ids.forEach(id => {
-                if (markers[id]) markers[id].setStyle({ color: 'yellow', radius: 12, weight: 5 });
-            });
+            ids.forEach(id => { if (markers[id]) markers[id].setStyle({ color: 'yellow', radius: 12, weight: 5 }); });
         }
 
-        // --- Bereichsauswahl ---
         let isSelecting = false, rect = null, start = null;
         function toggleSelectionMode() {
             isSelecting = !isSelecting;
@@ -144,21 +135,13 @@
             const userName = localStorage.getItem('userName') || "Austeiler";
             doc.setFontSize(16);
             doc.text(`Flyer-Einsatzplan: ${userName}`, 15, 20);
-            
             const canvas = await html2canvas(document.getElementById('map'), { useCORS: true, scale: 2 });
             doc.addImage(canvas.toDataURL('image/png'), 'PNG', 15, 30, 180, 90);
-            
             let y = 135;
-            doc.setFontSize(12);
-            doc.text("Deine Straßen (Checkliste):", 15, y);
-            y += 10;
-            doc.setFontSize(10);
-            
             Object.keys(streets).filter(id => streets[id].user === userName).forEach(id => {
                 doc.rect(15, y - 3, 4, 4);
                 doc.text(`${streets[id].name} (${streets[id].households} Häuser)`, 22, y);
-                y += 7;
-                if(y > 280) { doc.addPage(); y = 20; }
+                y += 7; if(y > 280) { doc.addPage(); y = 20; }
             });
             doc.save(`Plan_${userName}.pdf`);
         }
