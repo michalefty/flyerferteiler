@@ -1,0 +1,27 @@
+# Python virtuelle Umgebung
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Daten & Lokale Dateien
+# Falls du mit einer leeren Struktur starten willst, schließe die JSON aus.
+# Aber Achtung: Für den ersten Deploy auf Render muss die Datei einmalig hochgeladen werden!
+# data/streets_status.json
+
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
+
+# IDE-spezifisch
+.vscode/
+.idea/
+
+# Passwort-Datei ignorieren!
+config.py
+
+bin/
+lib/
+pyvenv.cfg 
