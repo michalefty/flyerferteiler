@@ -797,8 +797,8 @@
       ],
       "households": 24,
       "name": "Mühlweg",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "nelkenweg": {
       "coords": [
