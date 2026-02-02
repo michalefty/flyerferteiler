@@ -17,8 +17,8 @@
       ],
       "households": 5,
       "name": "Agathastraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "akazienweg": {
       "coords": [
@@ -27,8 +27,8 @@
       ],
       "households": 2,
       "name": "Akazienweg",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "alexandrastraße": {
       "coords": [
@@ -37,8 +37,8 @@
       ],
       "households": 3,
       "name": "Alexandrastraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "alte_kleinwallstädter_straße": {
       "coords": [
@@ -57,8 +57,8 @@
       ],
       "households": 6,
       "name": "Am Altenbach",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "am_berg": {
       "coords": [
@@ -147,8 +147,8 @@
       ],
       "households": 9,
       "name": "Annastraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "asternweg": {
       "coords": [
@@ -177,8 +177,8 @@
       ],
       "households": 2,
       "name": "Bahnhofstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "bergweg": {
       "coords": [
@@ -357,8 +357,8 @@
       ],
       "households": 4,
       "name": "Elisenstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "erlenstraße": {
       "coords": [
@@ -447,8 +447,8 @@
       ],
       "households": 6,
       "name": "Friedhofstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "goethestraße": {
       "coords": [
@@ -487,8 +487,8 @@
       ],
       "households": 2,
       "name": "Helenenstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "hintere_dorfstraße": {
       "coords": [
@@ -567,8 +567,8 @@
       ],
       "households": 3,
       "name": "Im Hag",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "im_steinetz": {
       "coords": [
@@ -577,8 +577,8 @@
       ],
       "households": 2,
       "name": "Im Steinetz",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "industriestraße": {
       "coords": [
@@ -587,8 +587,8 @@
       ],
       "households": 5,
       "name": "Industriestraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "jahnstraße": {
       "coords": [
@@ -627,8 +627,8 @@
       ],
       "households": 3,
       "name": "Karolinenstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "kirchgasse": {
       "coords": [
@@ -707,8 +707,8 @@
       ],
       "households": 40,
       "name": "Kübler Ring",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "lerchenweg": {
       "coords": [
@@ -737,8 +737,8 @@
       ],
       "households": 8,
       "name": "Luisenstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "margarethenstraße": {
       "coords": [
@@ -747,8 +747,8 @@
       ],
       "households": 13,
       "name": "Margarethenstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "marienstraße": {
       "coords": [
@@ -757,8 +757,8 @@
       ],
       "households": 10,
       "name": "Marienstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "meisenweg": {
       "coords": [
@@ -877,8 +877,8 @@
       ],
       "households": 3,
       "name": "Renatastraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "ringstraße": {
       "coords": [
@@ -897,8 +897,8 @@
       ],
       "households": 3,
       "name": "Ritastraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "rosenweg": {
       "coords": [
@@ -1047,8 +1047,8 @@
       ],
       "households": 4,
       "name": "Theresienstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "tulpenweg": {
       "coords": [
