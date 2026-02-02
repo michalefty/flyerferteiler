@@ -607,8 +607,8 @@
       ],
       "households": 1,
       "name": "Jägersgarten",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "karlsbader_straße": {
       "coords": [
@@ -687,8 +687,8 @@
       ],
       "households": 4,
       "name": "Kurt-Schumacher-Straße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "königsberger_straße": {
       "coords": [
@@ -787,8 +787,8 @@
       ],
       "households": 2,
       "name": "Mühlbachstraße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "mühlweg": {
       "coords": [
@@ -827,8 +827,8 @@
       ],
       "households": 16,
       "name": "Ober der Steinhohle",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "pfortengasse": {
       "coords": [
@@ -917,8 +917,8 @@
       ],
       "households": 3,
       "name": "Schafbrückenweg",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "schillerstraße": {
       "coords": [
@@ -997,8 +997,8 @@
       ],
       "households": 3,
       "name": "Steinhohle",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "sudetenstraße": {
       "coords": [
@@ -1037,8 +1037,8 @@
       ],
       "households": 5,
       "name": "Theodor-Heuss-Straße",
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "theresienstraße": {
       "coords": [
