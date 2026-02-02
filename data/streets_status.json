@@ -491,8 +491,8 @@
       "households": 5,
       "name": "Friedhofstraße",
       "sector": 4,
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "goethestraße": {
       "coords": [
