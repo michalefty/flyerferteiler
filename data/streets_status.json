@@ -17,9 +17,8 @@
       ],
       "households": 5,
       "name": "Agathastraße",
-      "sector": 1,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "akazienweg": {
       "coords": [
@@ -28,7 +27,6 @@
       ],
       "households": 5,
       "name": "Akazienweg",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -39,7 +37,6 @@
       ],
       "households": 5,
       "name": "Alexandrastraße",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -50,7 +47,6 @@
       ],
       "households": 5,
       "name": "Alte Kleinwallstädter Straße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -59,9 +55,8 @@
         49.91925,
         9.1527744
       ],
-      "households": 1,
+      "households": 2,
       "name": "Am Altenbach",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -72,7 +67,6 @@
       ],
       "households": 5,
       "name": "Am Berg",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -83,7 +77,6 @@
       ],
       "households": 5,
       "name": "Am Friedrichsberg",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -94,7 +87,6 @@
       ],
       "households": 5,
       "name": "Am Lenzengrund",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -103,11 +95,10 @@
         49.9150135,
         9.1635604
       ],
-      "households": 2,
+      "households": 4,
       "name": "Am Sportplatz",
-      "sector": 9,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "am_spottenberg": {
       "coords": [
@@ -116,18 +107,16 @@
       ],
       "households": 5,
       "name": "Am Spottenberg",
-      "sector": 10,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "am_weiher": {
       "coords": [
         49.9099848,
         9.1567462
       ],
-      "households": 9,
+      "households": 16,
       "name": "Am Weiher",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -138,7 +127,6 @@
       ],
       "households": 2,
       "name": "Amselweg",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -149,7 +137,6 @@
       ],
       "households": 1,
       "name": "An der Geeb",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -160,7 +147,6 @@
       ],
       "households": 5,
       "name": "Annastraße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -171,7 +157,6 @@
       ],
       "households": 5,
       "name": "Asternweg",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -182,7 +167,6 @@
       ],
       "households": 5,
       "name": "Auf der Birkenhöhe",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -193,7 +177,6 @@
       ],
       "households": 5,
       "name": "Bahnhofstraße",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -204,20 +187,18 @@
       ],
       "households": 2,
       "name": "Bergweg",
-      "sector": 8,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "berliner_ring": {
       "coords": [
         49.9149676,
         9.1694687
       ],
-      "households": 5,
+      "households": 1,
       "name": "Berliner Ring",
-      "sector": 9,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "blumenstraße": {
       "coords": [
@@ -226,7 +207,6 @@
       ],
       "households": 3,
       "name": "Blumenstraße",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -235,9 +215,8 @@
         49.9066658,
         9.1521144
       ],
-      "households": 2,
+      "households": 3,
       "name": "Breiter Weg",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -248,9 +227,8 @@
       ],
       "households": 3,
       "name": "Breslauer Straße",
-      "sector": 2,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "brunnengasse": {
       "coords": [
@@ -259,7 +237,6 @@
       ],
       "households": 5,
       "name": "Brunnengasse",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -270,9 +247,8 @@
       ],
       "households": 1,
       "name": "Danziger Straße",
-      "sector": 4,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "doktor-albert-hoffa-straße": {
       "coords": [
@@ -281,7 +257,6 @@
       ],
       "households": 5,
       "name": "Doktor-Albert-Hoffa-Straße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -292,7 +267,6 @@
       ],
       "households": 5,
       "name": "Doktor-Karl-Reus-Straße",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -303,7 +277,6 @@
       ],
       "households": 2,
       "name": "Dorfstraße",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -314,7 +287,6 @@
       ],
       "households": 5,
       "name": "Dornauer Ring",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -325,7 +297,6 @@
       ],
       "households": 5,
       "name": "Dornauer Weg",
-      "sector": 9,
       "status": "free",
       "user": ""
     },
@@ -336,7 +307,6 @@
       ],
       "households": 5,
       "name": "Dr.-Gerhard-Rüdiger-Straße",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -347,7 +317,6 @@
       ],
       "households": 5,
       "name": "Drosselweg",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -358,7 +327,6 @@
       ],
       "households": 5,
       "name": "Dürerstraße",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -369,7 +337,6 @@
       ],
       "households": 5,
       "name": "Ebersbacher Straße",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -380,7 +347,6 @@
       ],
       "households": 5,
       "name": "Egerländer Straße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -391,7 +357,6 @@
       ],
       "households": 5,
       "name": "Elisenstraße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -402,7 +367,6 @@
       ],
       "households": 5,
       "name": "Erlenstraße",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -413,7 +377,6 @@
       ],
       "households": 1,
       "name": "Eulenweg",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -424,7 +387,6 @@
       ],
       "households": 5,
       "name": "Fasanenweg",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -433,11 +395,10 @@
         49.9132151,
         9.1599202
       ],
-      "households": 2,
+      "households": 3,
       "name": "Finkenweg",
-      "sector": 9,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "fliederweg": {
       "coords": [
@@ -446,7 +407,6 @@
       ],
       "households": 2,
       "name": "Fliederweg",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -457,7 +417,6 @@
       ],
       "households": 5,
       "name": "Flurweg",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -468,7 +427,6 @@
       ],
       "households": 2,
       "name": "Franz-Schüßler-Straße",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -479,7 +437,6 @@
       ],
       "households": 5,
       "name": "Friedenstraße",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -490,9 +447,8 @@
       ],
       "households": 5,
       "name": "Friedhofstraße",
-      "sector": 4,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "goethestraße": {
       "coords": [
@@ -501,7 +457,6 @@
       ],
       "households": 5,
       "name": "Goethestraße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -512,7 +467,6 @@
       ],
       "households": 5,
       "name": "Grünewaldstraße",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -521,11 +475,10 @@
         49.914012,
         9.1608812
       ],
-      "households": 5,
+      "households": 1,
       "name": "Hasenhecke",
-      "sector": 7,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "helenenstraße": {
       "coords": [
@@ -534,7 +487,6 @@
       ],
       "households": 1,
       "name": "Helenenstraße",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -545,7 +497,6 @@
       ],
       "households": 5,
       "name": "Hintere Dorfstraße",
-      "sector": 9,
       "status": "free",
       "user": ""
     },
@@ -556,7 +507,6 @@
       ],
       "households": 5,
       "name": "Hohe-Wart-Straße",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -565,9 +515,8 @@
         49.9067867,
         9.1574164
       ],
-      "households": 3,
+      "households": 5,
       "name": "Hollerweg",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -578,9 +527,8 @@
       ],
       "households": 5,
       "name": "Holzwiesenweg",
-      "sector": 2,
-      "status": "taken",
-      "user": "torge"
+      "status": "free",
+      "user": ""
     },
     "höfchen": {
       "coords": [
@@ -589,7 +537,6 @@
       ],
       "households": 5,
       "name": "Höfchen",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -600,7 +547,6 @@
       ],
       "households": 5,
       "name": "Höhfeldstraße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -611,7 +557,6 @@
       ],
       "households": 6,
       "name": "Höhwaldweg",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -622,7 +567,6 @@
       ],
       "households": 5,
       "name": "Im Hag",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -633,7 +577,6 @@
       ],
       "households": 5,
       "name": "Im Steinetz",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -642,9 +585,8 @@
         49.9195603,
         9.1489082
       ],
-      "households": 5,
+      "households": 1,
       "name": "Industriestraße",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -655,7 +597,6 @@
       ],
       "households": 1,
       "name": "Jahnstraße",
-      "sector": 9,
       "status": "free",
       "user": ""
     },
@@ -666,7 +607,6 @@
       ],
       "households": 5,
       "name": "Jägersgarten",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -677,7 +617,6 @@
       ],
       "households": 5,
       "name": "Karlsbader Straße",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -688,7 +627,6 @@
       ],
       "households": 5,
       "name": "Karolinenstraße",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -699,7 +637,6 @@
       ],
       "households": 2,
       "name": "Kirchgasse",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -710,7 +647,6 @@
       ],
       "households": 5,
       "name": "Kleewiesenweg",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -721,7 +657,6 @@
       ],
       "households": 5,
       "name": "Kleinwallstädter Straße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -732,7 +667,6 @@
       ],
       "households": 5,
       "name": "Konrad-Adenauer-Straße",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -741,9 +675,8 @@
         49.9075409,
         9.1616786
       ],
-      "households": 3,
+      "households": 4,
       "name": "Kurmainzer Ring",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -754,7 +687,6 @@
       ],
       "households": 5,
       "name": "Kurt-Schumacher-Straße",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -765,9 +697,8 @@
       ],
       "households": 5,
       "name": "Königsberger Straße",
-      "sector": 9,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "kübler_ring": {
       "coords": [
@@ -776,7 +707,6 @@
       ],
       "households": 5,
       "name": "Kübler Ring",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -787,9 +717,8 @@
       ],
       "households": 5,
       "name": "Lerchenweg",
-      "sector": 1,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "lindenstraße": {
       "coords": [
@@ -798,7 +727,6 @@
       ],
       "households": 5,
       "name": "Lindenstraße",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -809,7 +737,6 @@
       ],
       "households": 5,
       "name": "Luisenstraße",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -820,7 +747,6 @@
       ],
       "households": 3,
       "name": "Margarethenstraße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -831,7 +757,6 @@
       ],
       "households": 5,
       "name": "Marienstraße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -840,11 +765,10 @@
         49.9137668,
         9.1613383
       ],
-      "households": 5,
+      "households": 1,
       "name": "Meisenweg",
-      "sector": 6,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "märzbrückenweg": {
       "coords": [
@@ -853,7 +777,6 @@
       ],
       "households": 5,
       "name": "Märzbrückenweg",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -864,9 +787,8 @@
       ],
       "households": 5,
       "name": "Mühlbachstraße",
-      "sector": 8,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "mühlweg": {
       "coords": [
@@ -875,7 +797,6 @@
       ],
       "households": 2,
       "name": "Mühlweg",
-      "sector": 9,
       "status": "free",
       "user": ""
     },
@@ -884,9 +805,8 @@
         49.9054021,
         9.155572
       ],
-      "households": 2,
+      "households": 3,
       "name": "Nelkenweg",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -897,7 +817,6 @@
       ],
       "households": 5,
       "name": "Niedernberger Straße",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -908,7 +827,6 @@
       ],
       "households": 5,
       "name": "Ober der Steinhohle",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -919,7 +837,6 @@
       ],
       "households": 1,
       "name": "Pfortengasse",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -930,18 +847,16 @@
       ],
       "households": 2,
       "name": "Pommernstraße",
-      "sector": 4,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "prof.-dr.-dölger-straße": {
       "coords": [
         49.9079771,
         9.1580107
       ],
-      "households": 5,
+      "households": 6,
       "name": "Prof.-Dr.-Dölger-Straße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -952,7 +867,6 @@
       ],
       "households": 5,
       "name": "Rainweg",
-      "sector": 6,
       "status": "free",
       "user": ""
     },
@@ -963,7 +877,6 @@
       ],
       "households": 5,
       "name": "Renatastraße",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -974,7 +887,6 @@
       ],
       "households": 5,
       "name": "Ringstraße",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -985,7 +897,6 @@
       ],
       "households": 5,
       "name": "Ritastraße",
-      "sector": 9,
       "status": "free",
       "user": ""
     },
@@ -996,7 +907,6 @@
       ],
       "households": 5,
       "name": "Rosenweg",
-      "sector": 10,
       "status": "free",
       "user": ""
     },
@@ -1007,9 +917,8 @@
       ],
       "households": 5,
       "name": "Schafbrückenweg",
-      "sector": 1,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "schillerstraße": {
       "coords": [
@@ -1018,7 +927,6 @@
       ],
       "households": 5,
       "name": "Schillerstraße",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -1029,9 +937,8 @@
       ],
       "households": 5,
       "name": "Schlesierstraße",
-      "sector": 3,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "schloßbergstraße": {
       "coords": [
@@ -1040,7 +947,6 @@
       ],
       "households": 5,
       "name": "Schloßbergstraße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -1051,7 +957,6 @@
       ],
       "households": 5,
       "name": "Schulstraße",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -1060,11 +965,10 @@
         49.9142508,
         9.1605889
       ],
-      "households": 2,
+      "households": 3,
       "name": "Schwalbenring",
-      "sector": 6,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "sodentalstraße": {
       "coords": [
@@ -1073,7 +977,6 @@
       ],
       "households": 5,
       "name": "Sodentalstraße",
-      "sector": 7,
       "status": "free",
       "user": ""
     },
@@ -1084,7 +987,6 @@
       ],
       "households": 4,
       "name": "Spessartstraße",
-      "sector": 8,
       "status": "free",
       "user": ""
     },
@@ -1095,7 +997,6 @@
       ],
       "households": 5,
       "name": "Steinhohle",
-      "sector": 9,
       "status": "free",
       "user": ""
     },
@@ -1106,9 +1007,8 @@
       ],
       "households": 5,
       "name": "Sudetenstraße",
-      "sector": 10,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "sulzbacher_straße": {
       "coords": [
@@ -1117,7 +1017,6 @@
       ],
       "households": 5,
       "name": "Sulzbacher Straße",
-      "sector": 1,
       "status": "free",
       "user": ""
     },
@@ -1128,7 +1027,6 @@
       ],
       "households": 5,
       "name": "Südring",
-      "sector": 2,
       "status": "free",
       "user": ""
     },
@@ -1139,7 +1037,6 @@
       ],
       "households": 5,
       "name": "Theodor-Heuss-Straße",
-      "sector": 3,
       "status": "free",
       "user": ""
     },
@@ -1150,7 +1047,6 @@
       ],
       "households": 5,
       "name": "Theresienstraße",
-      "sector": 4,
       "status": "free",
       "user": ""
     },
@@ -1161,7 +1057,6 @@
       ],
       "households": 5,
       "name": "Tulpenweg",
-      "sector": 5,
       "status": "free",
       "user": ""
     },
@@ -1172,9 +1067,8 @@
       ],
       "households": 5,
       "name": "Wachenbachweg",
-      "sector": 6,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "wiesenstraße": {
       "coords": [
@@ -1183,9 +1077,8 @@
       ],
       "households": 5,
       "name": "Wiesenstraße",
-      "sector": 7,
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "wingertstraße": {
       "coords": [
@@ -1194,7 +1087,6 @@
       ],
       "households": 5,
       "name": "Wingertstraße",
-      "sector": 8,
       "status": "free",
       "user": ""
     }
