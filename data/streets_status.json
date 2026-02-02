@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "city": "Sulzbach",
+    "date": "2026-02-02",
+    "target_per_person": 12.0,
+    "total_households": 60
+  },
+  "streets": {
+    "s_0": {
+      "coords": [
+        50.1,
+        9.1
+      ],
+      "households": 40,
+      "name": "Hauptstr.",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "s_1": {
+      "coords": [
+        50.11,
+        9.12
+      ],
+      "households": 20,
+      "name": "Kirchweg",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    }
+  }
+}

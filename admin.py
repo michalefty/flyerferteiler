@@ -1,52 +1,47 @@
 import requests
 import json
 import os
+from datetime import datetime
 
-def fetch_and_append_town(city_name, postal_code, all_data):
-    overpass_url = "http://overpass-api.de/api/interpreter"
-    # Suche spezifisch nach Ort + PLZ
-    query = f"""
-    [out:json];
-    area["name"="{city_name}"]["postal_code"="{postal_code}"]->.searchArea;
-    (
-      way(area.searchArea)["highway"]["name"];
-      node(area.searchArea)["addr:street"]["addr:housenumber"];
-    );
-    out body;
-    """
-    response = requests.get(overpass_url, params={'data': query})
-    elements = response.json().get('elements', [])
-
-    streets = {}
-    for el in elements:
-        if el['type'] == 'node' and 'addr:street' in el['tags']:
-            s_name = el['tags']['addr:street']
-            streets[s_name] = streets.get(s_name, 0) + 1
-
-    town_key = f"{postal_code}_{city_name}"
-    all_data[town_key] = {}
+def generate_plan(stadt, plz, anzahl_austeiler):
+    # Overpass API Abfrage (wie gehabt)
+    # ... (Query-Logik hier) ...
     
-    counter = 1
-    for name, count in streets.items():
-        all_data[town_key][f"{town_key}_{counter}"] = {
-            "name": name,
-            "households": count,
+    # Beispiel-Daten nach Abfrage:
+    alle_strassen = [
+        {"name": "Hauptstr.", "households": 40, "coords": [50.1, 9.1]},
+        {"name": "Kirchweg", "households": 20, "coords": [50.11, 9.12]},
+        # ... viele mehr
+    ]
+    
+    # Berechnung der Sektoren
+    gesamt_haushalte = sum(s['households'] for s in alle_strassen)
+    ziel_pro_person = gesamt_haushalte / anzahl_austeiler
+    
+    streets_dict = {}
+    for i, s in enumerate(alle_strassen):
+        # Jeder Straße eine ID und Sektor-Empfehlung geben
+        streets_dict[f"s_{i}"] = {
+            "name": s['name'],
+            "households": s['households'],
+            "coords": s['coords'],
             "status": "free",
-            "user": ""
+            "user": "",
+            "sector": (i % anzahl_austeiler) + 1  # Einfache Zuweisung
         }
-        counter += 1
 
-# Hauptablauf
-all_towns = {}
-orte = [
-    ("Sulzbach am Main", "63834"),
-    ("Dornau", "63834"),
-    ("Soden", "63834")
-]
+    export_data = {
+        "metadata": {
+            "city": stadt,
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "total_households": gesamt_haushalte,
+            "target_per_person": round(ziel_pro_person, 1)
+        },
+        "streets": streets_dict
+    }
+    
+    with open('data/streets_status.json', 'w', encoding='utf-8') as f:
+        json.dump(export_data, f, indent=2, sort_keys=True, ensure_ascii=False)
 
-for stadt, plz in orte:
-    print(f"Lade {stadt}...")
-    fetch_and_append_town(stadt, plz, all_towns)
-
-with open('data/streets_status.json', 'w', encoding='utf-8') as f:
-    json.dump(all_towns, f, indent=2, ensure_ascii=False)
+# Start
+generate_plan("Sulzbach", "63834", 5)
