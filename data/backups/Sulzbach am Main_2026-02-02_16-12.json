@@ -1,0 +1,1202 @@
+{
+  "metadata": {
+    "center": [
+      49.912513173148135,
+      9.164876670370374
+    ],
+    "city": "Sulzbach am Main",
+    "date": "02.02.2026",
+    "plz": "63834",
+    "total_streets": 108
+  },
+  "streets": {
+    "agathastra\u00dfe": {
+      "coords": [
+        49.9171121,
+        9.1510974
+      ],
+      "households": 20,
+      "name": "Agathastra\u00dfe",
+      "sector": 1,
+      "status": "taken",
+      "user": "hugo"
+    },
+    "akazienweg": {
+      "coords": [
+        49.918898,
+        9.1470636
+      ],
+      "households": 20,
+      "name": "Akazienweg",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "alexandrastra\u00dfe": {
+      "coords": [
+        49.9169889,
+        9.1501162
+      ],
+      "households": 20,
+      "name": "Alexandrastra\u00dfe",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "alte_kleinwallst\u00e4dter_stra\u00dfe": {
+      "coords": [
+        49.9036888,
+        9.1504841
+      ],
+      "households": 20,
+      "name": "Alte Kleinwallst\u00e4dter Stra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "am_altenbach": {
+      "coords": [
+        49.91925,
+        9.1527744
+      ],
+      "households": 20,
+      "name": "Am Altenbach",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "am_berg": {
+      "coords": [
+        49.92285,
+        9.2035983
+      ],
+      "households": 20,
+      "name": "Am Berg",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "am_friedrichsberg": {
+      "coords": [
+        49.9303406,
+        9.2255846
+      ],
+      "households": 20,
+      "name": "Am Friedrichsberg",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "am_lenzengrund": {
+      "coords": [
+        49.9283736,
+        9.2222865
+      ],
+      "households": 20,
+      "name": "Am Lenzengrund",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "am_sportplatz": {
+      "coords": [
+        49.9150135,
+        9.1635604
+      ],
+      "households": 20,
+      "name": "Am Sportplatz",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "am_spottenberg": {
+      "coords": [
+        49.9147885,
+        9.1622451
+      ],
+      "households": 20,
+      "name": "Am Spottenberg",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "am_weiher": {
+      "coords": [
+        49.9099848,
+        9.1567462
+      ],
+      "households": 20,
+      "name": "Am Weiher",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "amselweg": {
+      "coords": [
+        49.9127184,
+        9.1571697
+      ],
+      "households": 20,
+      "name": "Amselweg",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "an_der_geeb": {
+      "coords": [
+        49.9106063,
+        9.1521728
+      ],
+      "households": 20,
+      "name": "An der Geeb",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "annastra\u00dfe": {
+      "coords": [
+        49.9159955,
+        9.1515098
+      ],
+      "households": 20,
+      "name": "Annastra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "asternweg": {
+      "coords": [
+        49.9057351,
+        9.1541697
+      ],
+      "households": 20,
+      "name": "Asternweg",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "auf_der_birkenh\u00f6he": {
+      "coords": [
+        49.8980191,
+        9.1841103
+      ],
+      "households": 20,
+      "name": "Auf der Birkenh\u00f6he",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "bahnhofstra\u00dfe": {
+      "coords": [
+        49.91833,
+        9.1477234
+      ],
+      "households": 20,
+      "name": "Bahnhofstra\u00dfe",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "bergweg": {
+      "coords": [
+        49.913884,
+        9.165947
+      ],
+      "households": 20,
+      "name": "Bergweg",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "berliner_ring": {
+      "coords": [
+        49.9149676,
+        9.1694687
+      ],
+      "households": 20,
+      "name": "Berliner Ring",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "blumenstra\u00dfe": {
+      "coords": [
+        49.9062423,
+        9.1541565
+      ],
+      "households": 20,
+      "name": "Blumenstra\u00dfe",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "breiter_weg": {
+      "coords": [
+        49.9066658,
+        9.1521144
+      ],
+      "households": 20,
+      "name": "Breiter Weg",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "breslauer_stra\u00dfe": {
+      "coords": [
+        49.9142071,
+        9.1677132
+      ],
+      "households": 20,
+      "name": "Breslauer Stra\u00dfe",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "brunnengasse": {
+      "coords": [
+        49.909338,
+        9.154457
+      ],
+      "households": 20,
+      "name": "Brunnengasse",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "danziger_stra\u00dfe": {
+      "coords": [
+        49.9137653,
+        9.1668754
+      ],
+      "households": 20,
+      "name": "Danziger Stra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "doktor-albert-hoffa-stra\u00dfe": {
+      "coords": [
+        49.9217871,
+        9.1883963
+      ],
+      "households": 20,
+      "name": "Doktor-Albert-Hoffa-Stra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "doktor-karl-reus-stra\u00dfe": {
+      "coords": [
+        49.9229655,
+        9.2085314
+      ],
+      "households": 20,
+      "name": "Doktor-Karl-Reus-Stra\u00dfe",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "dorfstra\u00dfe": {
+      "coords": [
+        49.8954017,
+        9.1908972
+      ],
+      "households": 20,
+      "name": "Dorfstra\u00dfe",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "dornauer_ring": {
+      "coords": [
+        49.8974669,
+        9.1866522
+      ],
+      "households": 20,
+      "name": "Dornauer Ring",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "dornauer_weg": {
+      "coords": [
+        49.9076077,
+        9.1536848
+      ],
+      "households": 20,
+      "name": "Dornauer Weg",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "dr.-gerhard-r\u00fcdiger-stra\u00dfe": {
+      "coords": [
+        49.9228683,
+        9.2065556
+      ],
+      "households": 20,
+      "name": "Dr.-Gerhard-R\u00fcdiger-Stra\u00dfe",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "drosselweg": {
+      "coords": [
+        49.9131369,
+        9.1590577
+      ],
+      "households": 20,
+      "name": "Drosselweg",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "d\u00fcrerstra\u00dfe": {
+      "coords": [
+        49.9103909,
+        9.1623231
+      ],
+      "households": 20,
+      "name": "D\u00fcrerstra\u00dfe",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "ebersbacher_stra\u00dfe": {
+      "coords": [
+        49.913549,
+        9.1847764
+      ],
+      "households": 20,
+      "name": "Ebersbacher Stra\u00dfe",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "egerl\u00e4nder_stra\u00dfe": {
+      "coords": [
+        49.9168631,
+        9.1674962
+      ],
+      "households": 20,
+      "name": "Egerl\u00e4nder Stra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "elisenstra\u00dfe": {
+      "coords": [
+        49.9140079,
+        9.1524908
+      ],
+      "households": 20,
+      "name": "Elisenstra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "erlenstra\u00dfe": {
+      "coords": [
+        49.896246,
+        9.1894773
+      ],
+      "households": 20,
+      "name": "Erlenstra\u00dfe",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "eulenweg": {
+      "coords": [
+        49.913873,
+        9.1573605
+      ],
+      "households": 20,
+      "name": "Eulenweg",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "fasanenweg": {
+      "coords": [
+        49.9132432,
+        9.1580228
+      ],
+      "households": 20,
+      "name": "Fasanenweg",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "finkenweg": {
+      "coords": [
+        49.9132151,
+        9.1599202
+      ],
+      "households": 20,
+      "name": "Finkenweg",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "fliederweg": {
+      "coords": [
+        49.9050027,
+        9.1546499
+      ],
+      "households": 20,
+      "name": "Fliederweg",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "flurweg": {
+      "coords": [
+        49.9079055,
+        9.1592239
+      ],
+      "households": 20,
+      "name": "Flurweg",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "franz-sch\u00fc\u00dfler-stra\u00dfe": {
+      "coords": [
+        49.9100195,
+        9.1560325
+      ],
+      "households": 20,
+      "name": "Franz-Sch\u00fc\u00dfler-Stra\u00dfe",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "friedenstra\u00dfe": {
+      "coords": [
+        49.9127681,
+        9.1540087
+      ],
+      "households": 20,
+      "name": "Friedenstra\u00dfe",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "friedhofstra\u00dfe": {
+      "coords": [
+        49.9108988,
+        9.1503559
+      ],
+      "households": 20,
+      "name": "Friedhofstra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "goethestra\u00dfe": {
+      "coords": [
+        49.9095202,
+        9.1612858
+      ],
+      "households": 20,
+      "name": "Goethestra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "gr\u00fcnewaldstra\u00dfe": {
+      "coords": [
+        49.9091791,
+        9.1621855
+      ],
+      "households": 20,
+      "name": "Gr\u00fcnewaldstra\u00dfe",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "hasenhecke": {
+      "coords": [
+        49.914012,
+        9.1608812
+      ],
+      "households": 20,
+      "name": "Hasenhecke",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "helenenstra\u00dfe": {
+      "coords": [
+        49.9168701,
+        9.1491313
+      ],
+      "households": 20,
+      "name": "Helenenstra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "hintere_dorfstra\u00dfe": {
+      "coords": [
+        49.9093022,
+        9.1507039
+      ],
+      "households": 20,
+      "name": "Hintere Dorfstra\u00dfe",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "hohe-wart-stra\u00dfe": {
+      "coords": [
+        49.9271273,
+        9.2276532
+      ],
+      "households": 20,
+      "name": "Hohe-Wart-Stra\u00dfe",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "hollerweg": {
+      "coords": [
+        49.9067867,
+        9.1574164
+      ],
+      "households": 20,
+      "name": "Hollerweg",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "holzwiesenweg": {
+      "coords": [
+        49.9309741,
+        9.2254911
+      ],
+      "households": 20,
+      "name": "Holzwiesenweg",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "h\u00f6fchen": {
+      "coords": [
+        49.9112747,
+        9.1525738
+      ],
+      "households": 20,
+      "name": "H\u00f6fchen",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "h\u00f6hfeldstra\u00dfe": {
+      "coords": [
+        49.9095593,
+        9.1597751
+      ],
+      "households": 20,
+      "name": "H\u00f6hfeldstra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "h\u00f6hwaldweg": {
+      "coords": [
+        49.9076925,
+        9.1617346
+      ],
+      "households": 20,
+      "name": "H\u00f6hwaldweg",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "im_hag": {
+      "coords": [
+        49.9151887,
+        9.1511123
+      ],
+      "households": 20,
+      "name": "Im Hag",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "im_steinetz": {
+      "coords": [
+        49.916445,
+        9.1501632
+      ],
+      "households": 20,
+      "name": "Im Steinetz",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "industriestra\u00dfe": {
+      "coords": [
+        49.9195603,
+        9.1489082
+      ],
+      "households": 20,
+      "name": "Industriestra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "jahnstra\u00dfe": {
+      "coords": [
+        49.9077208,
+        9.1521171
+      ],
+      "households": 20,
+      "name": "Jahnstra\u00dfe",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "j\u00e4gersgarten": {
+      "coords": [
+        49.9128865,
+        9.153453
+      ],
+      "households": 20,
+      "name": "J\u00e4gersgarten",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "karlsbader_stra\u00dfe": {
+      "coords": [
+        49.9165567,
+        9.1677985
+      ],
+      "households": 20,
+      "name": "Karlsbader Stra\u00dfe",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "karolinenstra\u00dfe": {
+      "coords": [
+        49.9175484,
+        9.1498202
+      ],
+      "households": 20,
+      "name": "Karolinenstra\u00dfe",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "kirchgasse": {
+      "coords": [
+        49.9091865,
+        9.152126
+      ],
+      "households": 20,
+      "name": "Kirchgasse",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "kleewiesenweg": {
+      "coords": [
+        49.9114307,
+        9.1483394
+      ],
+      "households": 20,
+      "name": "Kleewiesenweg",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "kleinwallst\u00e4dter_stra\u00dfe": {
+      "coords": [
+        49.8959378,
+        9.1835091
+      ],
+      "households": 20,
+      "name": "Kleinwallst\u00e4dter Stra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "konrad-adenauer-stra\u00dfe": {
+      "coords": [
+        49.9124206,
+        9.1553622
+      ],
+      "households": 20,
+      "name": "Konrad-Adenauer-Stra\u00dfe",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "kurmainzer_ring": {
+      "coords": [
+        49.9075409,
+        9.1616786
+      ],
+      "households": 20,
+      "name": "Kurmainzer Ring",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "kurt-schumacher-stra\u00dfe": {
+      "coords": [
+        49.9130926,
+        9.1548614
+      ],
+      "households": 20,
+      "name": "Kurt-Schumacher-Stra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "k\u00f6nigsberger_stra\u00dfe": {
+      "coords": [
+        49.9151507,
+        9.1668475
+      ],
+      "households": 20,
+      "name": "K\u00f6nigsberger Stra\u00dfe",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "k\u00fcbler_ring": {
+      "coords": [
+        49.9143659,
+        9.148727
+      ],
+      "households": 20,
+      "name": "K\u00fcbler Ring",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "lerchenweg": {
+      "coords": [
+        49.9135024,
+        9.1606588
+      ],
+      "households": 20,
+      "name": "Lerchenweg",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "lindenstra\u00dfe": {
+      "coords": [
+        49.8973234,
+        9.1884777
+      ],
+      "households": 20,
+      "name": "Lindenstra\u00dfe",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "luisenstra\u00dfe": {
+      "coords": [
+        49.9158,
+        9.1505728
+      ],
+      "households": 20,
+      "name": "Luisenstra\u00dfe",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "margarethenstra\u00dfe": {
+      "coords": [
+        49.9166616,
+        9.152379
+      ],
+      "households": 20,
+      "name": "Margarethenstra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "marienstra\u00dfe": {
+      "coords": [
+        49.9159906,
+        9.1543102
+      ],
+      "households": 20,
+      "name": "Marienstra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "meisenweg": {
+      "coords": [
+        49.9137668,
+        9.1613383
+      ],
+      "households": 20,
+      "name": "Meisenweg",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "m\u00e4rzbr\u00fcckenweg": {
+      "coords": [
+        49.9076922,
+        9.1502215
+      ],
+      "households": 20,
+      "name": "M\u00e4rzbr\u00fcckenweg",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "m\u00fchlbachstra\u00dfe": {
+      "coords": [
+        49.912396,
+        9.1603376
+      ],
+      "households": 20,
+      "name": "M\u00fchlbachstra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "m\u00fchlweg": {
+      "coords": [
+        49.9119541,
+        9.1527433
+      ],
+      "households": 20,
+      "name": "M\u00fchlweg",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "nelkenweg": {
+      "coords": [
+        49.9054021,
+        9.155572
+      ],
+      "households": 20,
+      "name": "Nelkenweg",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "niedernberger_stra\u00dfe": {
+      "coords": [
+        49.9127173,
+        9.1478955
+      ],
+      "households": 20,
+      "name": "Niedernberger Stra\u00dfe",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "ober_der_steinhohle": {
+      "coords": [
+        49.9130847,
+        9.1523807
+      ],
+      "households": 20,
+      "name": "Ober der Steinhohle",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "pfortengasse": {
+      "coords": [
+        49.9087026,
+        9.1534925
+      ],
+      "households": 20,
+      "name": "Pfortengasse",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "pommernstra\u00dfe": {
+      "coords": [
+        49.9128332,
+        9.1619282
+      ],
+      "households": 20,
+      "name": "Pommernstra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "prof.-dr.-d\u00f6lger-stra\u00dfe": {
+      "coords": [
+        49.9079771,
+        9.1580107
+      ],
+      "households": 20,
+      "name": "Prof.-Dr.-D\u00f6lger-Stra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "rainweg": {
+      "coords": [
+        49.9056173,
+        9.158515
+      ],
+      "households": 20,
+      "name": "Rainweg",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "renatastra\u00dfe": {
+      "coords": [
+        49.9168355,
+        9.1525753
+      ],
+      "households": 20,
+      "name": "Renatastra\u00dfe",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "ringstra\u00dfe": {
+      "coords": [
+        49.9265724,
+        9.2159138
+      ],
+      "households": 20,
+      "name": "Ringstra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "ritastra\u00dfe": {
+      "coords": [
+        49.9156962,
+        9.1535721
+      ],
+      "households": 20,
+      "name": "Ritastra\u00dfe",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "rosenweg": {
+      "coords": [
+        49.9054912,
+        9.1564613
+      ],
+      "households": 20,
+      "name": "Rosenweg",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "schafbr\u00fcckenweg": {
+      "coords": [
+        49.9117163,
+        9.1638841
+      ],
+      "households": 20,
+      "name": "Schafbr\u00fcckenweg",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "schillerstra\u00dfe": {
+      "coords": [
+        49.9110561,
+        9.1654451
+      ],
+      "households": 20,
+      "name": "Schillerstra\u00dfe",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "schlesierstra\u00dfe": {
+      "coords": [
+        49.913122,
+        9.1646782
+      ],
+      "households": 20,
+      "name": "Schlesierstra\u00dfe",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "schlo\u00dfbergstra\u00dfe": {
+      "coords": [
+        49.9281608,
+        9.2256209
+      ],
+      "households": 20,
+      "name": "Schlo\u00dfbergstra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "schulstra\u00dfe": {
+      "coords": [
+        49.907865,
+        9.1601508
+      ],
+      "households": 20,
+      "name": "Schulstra\u00dfe",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "schwalbenring": {
+      "coords": [
+        49.9142508,
+        9.1605889
+      ],
+      "households": 20,
+      "name": "Schwalbenring",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstra\u00dfe": {
+      "coords": [
+        49.9138046,
+        9.1846582
+      ],
+      "households": 20,
+      "name": "Sodentalstra\u00dfe",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "spessartstra\u00dfe": {
+      "coords": [
+        49.9090391,
+        9.1516706
+      ],
+      "households": 20,
+      "name": "Spessartstra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    },
+    "steinhohle": {
+      "coords": [
+        49.9129999,
+        9.1527348
+      ],
+      "households": 20,
+      "name": "Steinhohle",
+      "sector": 9,
+      "status": "free",
+      "user": ""
+    },
+    "sudetenstra\u00dfe": {
+      "coords": [
+        49.9136027,
+        9.1627187
+      ],
+      "households": 20,
+      "name": "Sudetenstra\u00dfe",
+      "sector": 10,
+      "status": "free",
+      "user": ""
+    },
+    "sulzbacher_stra\u00dfe": {
+      "coords": [
+        49.8972061,
+        9.1857668
+      ],
+      "households": 20,
+      "name": "Sulzbacher Stra\u00dfe",
+      "sector": 1,
+      "status": "free",
+      "user": ""
+    },
+    "s\u00fcdring": {
+      "coords": [
+        49.9044556,
+        9.1524126
+      ],
+      "households": 20,
+      "name": "S\u00fcdring",
+      "sector": 2,
+      "status": "free",
+      "user": ""
+    },
+    "theodor-heuss-stra\u00dfe": {
+      "coords": [
+        49.9147457,
+        9.1582229
+      ],
+      "households": 20,
+      "name": "Theodor-Heuss-Stra\u00dfe",
+      "sector": 3,
+      "status": "free",
+      "user": ""
+    },
+    "theresienstra\u00dfe": {
+      "coords": [
+        49.9146613,
+        9.1520629
+      ],
+      "households": 20,
+      "name": "Theresienstra\u00dfe",
+      "sector": 4,
+      "status": "free",
+      "user": ""
+    },
+    "tulpenweg": {
+      "coords": [
+        49.9049706,
+        9.1569298
+      ],
+      "households": 20,
+      "name": "Tulpenweg",
+      "sector": 5,
+      "status": "free",
+      "user": ""
+    },
+    "wachenbachweg": {
+      "coords": [
+        49.9135722,
+        9.16706
+      ],
+      "households": 20,
+      "name": "Wachenbachweg",
+      "sector": 6,
+      "status": "free",
+      "user": ""
+    },
+    "wiesenstra\u00dfe": {
+      "coords": [
+        49.9123904,
+        9.1608739
+      ],
+      "households": 20,
+      "name": "Wiesenstra\u00dfe",
+      "sector": 7,
+      "status": "free",
+      "user": ""
+    },
+    "wingertstra\u00dfe": {
+      "coords": [
+        49.9234763,
+        9.2071312
+      ],
+      "households": 20,
+      "name": "Wingertstra\u00dfe",
+      "sector": 8,
+      "status": "free",
+      "user": ""
+    }
+  }
+}
