@@ -12,21 +12,23 @@ log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
-# --- NEU: Log-Rotation ---
+# --- 1. Log-Rotation ---
 if [ -f "$LOG_FILE" ]; then
     FILE_SIZE=$(stat -c%s "$LOG_FILE")
     if [ "$FILE_SIZE" -gt "$MAX_LOG_SIZE" ]; then
-        # Behalte die letzten 100 Zeilen und leere den Rest
         TMP_LOG=$(tail -n 100 "$LOG_FILE")
-        echo "[$(date +'%Y-%m-%d %H:%M:%S')] 🔄 Log-Rotation: Datei war zu groß ($FILE_SIZE Bytes). Geleert." > "$LOG_FILE"
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] 🔄 Log-Rotation: Datei war zu groß. Geleert." > "$LOG_FILE"
         echo "$TMP_LOG" >> "$LOG_FILE"
     fi
 fi
 
+# --- 2. Heartbeat (Anfang des Script-Laufs) ---
+log "⏱️ Cronjob-Lauf gestartet..."
+
 # In das Verzeichnis wechseln
 cd "$APP_DIR" || { log "❌ Verzeichnis nicht gefunden"; exit 1; }
 
-# 1. Updates von GitHub holen
+# --- 3. Updates von GitHub holen ---
 git fetch origin main > /dev/null 2>&1
 
 LOCAL=$(git rev-parse HEAD)
@@ -47,6 +49,8 @@ if [ "$LOCAL" != "$REMOTE" ]; then
         log "📦 Backup erstellt: $BACKUP_NAME"
         git add "$BACKUP_DIR/$BACKUP_NAME"
         git commit -m "Archiv: $BACKUP_NAME" > /dev/null 2>&1
+        # Wir pushen das Backup sofort, damit es sicher auf GitHub ist
+        git push origin main > /dev/null 2>&1
     fi
 
     # Code auf den Stand von GitHub bringen
@@ -58,12 +62,16 @@ if [ "$LOCAL" != "$REMOTE" ]; then
     log "✅ Update abgeschlossen und Service neu gestartet."
 
 else
-    # 2. Nur User-Änderungen (Häkchen) sichern
+    # --- 4. Nur User-Änderungen (Häkchen) sichern ---
     git add "$DATA_FILE"
+    # Prüfen, ob es lokale Änderungen gibt
     if ! git diff --cached --quiet; then
         log "☁️ Synchronisiere Helfer-Daten mit GitHub..."
         git commit -m "User Update: Straßen übernommen" > /dev/null 2>&1
         git push origin main > /dev/null 2>&1
         log "✅ Synchronisation erfolgreich."
+    else
+        # Optionaler Log-Eintrag, wenn nichts zu tun war
+        log "😴 Keine Änderungen gefunden."
     fi
 fi
