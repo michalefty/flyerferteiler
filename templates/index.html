@@ -39,6 +39,7 @@
         <div id="adminControls" style="display:none; gap:10px;">
             <button class="btn" style="background:#e67e22" onclick="startDrawing()">✏️ Straße einzeichnen</button>
             <button id="finishDrawBtn" class="btn" style="background:#27ae60; display:none;" onclick="finishDrawing()">✅ Fertig</button>
+            <button class="btn" style="background:#8e44ad" onclick="downloadExport()">🌍 Export GeoJSON</button>
         </div>
         <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 200px;">
     </div>
@@ -109,6 +110,13 @@
                     btnHtml = `<span style="color:#e74c3c">Belegt: ${s.user}</span>`;
                 }
 
+                if(isAdmin) {
+                    btnHtml += `<hr style="margin:5px 0"><div style="display:flex; gap:5px; justify-content:center;">
+                        <button onclick="editStreet('${id}')" style="background:#f1c40f; border:none; border-radius:4px; cursor:pointer;">✏️</button>
+                        <button onclick="deleteStreet('${id}')" style="background:#e74c3c; border:none; border-radius:4px; cursor:pointer;">🗑️</button>
+                    </div>`;
+                }
+
                 const popupContent = `
                     <div style="text-align:center;">
                         <b>${s.name}</b><br>
@@ -162,6 +170,11 @@
                     actionBtn = `<button style="background:var(--taken); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')">Freigeben</button>`;
                 } else {
                     actionBtn = `<small style="color:var(--taken)">${s.user}</small>`;
+                }
+
+                if(isAdmin) {
+                    actionBtn += ` <button onclick="editStreet('${id}')" style="background:none; border:none; cursor:pointer;">✏️</button>
+                                   <button onclick="deleteStreet('${id}')" style="background:none; border:none; cursor:pointer;">🗑️</button>`;
                 }
 
                 li.innerHTML = `
@@ -412,6 +425,7 @@
             if (isAdmin) {
                 isAdmin = false;
                 document.getElementById('adminControls').style.display = 'none';
+                renderMap(); renderList(); // Refresh to hide admin buttons
                 return;
             }
             const pwd = prompt("Admin-Passwort:");
@@ -427,6 +441,7 @@
                 isAdmin = true;
                 document.getElementById('adminControls').style.display = 'flex';
                 alert("Admin-Modus aktiv.");
+                renderMap(); renderList(); // Refresh to show admin buttons
             } else {
                 alert("Falsches Passwort!");
             }
@@ -451,11 +466,13 @@
             drawLine.setLatLngs(drawPoints);
         }
 
-        async function finishDrawing() {
-            map.off('click', addDrawPoint);
-            map.dragging.enable();
-            map.getContainer().style.cursor = '';
-            document.getElementById('finishDrawBtn').style.display = 'none';
+        async function finishDrawing(force = false) {
+            if (!force) {
+                map.off('click', addDrawPoint);
+                map.dragging.enable();
+                map.getContainer().style.cursor = '';
+                document.getElementById('finishDrawBtn').style.display = 'none';
+            }
 
             if (drawPoints.length < 2) {
                 alert("Bitte mindestens 2 Punkte setzen!");
@@ -463,27 +480,51 @@
                 return;
             }
 
-            const name = prompt("Name der Straße:");
-            if (!name) return;
-            const households = prompt("Anzahl Haushalte:");
-            if (!households) return;
+            let name, households;
+            if (!force) {
+                name = prompt("Name der Straße:");
+                if (!name) return;
+                
+                // Auto-Count
+                let defaultCount = "10";
+                try {
+                    const countRes = await fetch('/admin/count_houses', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({path: drawPoints})
+                    });
+                    const countData = await countRes.json();
+                    if(countData.count) defaultCount = countData.count.toString();
+                } catch(e) { console.error(e); }
+
+                households = prompt("Anzahl Haushalte (Vorschlag basierend auf Karte):", defaultCount);
+                if (!households) return;
+            }
 
             // Calculate Length
             let length = 0;
             for(let i=0; i<drawPoints.length-1; i++) {
                 length += map.distance(drawPoints[i], drawPoints[i+1]);
             }
-
             // Calculate Center
             const center = drawPoints[Math.floor(drawPoints.length/2)];
 
             const payload = {
-                name: name,
+                name: name, 
                 households: parseInt(households),
                 length: Math.round(length),
                 coords: center,
-                path: drawPoints
+                path: drawPoints,
+                force: force
             };
+            
+            if(force) {
+                 payload.name = window.lastDrawName;
+                 payload.households = window.lastDrawHouseholds;
+            } else {
+                window.lastDrawName = name;
+                window.lastDrawHouseholds = parseInt(households);
+            }
 
             const res = await fetch('/admin/add_street', {
                 method: 'POST',
@@ -491,11 +532,47 @@
                 body: JSON.stringify(payload)
             });
             
-            if (res.ok) {
+            const data = await res.json();
+            
+            if (data.success) {
                 alert("Straße gespeichert!");
                 location.reload();
+            } else if (data.error === 'duplicate') {
+                if (confirm(`${data.msg}\nTrotzdem anlegen?`)) {
+                    finishDrawing(true);
+                }
             } else {
                 alert("Fehler beim Speichern.");
+            }
+        }
+
+        async function downloadExport() {
+            window.open('/admin/export_geojson', '_blank');
+        }
+
+        async function editStreet(id) {
+            const s = streets[id];
+            const newName = prompt("Name ändern:", s.name);
+            if (newName === null) return;
+            const newHouseholds = prompt("Haushalte ändern:", s.households);
+            if (newHouseholds === null) return;
+            
+            const res = await fetch('/admin/edit_street', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id: id, name: newName, households: newHouseholds})
+            });
+            if((await res.json()).success) location.reload();
+        }
+
+        async function deleteStreet(id) {
+            if(confirm(`Straße '${streets[id].name}' wirklich löschen?`)) {
+                const res = await fetch('/admin/delete_street', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({id: id})
+                });
+                if((await res.json()).success) location.reload();
             }
         }
 
