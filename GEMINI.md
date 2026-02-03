@@ -30,3 +30,5 @@
 - [ ] checken ob Webseite antwortet bevor vorgeschlagen wird dass sie neu gestartet werden soll.
 - [ ] lustige begründung warum flyerferteiler und nich flyerverteiler
 - [ ] ein countdown wie lange die abfrage noch läuft
+- [ ] beim dark-theme wird der pdf-export button nicht lesbar
+- [ ] das passwort für den admin-zugang wird in der config.py gesetzt, bitte trotzdem bei admin.py nachfragen
