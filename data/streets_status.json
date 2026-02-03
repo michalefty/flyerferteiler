@@ -2371,8 +2371,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "dornauer_weg_manual_1770126672": {
       "coords": [
@@ -6611,8 +6611,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "rainweg": {
       "coords": [
