@@ -228,19 +228,74 @@ def generate_multi_plan():
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 
                 remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
-                branch = getattr(config, 'GIT_Branch', 'main')
+                branch = getattr(config, 'GIT_BRANCH', 'main')
                 
                 print("🔄 Hole Änderungen vom Server (Pull --rebase)...")
                 subprocess.run(["git", "pull", "--rebase", remote, branch], check=True)
                 
                 subprocess.run(["git", "push", remote, branch], check=True)
                 print("✅ Push erfolgreich!")
+
+                # VM Management
+                manage_vm = input("\n☁️  Soll die Cloud-VM jetzt gestartet und der Timer gesetzt werden? (j/n): ").strip().lower()
+                if manage_vm == 'j':
+                    start_vm()
+                    schedule_stop_vm()
+
             except subprocess.CalledProcessError as e:
                 print(f"❌ Fehler beim Git-Push: {e}")
         else:
             print("ℹ️ Kein Push durchgeführt.")
     else:
         print("⚠️ config.py fehlt. Git-Push übersprungen.")
+
+def start_vm():
+    provider = getattr(config, 'CLOUD_PROVIDER', 'none')
+    if provider == 'gcloud':
+        name = getattr(config, 'VM_INSTANCE_NAME', 'flyer-server')
+        zone = getattr(config, 'VM_ZONE', 'europe-west3-c')
+        project = getattr(config, 'VM_PROJECT', '')
+        
+        cmd = ["gcloud", "compute", "instances", "start", name, "--zone", zone]
+        if project:
+            cmd.extend(["--project", project])
+            
+        print(f"🚀 Starte VM '{name}' in Zone '{zone}'...")
+        try:
+            subprocess.run(cmd, check=True)
+            print("✅ VM gestartet. Warte auf Boot (30s)...")
+            time.sleep(30) # Wait for SSH to be ready
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Fehler beim Starten der VM: {e}")
+            return False
+    return True
+
+def schedule_stop_vm():
+    # Calculate minutes
+    days = getattr(config, 'SURVEY_DURATION_DAYS', 7)
+    minutes = days * 24 * 60
+    
+    print(f"⏲️  Setze Shutdown-Timer auf {days} Tage ({minutes} Minuten)...")
+    
+    # We use SSH to schedule 'shutdown'. Assumes 'gcloud compute ssh' works or standard ssh.
+    # Using gcloud ssh for convenience if provider is gcloud
+    provider = getattr(config, 'CLOUD_PROVIDER', 'none')
+    name = getattr(config, 'VM_INSTANCE_NAME', 'flyer-server')
+    zone = getattr(config, 'VM_ZONE', 'europe-west3-c')
+    
+    if provider == 'gcloud':
+        # Use 'shutdown' to schedule poweroff (standard tool, no 'at' required)
+        # Note: Unlike 'at', this might not survive a reboot, but is sufficient for single-run sessions.
+        cmd_str = f"sudo shutdown -h +{minutes}"
+        
+        print(f"⏲️  Plane Shutdown via 'shutdown' in {minutes} Minuten ({days} Tagen)...")
+        cmd = ["gcloud", "compute", "ssh", name, "--zone", zone, "--command", cmd_str]
+        
+        try:
+            subprocess.run(cmd, check=True)
+            print(f"✅ Shutdown erfolgreich geplant.")
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Fehler beim Planen des Shutdowns: {e}")
 
 if __name__ == "__main__":
     generate_multi_plan()

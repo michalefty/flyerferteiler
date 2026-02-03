@@ -8,40 +8,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background: #f4f7f6; }
+        :root { 
+            --bg: #f4f7f6; --text: #000; --card-bg: white; 
+            --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12; 
+        }
+        [data-theme="dark"] {
+            --bg: #2c3e50; --text: #ecf0f1; --card-bg: #34495e;
+            --primary: #ecf0f1; --info: #2980b9;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; }
         .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
-        .stat-card { background: white; padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stat-card { background: var(--card-bg); padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         #map { height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        /* Dark Mode Map Filter */
+        [data-theme="dark"] .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
+        
+        .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; }
         .btn { border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
-        .street-list { background: white; padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
+        .street-list { background: var(--card-bg); padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
         .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; align-items: center; }
         .street-info { flex-grow: 1; }
         .badge { font-size: 0.8em; padding: 2px 6px; border-radius: 4px; background: #eee; color: #555; margin-left: 5px; }
+        
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: var(--card-bg); margin: 10% auto; padding: 20px; border-radius: 8px; width: 80%; max-width: 600px; color: var(--text); position: relative; }
+        .close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .footer-links { text-align: center; margin-top: 30px; font-size: 0.9em; opacity: 0.8; }
+        .footer-links a { color: var(--info); margin: 0 10px; text-decoration: none; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>Flyer-Verteilung {{ metadata.city }}</h1>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h1>Flyer-Verteilung {{ metadata.city }}</h1>
+        <small>Geplante Laufzeit: {{ survey_days }} Tage</small>
+    </div>
     
     <div class="stats-bar">
         <div class="stat-card"><h4>Offen</h4><p id="s-open">-</p></div>
         <div class="stat-card"><h4>Vergeben</h4><p id="s-taken">-</p></div>
-        <div class="stat-card"><h4>Meine Route</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
-        <div class="stat-card"><h4>Gesamt Häuser</h4><p id="s-house" style="color:var(--info)">-</p></div>
+        <div class="stat-card"><h4>Meine Straßen</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
+        <div class="stat-card"><h4>Gesamt Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
 
     <div class="controls">
         <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
         <button class="btn" style="background:var(--primary)" onclick="exportToPDF()">📄 PDF Export (Meine)</button>
         <button class="btn" style="background:#95a5a6" onclick="resetName()">Name: <span id="currentName">...</span></button>
-        <button class="btn" style="background:#34495e" onclick="toggleAdmin()">🔑 Admin</button>
+        <button class="btn" style="background:#7f8c8d" onclick="openModal('helpModal')">❓ Hilfe</button>
+        <button class="btn" style="background:#000" onclick="toggleTheme()">🌙 Theme</button>
+        
+        <!-- Admin Toggle -->
+        <button class="btn" style="background:transparent; color:var(--text); border:1px solid #ccc; font-weight:normal;" onclick="toggleAdmin()">🔒</button>
+
         <div id="adminControls" style="display:none; gap:10px;">
             <button class="btn" style="background:#e67e22" onclick="startDrawing()">✏️ Straße einzeichnen</button>
             <button id="finishDrawBtn" class="btn" style="background:#27ae60; display:none;" onclick="finishDrawing()">✅ Fertig</button>
             <button class="btn" style="background:#8e44ad" onclick="downloadExport()">🌍 Export GeoJSON</button>
         </div>
-        <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 200px;">
+        <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 150px;">
+    </div>
+
+    <div style="margin-bottom:10px; font-size:0.9em; color:var(--taken)">
+        ⚠️ Hinweis: Bitte verwende zu deiner Sicherheit nur deinen Vornamen oder ein Kürzel!
     </div>
 
     <div id="map"></div>
@@ -53,9 +82,63 @@
         </ul>
     </div>
 
+    <div class="footer-links">
+        <a onclick="openModal('impressumModal')">Impressum</a> | 
+        <a onclick="openModal('privacyModal')">Datenschutz & Lizenz</a>
+    </div>
+
+    <!-- Modals -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('helpModal')">&times;</span>
+            <h2>📖 Anleitung</h2>
+            <ol>
+                <li>Gib oben deinen <b>Namen (oder Kürzel)</b> an.</li>
+                <li>Wähle Straßen aus, die du übernehmen möchtest:
+                    <ul>
+                        <li>Klicke auf eine Straße in der Karte oder Liste.</li>
+                        <li>Nutze "Bereich wählen", um einen Rahmen zu ziehen.</li>
+                    </ul>
+                </li>
+                <li>Klicke auf <b>"Übernehmen"</b> (grüner Button).</li>
+                <li>Wenn du fertig bist, klicke auf <b>"PDF Export"</b>, um deine Liste zu drucken.</li>
+            </ol>
+            <p>Viel Erfolg beim Verteilen! 🏃💨</p>
+        </div>
+    </div>
+
+    <div id="impressumModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('impressumModal')">&times;</span>
+            <h2>Impressum</h2>
+            <p><b>Angaben gemäß § 5 TMG</b></p>
+            <p>Max Mustermann (Projektverantwortlicher)<br>
+            Musterstraße 1<br>
+            12345 Musterstadt</p>
+            <p>Kontakt: info@beispiel-projekt.de</p>
+            <p><i>Dies ist ein Open-Source-Community-Projekt.</i></p>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('privacyModal')">&times;</span>
+            <h2>Datenschutz & Lizenz</h2>
+            <h3>Datenschutz</h3>
+            <p>Bitte trage zu deiner eigenen Sicherheit nur deinen <b>Vornamen oder ein Kürzel</b> ein.</p>
+            <p>Deine Daten (Name und gewählte Straßen) werden auf unserem Server gespeichert, damit andere sehen können, welche Gebiete bereits abgedeckt sind.</p>
+            <p>Die Daten werden nach Abschluss der Aktion (ca. {{ survey_days }} Tage) <b>automatisch gelöscht</b>.</p>
+            <p>Wir verwenden LocalStorage in deinem Browser, um deinen Namen für deinen nächsten Besuch zu speichern.</p>
+            
+            <h3>Lizenz</h3>
+            <p>Kartendaten © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende.</p>
+            <p>Software: MIT License - Open Source.</p>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialize with a default view to prevent errors before data load
+        // Initialize map (view will be updated in init)
         const map = L.map('map').setView([51.1657, 10.4515], 6); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -66,17 +149,62 @@
 
         function init() {
             if (!currentUser) {
-                currentUser = prompt("Bitte gib deinen Namen ein:");
+                currentUser = prompt("Willkommen! Bitte gib deinen Vornamen oder ein Kürzel ein:");
                 if (currentUser) localStorage.setItem('userName', currentUser);
             }
             document.getElementById('currentName').innerText = currentUser || "Nicht gesetzt";
+            
+            // Collect bounds
+            Object.values(streets).forEach(s => {
+                markerGroup.push([s.coords[0], s.coords[1]]);
+            });
+
+            // Initial FitBounds
+            if (markerGroup.length > 0 && !localStorage.getItem('mapCenter')) {
+                map.fitBounds(markerGroup, {padding: [50,50]});
+            } else if (localStorage.getItem('mapCenter')) {
+                map.setView(JSON.parse(localStorage.getItem('mapCenter')), localStorage.getItem('mapZoom'));
+            } else if (markerGroup.length > 0) {
+                 map.fitBounds(markerGroup, {padding: [50,50]});
+            }
+
             renderMap();
             renderList();
             updateStats();
+            
+            // Auto-Open Help on first visit
+            if (!localStorage.getItem('helpSeen')) {
+                openModal('helpModal');
+                localStorage.setItem('helpSeen', 'true');
+            }
+        }
+
+        // Modal Logic
+        function openModal(id) { document.getElementById(id).style.display = "block"; }
+        function closeModal(id) { document.getElementById(id).style.display = "none"; }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', next);
+        }
+
+        function getUserColor(username) {
+            let hash = 0;
+            for (let i = 0; i < username.length; i++) {
+                hash = username.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const hue = Math.abs(hash % 360);
+            return `hsl(${hue}, 60%, 45%)`; 
         }
 
         function renderMap() {
-            // Cleanup existing layers
             Object.values(layers).forEach(l => {
                 if(l.marker) map.removeLayer(l.marker);
                 if(l.line) map.removeLayer(l.line);
@@ -88,17 +216,19 @@
                 const isFree = s.status === 'free';
                 
                 let color = isFree ? '#27ae60' : '#e74c3c';
-                if (isMine) color = '#f39c12'; // Orange for mine
+                
+                if (isMine) {
+                    color = '#f39c12'; 
+                } else if (!isFree && s.user) {
+                    color = getUserColor(s.user); 
+                }
 
-                // 1. Draw Polyline (if path exists)
                 let lineLayer = null;
                 if (s.path && s.path.length > 0) {
-                    lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.7 }).addTo(map);
-                    // Click on line -> Trigger Popup on Marker
+                    lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.8 }).addTo(map);
                     lineLayer.on('click', () => marker.openPopup());
                 }
 
-                // 2. Draw Marker (Center)
                 const marker = L.circleMarker(s.coords, { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' }).addTo(map);
                 
                 let btnHtml = "";
@@ -107,7 +237,7 @@
                 } else if (isMine) {
                     btnHtml = `<button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Freigeben</button>`;
                 } else {
-                    btnHtml = `<span style="color:#e74c3c">Belegt: ${s.user}</span>`;
+                    btnHtml = `<span style="color:${color}; font-weight:bold;">Belegt: ${s.user}</span>`;
                 }
 
                 if(isAdmin) {
@@ -120,7 +250,7 @@
                 const popupContent = `
                     <div style="text-align:center;">
                         <b>${s.name}</b><br>
-                        🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'}<br><br>
+                        🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'} <br><br>
                         ${btnHtml}
                     </div>
                 `;
@@ -128,12 +258,7 @@
                 if(lineLayer) lineLayer.bindPopup(popupContent);
 
                 layers[id] = { marker: marker, line: lineLayer };
-                markerGroup.push(L.latLng(s.coords[0], s.coords[1]));
             });
-
-            // Restore view logic... (simplified for brevity)
-            if(markerGroup.length > 0 && !localStorage.getItem('mapCenter')) 
-                map.fitBounds(L.latLngBounds(markerGroup), {padding: [30,30]});
         }
 
         function filterList() {
@@ -149,7 +274,6 @@
             const list = document.getElementById('main-list');
             list.innerHTML = '';
             
-            // Sort: Mine first, then Free, then Taken
             const sortedIds = Object.keys(streets).sort((a,b) => {
                 const sA = streets[a], sB = streets[b];
                 const wA = sA.user === currentUser ? 2 : (sA.status === 'free' ? 1 : 0);
@@ -185,7 +309,7 @@
                     </div>
                     <div>${actionBtn}</div>
                 `;
-                // Click on list item -> Zoom to map
+                
                 li.querySelector('.street-info').onclick = () => {
                     const l = layers[id];
                     if(l) {
@@ -194,11 +318,9 @@
                     }
                 };
                 li.querySelector('.street-info').style.cursor = 'pointer';
-                
                 list.appendChild(li);
             });
         }
-
 
         function updateStats() {
             let open = 0, taken = 0, mine = 0, houses = 0;
@@ -221,14 +343,12 @@
             
             const ids = Array.isArray(id) ? id : [id];
             
-            // Optimistic update
             ids.forEach(sid => {
                 streets[sid].status = newStatus;
                 streets[sid].user = newStatus === 'free' ? '' : currentUser;
             });
-            renderMap(); renderList(); updateStats(); // Local update
+            renderMap(); renderList(); updateStats(); 
 
-            // Server update
             localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
             localStorage.setItem('mapZoom', map.getZoom());
             
@@ -236,9 +356,6 @@
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({id: id, status: newStatus, user: currentUser})
-            }).then(() => {
-                // Reload not strictly needed if optimistic worked, but good for sync
-                // location.reload(); 
             });
         }
 
@@ -248,8 +365,6 @@
         function toggleSelectionMode() {
             isSelecting = !isSelecting;
             document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : 'var(--info)';
-            
-            // Disable map dragging and tap interactions when selecting
             if (isSelecting) {
                 map.dragging.disable();
                 if (map.tap) map.tap.disable();
@@ -261,18 +376,14 @@
             }
         }
 
-        // Unified Start Handler
         function onDragStart(e) {
             if (!isSelecting) return;
-            // Prevent default to stop scrolling on mobile
             L.DomEvent.preventDefault(e); 
-            
             const latlng = e.latlng || map.mouseEventToLatLng(e.originalEvent);
             start = latlng;
             rect = L.rectangle([start, start], {color: '#3498db', weight: 2}).addTo(map);
         }
 
-        // Unified Move Handler
         function onDragMove(e) {
             if (isSelecting && rect) {
                 L.DomEvent.preventDefault(e);
@@ -281,34 +392,26 @@
             }
         }
 
-        // Unified End Handler
         function onDragEnd(e) {
             if (!isSelecting || !rect) return;
-            
             const b = rect.getBounds();
             const ids = Object.keys(streets).filter(id => streets[id].status === 'free' && b.contains(streets[id].coords));
-            
             if (ids.length > 0) {
                 if (confirm(`${ids.length} Straßen reservieren?`)) updateStatus(ids, 'taken');
             }
-            
             map.removeLayer(rect);
             rect = null;
-            toggleSelectionMode(); // Exit selection mode automatically
+            toggleSelectionMode(); 
         }
 
-        // Add Listeners for Mouse and Touch
         map.on('mousedown', onDragStart);
         map.on('mousemove', onDragMove);
         map.on('mouseup', onDragEnd);
 
-        // Map container listeners for touch (Leaflet sometimes swallows touch on the map object directly)
         const mapContainer = map.getContainer();
-        
         mapContainer.addEventListener('touchstart', (e) => {
             if(!isSelecting) return;
             const touch = e.touches[0];
-            // Create a fake Leaflet event object with latlng
             const point = map.containerPointToLatLng([touch.clientX - mapContainer.getBoundingClientRect().left, touch.clientY - mapContainer.getBoundingClientRect().top]);
             onDragStart({ latlng: point, originalEvent: e });
         }, {passive: false});
@@ -320,9 +423,7 @@
             onDragMove({ latlng: point, originalEvent: e });
         }, {passive: false});
 
-        mapContainer.addEventListener('touchend', (e) => {
-           onDragEnd(e);
-        });
+        mapContainer.addEventListener('touchend', (e) => { onDragEnd(e); });
 
         // PDF Export
         async function exportToPDF() {
@@ -342,13 +443,11 @@
                 return; 
             }
 
-            // Stats
             const totalH = myStreets.reduce((sum, s) => sum + s.households, 0);
             const totalL = myStreets.reduce((sum, s) => sum + (s.length || 0), 0);
             
             doc.setLineWidth(0.5);
             doc.line(20, 45, 190, 45);
-            
             doc.setFontSize(12);
             doc.text(`Gesamt: ${myStreets.length} Straßen | ${totalH} Haushalte | ca. ${Math.round(totalL/1000 * 10)/10} km`, 20, 55);
 
@@ -357,7 +456,6 @@
             doc.text("Deine Straßenliste:", 20, y);
             y += 10;
             
-            // Table Header
             doc.setFillColor(230, 230, 230);
             doc.rect(20, y-6, 170, 8, 'F');
             doc.setFontSize(10);
@@ -369,50 +467,30 @@
             y += 10;
 
             myStreets.sort((a,b) => a.name.localeCompare(b.name)).forEach((s, index) => {
-                // Background for readability
                 if (index % 2 === 0) {
                     doc.setFillColor(245, 245, 245);
                     doc.rect(20, y-6, 170, 8, 'F');
                 }
-                
-                // Checkbox
                 doc.rect(22, y-4, 4, 4);
-                
-                // Content
                 doc.text(s.name, 30, y);
                 doc.text(`${s.households}`, 130, y);
                 doc.text(`${s.length || 0}m`, 160, y);
-                
                 y += 8; 
-                
-                // New Page Logic
                 if(y > 270) { 
-                    doc.addPage(); 
-                    y = 20; 
-                    doc.setFontSize(10);
-                    doc.text("(Fortsetzung)", 20, y);
-                    y += 10;
+                    doc.addPage(); y = 20; 
+                    doc.text("(Fortsetzung)", 20, y); y += 10;
                 }
             });
-            
-            // Footer
-            const pageCount = doc.internal.getNumberOfPages();
-            for(let i = 1; i <= pageCount; i++) {
-                doc.setPage(i);
-                doc.setFontSize(8);
-                doc.text(`Seite ${i} von ${pageCount}`, 190, 285, { align: 'right' });
-            }
-            
             doc.save(`Flyer_Plan_${currentUser}.pdf`);
         }
 
         function resetName() { 
-            const n = prompt("Neuer Name:"); 
+            const n = prompt("Neuer Name (Vorname/Kürzel):"); 
             if(n) { 
                 localStorage.setItem('userName', n); 
                 currentUser = n; 
                 document.getElementById('currentName').innerText = n;
-                renderMap(); renderList(); // Refresh view
+                renderMap(); renderList(); 
             } 
         }
 
@@ -425,7 +503,7 @@
             if (isAdmin) {
                 isAdmin = false;
                 document.getElementById('adminControls').style.display = 'none';
-                renderMap(); renderList(); // Refresh to hide admin buttons
+                renderMap(); renderList(); 
                 return;
             }
             const pwd = prompt("Admin-Passwort:");
@@ -441,7 +519,7 @@
                 isAdmin = true;
                 document.getElementById('adminControls').style.display = 'flex';
                 alert("Admin-Modus aktiv.");
-                renderMap(); renderList(); // Refresh to show admin buttons
+                renderMap(); renderList(); 
             } else {
                 alert("Falsches Passwort!");
             }
@@ -449,14 +527,12 @@
 
         function startDrawing() {
             if (!isAdmin) return;
-            isSelecting = false; // Disable other modes
+            isSelecting = false; 
             map.dragging.disable();
             map.getContainer().style.cursor = 'crosshair';
-            
             drawPoints = [];
             if (drawLine) map.removeLayer(drawLine);
             drawLine = L.polyline([], {color: 'red', weight: 4, dashArray: '5, 10'}).addTo(map);
-            
             map.on('click', addDrawPoint);
             document.getElementById('finishDrawBtn').style.display = 'inline-block';
         }
@@ -473,19 +549,15 @@
                 map.getContainer().style.cursor = '';
                 document.getElementById('finishDrawBtn').style.display = 'none';
             }
-
             if (drawPoints.length < 2) {
                 alert("Bitte mindestens 2 Punkte setzen!");
                 if(drawLine) map.removeLayer(drawLine);
                 return;
             }
-
             let name, households;
             if (!force) {
                 name = prompt("Name der Straße:");
                 if (!name) return;
-                
-                // Auto-Count
                 let defaultCount = "10";
                 try {
                     const countRes = await fetch('/admin/count_houses', {
@@ -497,58 +569,34 @@
                     if(countData.count) defaultCount = countData.count.toString();
                 } catch(e) { console.error(e); }
 
-                households = prompt("Anzahl Haushalte (Vorschlag basierend auf Karte):", defaultCount);
+                households = prompt("Anzahl Haushalte:", defaultCount);
                 if (!households) return;
             }
-
-            // Calculate Length
             let length = 0;
-            for(let i=0; i<drawPoints.length-1; i++) {
-                length += map.distance(drawPoints[i], drawPoints[i+1]);
-            }
-            // Calculate Center
+            for(let i=0; i<drawPoints.length-1; i++) length += map.distance(drawPoints[i], drawPoints[i+1]);
             const center = drawPoints[Math.floor(drawPoints.length/2)];
-
             const payload = {
-                name: name, 
-                households: parseInt(households),
+                name: name || window.lastDrawName, 
+                households: parseInt(households || window.lastDrawHouseholds),
                 length: Math.round(length),
                 coords: center,
                 path: drawPoints,
                 force: force
             };
-            
-            if(force) {
-                 payload.name = window.lastDrawName;
-                 payload.households = window.lastDrawHouseholds;
-            } else {
-                window.lastDrawName = name;
-                window.lastDrawHouseholds = parseInt(households);
-            }
+            if(!force) { window.lastDrawName = name; window.lastDrawHouseholds = parseInt(households); }
 
             const res = await fetch('/admin/add_street', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
             });
-            
             const data = await res.json();
-            
-            if (data.success) {
-                alert("Straße gespeichert!");
-                location.reload();
-            } else if (data.error === 'duplicate') {
-                if (confirm(`${data.msg}\nTrotzdem anlegen?`)) {
-                    finishDrawing(true);
-                }
-            } else {
-                alert("Fehler beim Speichern.");
-            }
+            if (data.success) { alert("Gespeichert!"); location.reload(); }
+            else if (data.error === 'duplicate') { if (confirm(`${data.msg}\nTrotzdem anlegen?`)) finishDrawing(true); }
+            else alert("Fehler!");
         }
 
-        async function downloadExport() {
-            window.open('/admin/export_geojson', '_blank');
-        }
+        async function downloadExport() { window.open('/admin/export_geojson', '_blank'); }
 
         async function editStreet(id) {
             const s = streets[id];
@@ -556,7 +604,6 @@
             if (newName === null) return;
             const newHouseholds = prompt("Haushalte ändern:", s.households);
             if (newHouseholds === null) return;
-            
             const res = await fetch('/admin/edit_street', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -566,7 +613,7 @@
         }
 
         async function deleteStreet(id) {
-            if(confirm(`Straße '${streets[id].name}' wirklich löschen?`)) {
+            if(confirm(`'${streets[id].name}' löschen?`)) {
                 const res = await fetch('/admin/delete_street', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},

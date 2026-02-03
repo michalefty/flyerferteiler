@@ -4,6 +4,10 @@ import os
 from datetime import datetime
 import requests
 import math
+try:
+    import config
+except ImportError:
+    config = None
 
 app = Flask(__name__)
 DATA_FILE = 'data/streets_status.json'
@@ -19,7 +23,8 @@ def save_data(data):
 @app.route('/')
 def index():
     data = load_data()
-    return render_template('index.html', metadata=data['metadata'], streets=data['streets'])
+    days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
+    return render_template('index.html', metadata=data['metadata'], streets=data['streets'], survey_days=days)
 
 @app.route('/update', methods=['POST'])
 def update():
@@ -44,9 +49,13 @@ def update():
 
 @app.route('/admin/login', methods=['POST'])
 def admin_login():
-    # Simple hardcoded password or from env
     pwd = request.json.get('password')
-    correct = os.environ.get('ADMIN_PASSWORD', 'geheim123') 
+    correct = os.environ.get('ADMIN_PASSWORD')
+    if not correct and config:
+        correct = getattr(config, 'ADMIN_PASSWORD', None)
+    if not correct:
+        correct = 'geheim123'
+        
     if pwd == correct:
         return jsonify({"success": True})
     return jsonify({"success": False}), 401
