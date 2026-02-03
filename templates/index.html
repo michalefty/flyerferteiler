@@ -49,7 +49,8 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        const map = L.map('map');
+        // Initialize with a default view to prevent errors before data load
+        const map = L.map('map').setView([51.1657, 10.4515], 6); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         const streets = {{ streets|tojson }};
@@ -225,25 +226,84 @@
 
         // Selection Tool
         let isSelecting = false, rect = null, start = null;
+
         function toggleSelectionMode() {
             isSelecting = !isSelecting;
             document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : 'var(--info)';
-            map.dragging[isSelecting ? 'disable' : 'enable']();
-            map.getContainer().style.cursor = isSelecting ? 'crosshair' : '';
-        }
-        map.on('mousedown', e => { if(!isSelecting) return; start = e.latlng; rect = L.rectangle([start, start], {color: '#3498db', weight: 2}).addTo(map); });
-        map.on('mousemove', e => { if(isSelecting && rect) rect.setBounds([start, e.latlng]); });
-        map.on('mouseup', e => {
-            if(!isSelecting || !rect) return;
-            const b = rect.getBounds();
             
-            // Only select FREE streets
+            // Disable map dragging and tap interactions when selecting
+            if (isSelecting) {
+                map.dragging.disable();
+                if (map.tap) map.tap.disable();
+                map.getContainer().style.cursor = 'crosshair';
+            } else {
+                map.dragging.enable();
+                if (map.tap) map.tap.enable();
+                map.getContainer().style.cursor = '';
+            }
+        }
+
+        // Unified Start Handler
+        function onDragStart(e) {
+            if (!isSelecting) return;
+            // Prevent default to stop scrolling on mobile
+            L.DomEvent.preventDefault(e); 
+            
+            const latlng = e.latlng || map.mouseEventToLatLng(e.originalEvent);
+            start = latlng;
+            rect = L.rectangle([start, start], {color: '#3498db', weight: 2}).addTo(map);
+        }
+
+        // Unified Move Handler
+        function onDragMove(e) {
+            if (isSelecting && rect) {
+                L.DomEvent.preventDefault(e);
+                const latlng = e.latlng || map.mouseEventToLatLng(e.originalEvent);
+                rect.setBounds([start, latlng]);
+            }
+        }
+
+        // Unified End Handler
+        function onDragEnd(e) {
+            if (!isSelecting || !rect) return;
+            
+            const b = rect.getBounds();
             const ids = Object.keys(streets).filter(id => streets[id].status === 'free' && b.contains(streets[id].coords));
             
-            if(ids.length > 0) {
-                if(confirm(`${ids.length} Straßen reservieren?`)) updateStatus(ids, 'taken');
+            if (ids.length > 0) {
+                if (confirm(`${ids.length} Straßen reservieren?`)) updateStatus(ids, 'taken');
             }
-            map.removeLayer(rect); rect = null; toggleSelectionMode();
+            
+            map.removeLayer(rect);
+            rect = null;
+            toggleSelectionMode(); // Exit selection mode automatically
+        }
+
+        // Add Listeners for Mouse and Touch
+        map.on('mousedown', onDragStart);
+        map.on('mousemove', onDragMove);
+        map.on('mouseup', onDragEnd);
+
+        // Map container listeners for touch (Leaflet sometimes swallows touch on the map object directly)
+        const mapContainer = map.getContainer();
+        
+        mapContainer.addEventListener('touchstart', (e) => {
+            if(!isSelecting) return;
+            const touch = e.touches[0];
+            // Create a fake Leaflet event object with latlng
+            const point = map.containerPointToLatLng([touch.clientX - mapContainer.getBoundingClientRect().left, touch.clientY - mapContainer.getBoundingClientRect().top]);
+            onDragStart({ latlng: point, originalEvent: e });
+        }, {passive: false});
+
+        mapContainer.addEventListener('touchmove', (e) => {
+            if(!isSelecting) return;
+            const touch = e.touches[0];
+            const point = map.containerPointToLatLng([touch.clientX - mapContainer.getBoundingClientRect().left, touch.clientY - mapContainer.getBoundingClientRect().top]);
+            onDragMove({ latlng: point, originalEvent: e });
+        }, {passive: false});
+
+        mapContainer.addEventListener('touchend', (e) => {
+           onDragEnd(e);
         });
 
         // PDF Export
