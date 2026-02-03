@@ -1,24 +1,25 @@
 {
   "metadata": {
     "center": [
-      49.912513173148135,
-      9.164876670370374
+      49.912886081204974,
+      9.167717581901625
     ],
-    "city": "Sulzbach am Main",
-    "date": "02.02.2026",
+    "city": "Teststadt",
+    "date": "03.02.2026",
     "plz": "63834",
-    "total_streets": 108
+    "total_streets": 148
   },
   "streets": {
     "agathastraße": {
       "coords": [
-        49.9171121,
-        9.1510974
+        49.91711205,
+        9.15109735
       ],
       "households": 5,
+      "length": 122,
       "name": "Agathastraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "akazienweg": {
       "coords": [
@@ -26,9 +27,10 @@
         9.1470636
       ],
       "households": 2,
+      "length": 48,
       "name": "Akazienweg",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "alexandrastraße": {
       "coords": [
@@ -36,206 +38,271 @@
         9.1501162
       ],
       "households": 3,
+      "length": 127,
       "name": "Alexandrastraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "alte_kleinwallstädter_straße": {
       "coords": [
-        49.9036888,
-        9.1504841
+        49.904189300000006,
+        9.1503477
       ],
-      "households": 3,
+      "households": 5,
+      "length": 289,
       "name": "Alte Kleinwallstädter Straße",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
-    "am_altenbach": {
+    "am_altenbach_part1": {
       "coords": [
-        49.91925,
+        49.919250000000005,
         9.1527744
       ],
-      "households": 6,
-      "name": "Am Altenbach",
-      "status": "taken",
-      "user": "test"
+      "households": 3,
+      "length": 370,
+      "name": "Am Altenbach (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "am_altenbach_part2": {
+      "coords": [
+        49.919250000000005,
+        9.1527744
+      ],
+      "households": 3,
+      "length": 370,
+      "name": "Am Altenbach (2/2)",
+      "status": "free",
+      "user": ""
     },
     "am_berg": {
       "coords": [
-        49.92285,
-        9.2035983
+        49.922730090476186,
+        9.20418969047619
       ],
-      "households": 1,
+      "households": 12,
+      "length": 350,
       "name": "Am Berg",
       "status": "free",
       "user": ""
     },
     "am_friedrichsberg": {
       "coords": [
-        49.9303406,
-        9.2255846
+        49.93014848333333,
+        9.225516033333335
       ],
-      "households": 4,
+      "households": 3,
+      "length": 186,
       "name": "Am Friedrichsberg",
       "status": "free",
       "user": ""
     },
     "am_lenzengrund": {
       "coords": [
-        49.9283736,
-        9.2222865
+        49.92870753499999,
+        9.222387815000001
       ],
-      "households": 8,
+      "households": 16,
+      "length": 482,
       "name": "Am Lenzengrund",
       "status": "free",
       "user": ""
     },
     "am_sportplatz": {
       "coords": [
-        49.9150135,
-        9.1635604
+        49.915183379999995,
+        9.1634781
       ],
-      "households": 5,
+      "households": 1,
+      "length": 293,
       "name": "Am Sportplatz",
       "status": "free",
       "user": ""
     },
     "am_spottenberg": {
       "coords": [
-        49.9147885,
-        9.1622451
+        49.91489685,
+        9.162201883333333
       ],
-      "households": 14,
+      "households": 6,
+      "length": 115,
       "name": "Am Spottenberg",
       "status": "free",
       "user": ""
     },
     "am_weiher": {
       "coords": [
-        49.9099848,
-        9.1567462
+        49.909952857142855,
+        9.156711457142858
       ],
-      "households": 17,
+      "households": 18,
+      "length": 193,
       "name": "Am Weiher",
       "status": "free",
       "user": ""
     },
     "amselweg": {
       "coords": [
-        49.9127184,
-        9.1571697
+        49.9127206,
+        9.1574096
       ],
       "households": 5,
+      "length": 126,
       "name": "Amselweg",
       "status": "free",
       "user": ""
     },
     "an_der_geeb": {
       "coords": [
-        49.9106063,
-        9.1521728
+        49.91060485,
+        9.15223975
       ],
-      "households": 15,
+      "households": 3,
+      "length": 315,
       "name": "An der Geeb",
       "status": "free",
       "user": ""
     },
     "annastraße": {
       "coords": [
-        49.9159955,
-        9.1515098
+        49.91610310000001,
+        9.151472066666667
       ],
-      "households": 9,
+      "households": 8,
+      "length": 132,
       "name": "Annastraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "asternweg": {
       "coords": [
-        49.9057351,
-        9.1541697
+        49.90574303333333,
+        9.154204266666667
       ],
-      "households": 6,
+      "households": 7,
+      "length": 170,
       "name": "Asternweg",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "auf_der_birkenhöhe": {
       "coords": [
         49.8980191,
         9.1841103
       ],
-      "households": 5,
+      "households": 3,
+      "length": 244,
       "name": "Auf der Birkenhöhe",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "bahnhofstraße": {
       "coords": [
-        49.91833,
-        9.1477234
+        49.918514877777774,
+        9.147741700000001
       ],
-      "households": 2,
+      "households": 3,
+      "length": 116,
       "name": "Bahnhofstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "bergweg": {
       "coords": [
-        49.913884,
-        9.165947
+        49.913986019999996,
+        9.166090209999998
       ],
-      "households": 4,
+      "households": 7,
+      "length": 224,
       "name": "Bergweg",
       "status": "free",
       "user": ""
     },
     "berliner_ring": {
       "coords": [
-        49.9149676,
-        9.1694687
+        49.915040372727276,
+        9.169315345454546
       ],
-      "households": 5,
+      "households": 28,
+      "length": 483,
       "name": "Berliner Ring",
       "status": "free",
       "user": ""
     },
     "blumenstraße": {
       "coords": [
-        49.9062423,
-        9.1541565
+        49.906326225,
+        9.154475625
       ],
-      "households": 27,
+      "households": 15,
+      "length": 506,
       "name": "Blumenstraße",
       "status": "free",
       "user": ""
     },
-    "breiter_weg": {
+    "breiter_weg_part1": {
       "coords": [
-        49.9066658,
-        9.1521144
+        49.906968716666675,
+        9.151906316666668
       ],
-      "households": 14,
-      "name": "Breiter Weg",
+      "households": 2,
+      "length": 477,
+      "name": "Breiter Weg (1/4)",
+      "status": "free",
+      "user": ""
+    },
+    "breiter_weg_part2": {
+      "coords": [
+        49.906968716666675,
+        9.151906316666668
+      ],
+      "households": 2,
+      "length": 477,
+      "name": "Breiter Weg (2/4)",
+      "status": "free",
+      "user": ""
+    },
+    "breiter_weg_part3": {
+      "coords": [
+        49.906968716666675,
+        9.151906316666668
+      ],
+      "households": 2,
+      "length": 477,
+      "name": "Breiter Weg (3/4)",
+      "status": "free",
+      "user": ""
+    },
+    "breiter_weg_part4": {
+      "coords": [
+        49.906968716666675,
+        9.151906316666668
+      ],
+      "households": 2,
+      "length": 477,
+      "name": "Breiter Weg (4/4)",
       "status": "free",
       "user": ""
     },
     "breslauer_straße": {
       "coords": [
-        49.9142071,
-        9.1677132
+        49.914407499999996,
+        9.1677703
       ],
-      "households": 9,
+      "households": 5,
+      "length": 135,
       "name": "Breslauer Straße",
       "status": "free",
       "user": ""
     },
     "brunnengasse": {
       "coords": [
-        49.909338,
-        9.154457
+        49.90938481666666,
+        9.154412016666667
       ],
       "households": 17,
+      "length": 118,
       "name": "Brunnengasse",
       "status": "free",
       "user": ""
@@ -243,299 +310,417 @@
     "danziger_straße": {
       "coords": [
         49.9137653,
-        9.1668754
+        9.16687545
       ],
-      "households": 5,
+      "households": 3,
+      "length": 68,
       "name": "Danziger Straße",
       "status": "free",
       "user": ""
     },
-    "doktor-albert-hoffa-straße": {
+    "doktor-albert-hoffa-straße_part1": {
       "coords": [
-        49.9217871,
-        9.1883963
+        49.92160518333333,
+        9.187930716666669
       ],
       "households": 2,
-      "name": "Doktor-Albert-Hoffa-Straße",
-      "status": "taken",
-      "user": "hugo"
+      "length": 415,
+      "name": "Doktor-Albert-Hoffa-Straße (1/3)",
+      "status": "free",
+      "user": ""
     },
-    "doktor-karl-reus-straße": {
+    "doktor-albert-hoffa-straße_part2": {
       "coords": [
-        49.9229655,
-        9.2085314
+        49.92160518333333,
+        9.187930716666669
       ],
-      "households": 3,
-      "name": "Doktor-Karl-Reus-Straße",
+      "households": 2,
+      "length": 415,
+      "name": "Doktor-Albert-Hoffa-Straße (2/3)",
+      "status": "free",
+      "user": ""
+    },
+    "doktor-albert-hoffa-straße_part3": {
+      "coords": [
+        49.92160518333333,
+        9.187930716666669
+      ],
+      "households": 2,
+      "length": 415,
+      "name": "Doktor-Albert-Hoffa-Straße (3/3)",
+      "status": "free",
+      "user": ""
+    },
+    "doktor-karl-reus-straße_part1": {
+      "coords": [
+        49.922991425000006,
+        9.2085756875
+      ],
+      "households": 15,
+      "length": 478,
+      "name": "Doktor-Karl-Reus-Straße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "doktor-karl-reus-straße_part2": {
+      "coords": [
+        49.922991425000006,
+        9.2085756875
+      ],
+      "households": 15,
+      "length": 478,
+      "name": "Doktor-Karl-Reus-Straße (2/2)",
       "status": "free",
       "user": ""
     },
     "dorfstraße": {
       "coords": [
-        49.8954017,
-        9.1908972
+        49.89537008,
+        9.19088504
       ],
-      "households": 10,
+      "households": 15,
+      "length": 318,
       "name": "Dorfstraße",
       "status": "free",
       "user": ""
     },
-    "dornauer_ring": {
+    "dornauer_ring_part1": {
       "coords": [
-        49.8974669,
-        9.1866522
+        49.897523,
+        9.18675395
       ],
-      "households": 15,
-      "name": "Dornauer Ring",
+      "households": 7,
+      "length": 344,
+      "name": "Dornauer Ring (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "dornauer_ring_part2": {
+      "coords": [
+        49.897523,
+        9.18675395
+      ],
+      "households": 7,
+      "length": 344,
+      "name": "Dornauer Ring (2/2)",
       "status": "free",
       "user": ""
     },
     "dornauer_weg": {
       "coords": [
-        49.9076077,
-        9.1536848
+        49.90771178333333,
+        9.153532333333334
       ],
-      "households": 11,
+      "households": 10,
+      "length": 403,
       "name": "Dornauer Weg",
       "status": "free",
       "user": ""
     },
     "dr.-gerhard-rüdiger-straße": {
       "coords": [
-        49.9228683,
-        9.2065556
+        49.922817876923084,
+        9.206913138461537
       ],
-      "households": 3,
+      "households": 5,
+      "length": 237,
       "name": "Dr.-Gerhard-Rüdiger-Straße",
       "status": "free",
       "user": ""
     },
     "drosselweg": {
       "coords": [
-        49.9131369,
-        9.1590577
+        49.913136275,
+        9.159052225
       ],
-      "households": 10,
+      "households": 7,
+      "length": 86,
       "name": "Drosselweg",
       "status": "free",
       "user": ""
     },
     "dürerstraße": {
       "coords": [
-        49.9103909,
-        9.1623231
+        49.910474666666666,
+        9.1622474
       ],
-      "households": 4,
+      "households": 3,
+      "length": 78,
       "name": "Dürerstraße",
       "status": "free",
       "user": ""
     },
-    "ebersbacher_straße": {
+    "ebersbacher_straße_part1": {
       "coords": [
-        49.913549,
-        9.1847764
+        49.91354786666667,
+        9.18479
       ],
-      "households": 3,
-      "name": "Ebersbacher Straße",
+      "households": 17,
+      "length": 349,
+      "name": "Ebersbacher Straße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "ebersbacher_straße_part2": {
+      "coords": [
+        49.91354786666667,
+        9.18479
+      ],
+      "households": 17,
+      "length": 349,
+      "name": "Ebersbacher Straße (2/2)",
       "status": "free",
       "user": ""
     },
     "egerländer_straße": {
       "coords": [
-        49.9168631,
-        9.1674962
+        49.9168273,
+        9.16744265
       ],
-      "households": 11,
+      "households": 6,
+      "length": 368,
       "name": "Egerländer Straße",
       "status": "free",
       "user": ""
     },
     "elisenstraße": {
       "coords": [
-        49.9140079,
-        9.1524908
+        49.91400795,
+        9.152490799999999
       ],
-      "households": 4,
+      "households": 5,
+      "length": 149,
       "name": "Elisenstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "erlenstraße": {
       "coords": [
-        49.896246,
-        9.1894773
+        49.89620324,
+        9.18946244
       ],
       "households": 3,
+      "length": 98,
       "name": "Erlenstraße",
       "status": "free",
       "user": ""
     },
     "eulenweg": {
       "coords": [
-        49.913873,
-        9.1573605
+        49.91384496666666,
+        9.157199666666665
       ],
-      "households": 13,
+      "households": 5,
+      "length": 192,
       "name": "Eulenweg",
       "status": "free",
       "user": ""
     },
     "fasanenweg": {
       "coords": [
-        49.9132432,
-        9.1580228
+        49.91346741428572,
+        9.158013685714284
       ],
-      "households": 7,
+      "households": 3,
+      "length": 250,
       "name": "Fasanenweg",
       "status": "free",
       "user": ""
     },
     "finkenweg": {
       "coords": [
-        49.9132151,
-        9.1599202
+        49.913119566666666,
+        9.159939533333334
       ],
-      "households": 10,
+      "households": 7,
+      "length": 85,
       "name": "Finkenweg",
       "status": "free",
       "user": ""
     },
     "fliederweg": {
       "coords": [
-        49.9050027,
-        9.1546499
+        49.90504190000001,
+        9.154861033333333
       ],
-      "households": 7,
+      "households": 2,
+      "length": 155,
       "name": "Fliederweg",
       "status": "free",
       "user": ""
     },
     "flurweg": {
       "coords": [
-        49.9079055,
-        9.1592239
+        49.90788039999999,
+        9.1592336
       ],
-      "households": 4,
+      "households": 5,
+      "length": 169,
       "name": "Flurweg",
       "status": "free",
       "user": ""
     },
     "franz-schüßler-straße": {
       "coords": [
-        49.9100195,
-        9.1560325
+        49.91002185000001,
+        9.1560872125
       ],
-      "households": 4,
+      "households": 2,
+      "length": 276,
       "name": "Franz-Schüßler-Straße",
       "status": "free",
       "user": ""
     },
     "friedenstraße": {
       "coords": [
-        49.9127681,
-        9.1540087
+        49.912676,
+        9.15400195
       ],
-      "households": 4,
+      "households": 5,
+      "length": 205,
       "name": "Friedenstraße",
       "status": "free",
       "user": ""
     },
     "friedhofstraße": {
       "coords": [
-        49.9108988,
-        9.1503559
+        49.91078309230769,
+        9.15042286153846
       ],
-      "households": 6,
+      "households": 9,
+      "length": 230,
       "name": "Friedhofstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "goethestraße": {
       "coords": [
-        49.9095202,
-        9.1612858
+        49.909724700000005,
+        9.16183436
       ],
-      "households": 7,
+      "households": 10,
+      "length": 413,
       "name": "Goethestraße",
       "status": "free",
       "user": ""
     },
-    "grünewaldstraße": {
+    "grünewaldstraße_part1": {
       "coords": [
-        49.9091791,
-        9.1621855
+        49.909107719999994,
+        9.162062090000001
       ],
-      "households": 11,
-      "name": "Grünewaldstraße",
+      "households": 9,
+      "length": 414,
+      "name": "Grünewaldstraße (1/2)",
       "status": "free",
       "user": ""
     },
-    "hasenhecke": {
+    "grünewaldstraße_part2": {
       "coords": [
-        49.914012,
-        9.1608812
+        49.909107719999994,
+        9.162062090000001
       ],
-      "households": 8,
-      "name": "Hasenhecke",
+      "households": 9,
+      "length": 414,
+      "name": "Grünewaldstraße (2/2)",
+      "status": "free",
+      "user": ""
+    },
+    "hasenhecke_part1": {
+      "coords": [
+        49.913859792857146,
+        9.160704014285715
+      ],
+      "households": 12,
+      "length": 302,
+      "name": "Hasenhecke (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "hasenhecke_part2": {
+      "coords": [
+        49.913859792857146,
+        9.160704014285715
+      ],
+      "households": 12,
+      "length": 302,
+      "name": "Hasenhecke (2/2)",
       "status": "free",
       "user": ""
     },
     "helenenstraße": {
       "coords": [
         49.9168701,
-        9.1491313
+        9.14913135
       ],
       "households": 2,
+      "length": 132,
       "name": "Helenenstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "hintere_dorfstraße": {
       "coords": [
-        49.9093022,
-        9.1507039
+        49.90963178,
+        9.15051184
       ],
-      "households": 9,
+      "households": 16,
+      "length": 333,
       "name": "Hintere Dorfstraße",
       "status": "free",
       "user": ""
     },
-    "hohe-wart-straße": {
+    "hohe-wart-straße_part1": {
       "coords": [
-        49.9271273,
-        9.2276532
+        49.92707313333333,
+        9.227598500000001
       ],
-      "households": 13,
-      "name": "Hohe-Wart-Straße",
+      "households": 8,
+      "length": 575,
+      "name": "Hohe-Wart-Straße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "hohe-wart-straße_part2": {
+      "coords": [
+        49.92707313333333,
+        9.227598500000001
+      ],
+      "households": 8,
+      "length": 575,
+      "name": "Hohe-Wart-Straße (2/2)",
       "status": "free",
       "user": ""
     },
     "hollerweg": {
       "coords": [
-        49.9067867,
-        9.1574164
+        49.906888325000004,
+        9.1573267875
       ],
-      "households": 15,
+      "households": 10,
+      "length": 350,
       "name": "Hollerweg",
       "status": "free",
       "user": ""
     },
     "holzwiesenweg": {
       "coords": [
-        49.9309741,
-        9.2254911
+        49.930771899999996,
+        9.225437483333334
       ],
-      "households": 5,
+      "households": 3,
+      "length": 294,
       "name": "Holzwiesenweg",
       "status": "free",
       "user": ""
     },
     "höfchen": {
       "coords": [
-        49.9112747,
-        9.1525738
+        49.9112507125,
+        9.1525271375
       ],
-      "households": 8,
+      "households": 16,
+      "length": 152,
       "name": "Höfchen",
       "status": "free",
       "user": ""
@@ -545,547 +730,910 @@
         49.9095593,
         9.1597751
       ],
-      "households": 10,
+      "households": 5,
+      "length": 195,
       "name": "Höhfeldstraße",
       "status": "free",
       "user": ""
     },
-    "höhwaldweg": {
+    "höhwaldweg_part1": {
       "coords": [
-        49.9076925,
-        9.1617346
+        49.90764025,
+        9.161737160000001
       ],
-      "households": 16,
-      "name": "Höhwaldweg",
+      "households": 8,
+      "length": 422,
+      "name": "Höhwaldweg (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "höhwaldweg_part2": {
+      "coords": [
+        49.90764025,
+        9.161737160000001
+      ],
+      "households": 8,
+      "length": 422,
+      "name": "Höhwaldweg (2/2)",
       "status": "free",
       "user": ""
     },
     "im_hag": {
       "coords": [
-        49.9151887,
-        9.1511123
+        49.91518774000001,
+        9.150993340000001
       ],
-      "households": 3,
+      "households": 6,
+      "length": 270,
       "name": "Im Hag",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "im_steinetz": {
       "coords": [
-        49.916445,
-        9.1501632
+        49.91645632857143,
+        9.150412585714287
       ],
-      "households": 2,
+      "households": 13,
+      "length": 305,
       "name": "Im Steinetz",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
-    "industriestraße": {
+    "industriestraße_part1": {
       "coords": [
-        49.9195603,
-        9.1489082
+        49.91956183333334,
+        9.148889566666666
       ],
-      "households": 5,
-      "name": "Industriestraße",
-      "status": "taken",
-      "user": "test"
+      "households": 1,
+      "length": 474,
+      "name": "Industriestraße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "industriestraße_part2": {
+      "coords": [
+        49.91956183333334,
+        9.148889566666666
+      ],
+      "households": 1,
+      "length": 474,
+      "name": "Industriestraße (2/2)",
+      "status": "free",
+      "user": ""
     },
     "jahnstraße": {
       "coords": [
-        49.9077208,
-        9.1521171
+        49.90772606,
+        9.152125620000001
       ],
-      "households": 29,
+      "households": 18,
+      "length": 443,
       "name": "Jahnstraße",
       "status": "free",
       "user": ""
     },
     "jägersgarten": {
       "coords": [
-        49.9128865,
-        9.153453
+        49.912895633333335,
+        9.153561433333332
       ],
-      "households": 1,
+      "households": 2,
+      "length": 83,
       "name": "Jägersgarten",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "karlsbader_straße": {
       "coords": [
-        49.9165567,
-        9.1677985
+        49.9163367,
+        9.167672128571429
       ],
-      "households": 3,
+      "households": 6,
+      "length": 228,
       "name": "Karlsbader Straße",
       "status": "free",
       "user": ""
     },
     "karolinenstraße": {
       "coords": [
-        49.9175484,
-        9.1498202
+        49.917576,
+        9.150132383333334
       ],
-      "households": 3,
+      "households": 7,
+      "length": 295,
       "name": "Karolinenstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "kirchgasse": {
       "coords": [
-        49.9091865,
-        9.152126
+        49.9092678,
+        9.152263199999998
       ],
-      "households": 9,
+      "households": 10,
+      "length": 125,
       "name": "Kirchgasse",
       "status": "free",
       "user": ""
     },
-    "kleewiesenweg": {
+    "kleewiesenweg_part1": {
       "coords": [
-        49.9114307,
-        9.1483394
+        49.911427366666665,
+        9.148350833333332
       ],
       "households": 1,
-      "name": "Kleewiesenweg",
+      "length": 424,
+      "name": "Kleewiesenweg (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "kleewiesenweg_part2": {
+      "coords": [
+        49.911427366666665,
+        9.148350833333332
+      ],
+      "households": 1,
+      "length": 424,
+      "name": "Kleewiesenweg (2/2)",
       "status": "free",
       "user": ""
     },
     "kleinwallstädter_straße": {
       "coords": [
-        49.8959378,
-        9.1835091
+        49.895937849999996,
+        9.183509149999999
       ],
-      "households": 5,
+      "households": 3,
+      "length": 253,
       "name": "Kleinwallstädter Straße",
       "status": "free",
       "user": ""
     },
     "konrad-adenauer-straße": {
       "coords": [
-        49.9124206,
-        9.1553622
+        49.912409466666666,
+        9.155278366666666
       ],
-      "households": 8,
+      "households": 11,
+      "length": 292,
       "name": "Konrad-Adenauer-Straße",
       "status": "free",
       "user": ""
     },
-    "kurmainzer_ring": {
+    "kurmainzer_ring_part1": {
       "coords": [
-        49.9075409,
-        9.1616786
+        49.90755837777779,
+        9.161918392592591
       ],
-      "households": 9,
-      "name": "Kurmainzer Ring",
+      "households": 13,
+      "length": 365,
+      "name": "Kurmainzer Ring (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "kurmainzer_ring_part2": {
+      "coords": [
+        49.90755837777779,
+        9.161918392592591
+      ],
+      "households": 13,
+      "length": 365,
+      "name": "Kurmainzer Ring (2/2)",
       "status": "free",
       "user": ""
     },
     "kurt-schumacher-straße": {
       "coords": [
-        49.9130926,
-        9.1548614
+        49.91308206666667,
+        9.154749066666668
       ],
       "households": 4,
+      "length": 112,
       "name": "Kurt-Schumacher-Straße",
-      "status": "taken",
-      "user": "hugo"
-    },
-    "königsberger_straße": {
-      "coords": [
-        49.9151507,
-        9.1668475
-      ],
-      "households": 15,
-      "name": "Königsberger Straße",
       "status": "free",
       "user": ""
     },
-    "kübler_ring": {
+    "königsberger_straße_part1": {
       "coords": [
-        49.9143659,
-        9.148727
+        49.91480371428571,
+        9.166432957142858
       ],
-      "households": 40,
-      "name": "Kübler Ring",
-      "status": "taken",
-      "user": "test"
+      "households": 11,
+      "length": 333,
+      "name": "Königsberger Straße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "königsberger_straße_part2": {
+      "coords": [
+        49.91480371428571,
+        9.166432957142858
+      ],
+      "households": 11,
+      "length": 333,
+      "name": "Königsberger Straße (2/2)",
+      "status": "free",
+      "user": ""
+    },
+    "kübler_ring_part1": {
+      "coords": [
+        49.914481591666664,
+        9.148395675
+      ],
+      "households": 13,
+      "length": 406,
+      "name": "Kübler Ring (1/3)",
+      "status": "free",
+      "user": ""
+    },
+    "kübler_ring_part2": {
+      "coords": [
+        49.914481591666664,
+        9.148395675
+      ],
+      "households": 13,
+      "length": 406,
+      "name": "Kübler Ring (2/3)",
+      "status": "free",
+      "user": ""
+    },
+    "kübler_ring_part3": {
+      "coords": [
+        49.914481591666664,
+        9.148395675
+      ],
+      "households": 13,
+      "length": 406,
+      "name": "Kübler Ring (3/3)",
+      "status": "free",
+      "user": ""
     },
     "lerchenweg": {
       "coords": [
-        49.9135024,
-        9.1606588
+        49.9134381,
+        9.160704766666667
       ],
-      "households": 9,
+      "households": 8,
+      "length": 61,
       "name": "Lerchenweg",
       "status": "free",
       "user": ""
     },
     "lindenstraße": {
       "coords": [
-        49.8973234,
-        9.1884777
+        49.89720025714286,
+        9.188078642857144
       ],
-      "households": 3,
+      "households": 4,
+      "length": 281,
       "name": "Lindenstraße",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "luisenstraße": {
       "coords": [
-        49.9158,
-        9.1505728
+        49.915800000000004,
+        9.15057285
       ],
-      "households": 8,
+      "households": 3,
+      "length": 144,
       "name": "Luisenstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "margarethenstraße": {
       "coords": [
-        49.9166616,
-        9.152379
+        49.91655261666667,
+        9.152399533333334
       ],
-      "households": 13,
+      "households": 11,
+      "length": 561,
       "name": "Margarethenstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "marienstraße": {
       "coords": [
         49.9159906,
-        9.1543102
+        9.15431025
       ],
-      "households": 10,
+      "households": 9,
+      "length": 263,
       "name": "Marienstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "meisenweg": {
       "coords": [
-        49.9137668,
-        9.1613383
+        49.913720500000004,
+        9.161376366666667
       ],
-      "households": 8,
+      "households": 7,
+      "length": 52,
       "name": "Meisenweg",
       "status": "free",
       "user": ""
     },
     "märzbrückenweg": {
       "coords": [
-        49.9076922,
-        9.1502215
+        49.907688900000004,
+        9.149973033333334
       ],
-      "households": 5,
+      "households": 8,
+      "length": 166,
       "name": "Märzbrückenweg",
       "status": "free",
       "user": ""
     },
-    "mühlbachstraße": {
+    "mühlbachstraße_part1": {
       "coords": [
-        49.912396,
-        9.1603376
+        49.91216988000001,
+        9.1609534
       ],
       "households": 2,
-      "name": "Mühlbachstraße",
-      "status": "taken",
-      "user": "hugo"
+      "length": 345,
+      "name": "Mühlbachstraße (1/2)",
+      "status": "free",
+      "user": ""
     },
-    "mühlweg": {
+    "mühlbachstraße_part2": {
       "coords": [
-        49.9119541,
-        9.1527433
+        49.91216988000001,
+        9.1609534
       ],
-      "households": 24,
-      "name": "Mühlweg",
-      "status": "taken",
-      "user": "hugo"
+      "households": 2,
+      "length": 345,
+      "name": "Mühlbachstraße (2/2)",
+      "status": "free",
+      "user": ""
+    },
+    "mühlweg_part1": {
+      "coords": [
+        49.91195362857143,
+        9.152569942857141
+      ],
+      "households": 15,
+      "length": 437,
+      "name": "Mühlweg (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "mühlweg_part2": {
+      "coords": [
+        49.91195362857143,
+        9.152569942857141
+      ],
+      "households": 15,
+      "length": 437,
+      "name": "Mühlweg (2/2)",
+      "status": "free",
+      "user": ""
     },
     "nelkenweg": {
       "coords": [
-        49.9054021,
-        9.155572
+        49.90535500000001,
+        9.155599833333333
       ],
-      "households": 7,
+      "households": 6,
+      "length": 143,
       "name": "Nelkenweg",
       "status": "free",
       "user": ""
     },
-    "niedernberger_straße": {
+    "niedernberger_straße_part1": {
       "coords": [
-        49.9127173,
-        9.1478955
+        49.912528957142854,
+        9.147893185714285
       ],
-      "households": 4,
-      "name": "Niedernberger Straße",
+      "households": 2,
+      "length": 458,
+      "name": "Niedernberger Straße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "niedernberger_straße_part2": {
+      "coords": [
+        49.912528957142854,
+        9.147893185714285
+      ],
+      "households": 2,
+      "length": 458,
+      "name": "Niedernberger Straße (2/2)",
       "status": "free",
       "user": ""
     },
     "ober_der_steinhohle": {
       "coords": [
-        49.9130847,
-        9.1523807
+        49.913077525,
+        9.15238175
       ],
-      "households": 16,
+      "households": 7,
+      "length": 442,
       "name": "Ober der Steinhohle",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "pfortengasse": {
       "coords": [
-        49.9087026,
-        9.1534925
+        49.908648525,
+        9.153504475
       ],
-      "households": 6,
+      "households": 4,
+      "length": 80,
       "name": "Pfortengasse",
       "status": "free",
       "user": ""
     },
     "pommernstraße": {
       "coords": [
-        49.9128332,
-        9.1619282
+        49.912864533333334,
+        9.162228399999998
       ],
-      "households": 5,
+      "households": 2,
+      "length": 164,
       "name": "Pommernstraße",
       "status": "free",
       "user": ""
     },
     "prof.-dr.-dölger-straße": {
       "coords": [
-        49.9079771,
-        9.1580107
+        49.90797082,
+        9.157994120000001
       ],
-      "households": 18,
+      "households": 4,
+      "length": 528,
       "name": "Prof.-Dr.-Dölger-Straße",
       "status": "free",
       "user": ""
     },
     "rainweg": {
       "coords": [
-        49.9056173,
-        9.158515
+        49.90570424166666,
+        9.158594300000003
       ],
-      "households": 3,
+      "households": 4,
+      "length": 196,
       "name": "Rainweg",
       "status": "free",
       "user": ""
     },
     "renatastraße": {
       "coords": [
-        49.9168355,
-        9.1525753
+        49.91684074,
+        9.15273574
       ],
-      "households": 3,
+      "households": 5,
+      "length": 238,
       "name": "Renatastraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "ringstraße": {
       "coords": [
-        49.9265724,
-        9.2159138
+        49.926488696774186,
+        9.215477880645162
       ],
-      "households": 3,
+      "households": 16,
+      "length": 440,
       "name": "Ringstraße",
       "status": "free",
       "user": ""
     },
     "ritastraße": {
       "coords": [
-        49.9156962,
+        49.915696249999996,
         9.1535721
       ],
-      "households": 3,
+      "households": 5,
+      "length": 101,
       "name": "Ritastraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "rosenweg": {
       "coords": [
-        49.9054912,
-        9.1564613
+        49.90556895,
+        9.156813225
       ],
       "households": 5,
+      "length": 127,
       "name": "Rosenweg",
       "status": "free",
       "user": ""
     },
     "schafbrückenweg": {
       "coords": [
-        49.9117163,
-        9.1638841
+        49.911683688888886,
+        9.163739177777778
       ],
-      "households": 3,
+      "households": 4,
+      "length": 316,
       "name": "Schafbrückenweg",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "schillerstraße": {
       "coords": [
-        49.9110561,
-        9.1654451
+        49.91105615,
+        9.16544505
       ],
-      "households": 7,
+      "households": 4,
+      "length": 200,
       "name": "Schillerstraße",
       "status": "free",
       "user": ""
     },
     "schlesierstraße": {
       "coords": [
-        49.913122,
-        9.1646782
+        49.913124175,
+        9.164726525
       ],
-      "households": 13,
+      "households": 4,
+      "length": 214,
       "name": "Schlesierstraße",
       "status": "free",
       "user": ""
     },
     "schloßbergstraße": {
       "coords": [
-        49.9281608,
-        9.2256209
+        49.92816333333334,
+        9.2257169
       ],
-      "households": 3,
+      "households": 5,
+      "length": 83,
       "name": "Schloßbergstraße",
       "status": "free",
       "user": ""
     },
     "schulstraße": {
       "coords": [
-        49.907865,
-        9.1601508
+        49.907906624999995,
+        9.160308875
       ],
-      "households": 3,
+      "households": 1,
+      "length": 292,
       "name": "Schulstraße",
       "status": "free",
       "user": ""
     },
     "schwalbenring": {
       "coords": [
-        49.9142508,
-        9.1605889
+        49.914250800000005,
+        9.16058895
       ],
-      "households": 17,
+      "households": 14,
+      "length": 300,
       "name": "Schwalbenring",
       "status": "free",
       "user": ""
     },
-    "sodentalstraße": {
+    "sodentalstraße_part1": {
       "coords": [
-        49.9138046,
-        9.1846582
+        49.91381654,
+        9.184672780000001
       ],
-      "households": 35,
-      "name": "Sodentalstraße",
-      "status": "taken",
-      "user": "hugo"
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (1/13)",
+      "status": "free",
+      "user": ""
     },
-    "spessartstraße": {
+    "sodentalstraße_part10": {
       "coords": [
-        49.9090391,
-        9.1516706
+        49.91381654,
+        9.184672780000001
       ],
-      "households": 33,
-      "name": "Spessartstraße",
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (10/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part11": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (11/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part12": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (12/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part13": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (13/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part2": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (2/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part3": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (3/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part4": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (4/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part5": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (5/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part6": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (6/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part7": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (7/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part8": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (8/13)",
+      "status": "free",
+      "user": ""
+    },
+    "sodentalstraße_part9": {
+      "coords": [
+        49.91381654,
+        9.184672780000001
+      ],
+      "households": 5,
+      "length": 427,
+      "name": "Sodentalstraße (9/13)",
+      "status": "free",
+      "user": ""
+    },
+    "spessartstraße_part1": {
+      "coords": [
+        49.9090409,
+        9.1516451
+      ],
+      "households": 7,
+      "length": 446,
+      "name": "Spessartstraße (1/6)",
+      "status": "free",
+      "user": ""
+    },
+    "spessartstraße_part2": {
+      "coords": [
+        49.9090409,
+        9.1516451
+      ],
+      "households": 7,
+      "length": 446,
+      "name": "Spessartstraße (2/6)",
+      "status": "free",
+      "user": ""
+    },
+    "spessartstraße_part3": {
+      "coords": [
+        49.9090409,
+        9.1516451
+      ],
+      "households": 7,
+      "length": 446,
+      "name": "Spessartstraße (3/6)",
+      "status": "free",
+      "user": ""
+    },
+    "spessartstraße_part4": {
+      "coords": [
+        49.9090409,
+        9.1516451
+      ],
+      "households": 7,
+      "length": 446,
+      "name": "Spessartstraße (4/6)",
+      "status": "free",
+      "user": ""
+    },
+    "spessartstraße_part5": {
+      "coords": [
+        49.9090409,
+        9.1516451
+      ],
+      "households": 7,
+      "length": 446,
+      "name": "Spessartstraße (5/6)",
+      "status": "free",
+      "user": ""
+    },
+    "spessartstraße_part6": {
+      "coords": [
+        49.9090409,
+        9.1516451
+      ],
+      "households": 7,
+      "length": 446,
+      "name": "Spessartstraße (6/6)",
       "status": "free",
       "user": ""
     },
     "steinhohle": {
       "coords": [
-        49.9129999,
-        9.1527348
+        49.91286871818182,
+        9.152362354545456
       ],
       "households": 3,
+      "length": 234,
       "name": "Steinhohle",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
     "sudetenstraße": {
       "coords": [
-        49.9136027,
-        9.1627187
+        49.91352996,
+        9.16254356
       ],
-      "households": 17,
+      "households": 8,
+      "length": 433,
       "name": "Sudetenstraße",
       "status": "free",
       "user": ""
     },
     "sulzbacher_straße": {
       "coords": [
-        49.8972061,
-        9.1857668
+        49.89706008571428,
+        9.18608942857143
       ],
       "households": 4,
+      "length": 245,
       "name": "Sulzbacher Straße",
       "status": "free",
       "user": ""
     },
     "südring": {
       "coords": [
-        49.9044556,
-        9.1524126
+        49.9043895,
+        9.152195859999999
       ],
-      "households": 9,
+      "households": 23,
+      "length": 390,
       "name": "Südring",
-      "status": "taken",
-      "user": "hugo"
+      "status": "free",
+      "user": ""
     },
-    "theodor-heuss-straße": {
+    "theodor-heuss-straße_part1": {
       "coords": [
-        49.9147457,
-        9.1582229
+        49.91465445,
+        9.15869846
       ],
-      "households": 5,
-      "name": "Theodor-Heuss-Straße",
-      "status": "taken",
-      "user": "hugo"
+      "households": 2,
+      "length": 346,
+      "name": "Theodor-Heuss-Straße (1/2)",
+      "status": "free",
+      "user": ""
+    },
+    "theodor-heuss-straße_part2": {
+      "coords": [
+        49.91465445,
+        9.15869846
+      ],
+      "households": 2,
+      "length": 346,
+      "name": "Theodor-Heuss-Straße (2/2)",
+      "status": "free",
+      "user": ""
     },
     "theresienstraße": {
       "coords": [
-        49.9146613,
-        9.1520629
+        49.914644833333334,
+        9.1519691
       ],
-      "households": 4,
+      "households": 3,
+      "length": 180,
       "name": "Theresienstraße",
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "tulpenweg": {
       "coords": [
-        49.9049706,
-        9.1569298
+        49.90495735,
+        9.15714305
       ],
-      "households": 5,
+      "households": 2,
+      "length": 160,
       "name": "Tulpenweg",
       "status": "free",
       "user": ""
     },
     "wachenbachweg": {
       "coords": [
-        49.9135722,
-        9.16706
+        49.91350938888889,
+        9.167021055555557
       ],
-      "households": 1,
+      "households": 2,
+      "length": 322,
       "name": "Wachenbachweg",
       "status": "free",
       "user": ""
     },
     "wiesenstraße": {
       "coords": [
-        49.9123904,
-        9.1608739
+        49.912552825000006,
+        9.16083115
       ],
-      "households": 2,
+      "households": 4,
+      "length": 97,
       "name": "Wiesenstraße",
       "status": "free",
       "user": ""
     },
     "wingertstraße": {
       "coords": [
-        49.9234763,
-        9.2071312
+        49.92351240000001,
+        9.20713892
       ],
-      "households": 4,
+      "households": 3,
+      "length": 61,
       "name": "Wingertstraße",
       "status": "free",
       "user": ""

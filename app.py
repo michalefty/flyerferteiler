@@ -26,9 +26,15 @@ def update():
     ids = req['id'] if isinstance(req['id'], list) else [req['id']]
     
     for s_id in ids:
-        if s_id in data['streets'] and data['streets'][s_id]['status'] == 'free':
-            data['streets'][s_id]['status'] = req['status']
-            data['streets'][s_id]['user'] = req['user']
+        if s_id in data['streets']:
+            # 1. Reservieren (nur wenn vorher frei)
+            if req['status'] == 'taken' and data['streets'][s_id]['status'] == 'free':
+                data['streets'][s_id]['status'] = 'taken'
+                data['streets'][s_id]['user'] = req['user']
+            # 2. Freigeben (Deselect)
+            elif req['status'] == 'free':
+                data['streets'][s_id]['status'] = 'free'
+                data['streets'][s_id]['user'] = ""
     
     save_data(data)
     return jsonify({"success": True})

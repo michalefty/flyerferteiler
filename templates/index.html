@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; }
+        :root { --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background: #f4f7f6; }
         .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
         .stat-card { background: white; padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -16,7 +16,9 @@
         .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
         .btn { border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
         .street-list { background: white; padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
-        .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; align-items: center; }
+        .street-info { flex-grow: 1; }
+        .badge { font-size: 0.8em; padding: 2px 6px; border-radius: 4px; background: #eee; color: #555; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -25,26 +27,23 @@
     <div class="stats-bar">
         <div class="stat-card"><h4>Offen</h4><p id="s-open">-</p></div>
         <div class="stat-card"><h4>Vergeben</h4><p id="s-taken">-</p></div>
-        <div class="stat-card"><h4>Häuser (belegt)</h4><p id="s-house" style="color:var(--info)">-</p></div>
+        <div class="stat-card"><h4>Meine Route</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
+        <div class="stat-card"><h4>Gesamt Häuser</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
 
     <div class="controls">
         <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
-        <button class="btn" style="background:var(--primary)" onclick="exportToPDF()">📄 PDF Export</button>
-        <button class="btn" style="background:#95a5a6" onclick="resetName()">Name ändern</button>
+        <button class="btn" style="background:var(--primary)" onclick="exportToPDF()">📄 PDF Export (Meine)</button>
+        <button class="btn" style="background:#95a5a6" onclick="resetName()">Name: <span id="currentName">...</span></button>
+        <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 200px;">
     </div>
 
     <div id="map"></div>
 
     <div class="street-list">
+        <h3>Alle Straßen</h3>
         <ul id="main-list" style="list-style:none; padding:0;">
-            {% for id, s in streets.items() %}
-            <li class="street-item">
-                <span><b>{{ s.name }}</b><br><small>{{ s.households }} Häuser</small></span>
-                {% if s.status == 'free' %}<button style="background:var(--free); color:white; border:none; padding:5px; border-radius:4px; cursor:pointer;" onclick="handleUpdate('{{ id }}')">Annehmen</button>
-                {% else %}<span style="color:var(--taken)">{{ s.user }}</span>{% endif %}
-            </li>
-            {% endfor %}
+            <!-- Wird per JS gefüllt -->
         </ul>
     </div>
 
@@ -54,99 +53,245 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         const streets = {{ streets|tojson }};
-        const markers = {};
+        const layers = {}; // Stores both marker and polyline
         const markerGroup = [];
-        let openC = 0, takenC = 0, houseC = 0;
+        let currentUser = localStorage.getItem('userName') || "";
 
-        Object.keys(streets).forEach(id => {
-            const s = streets[id];
-            const isFree = s.status === 'free';
-            if(isFree) openC++; else { takenC++; houseC += s.households; }
-
-            const m = L.circleMarker(s.coords, { color: isFree ? '#27ae60' : '#e74c3c', radius: 8, fillOpacity: 0.7, weight: 3 }).addTo(map);
-            m.bindPopup(`
-                <div style="text-align:center;">
-                    <b>${s.name}</b><br>🏠 ${s.households} Häuser<br><br>
-                    ${isFree ? `<button onclick="handleUpdate('${id}')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Übernehmen</button>` 
-                             : `<span style="color:#e74c3c">Bei ${s.user}</span>`}
-                </div>
-            `);
-            markers[id] = m;
-            markerGroup.push(L.latLng(s.coords[0], s.coords[1]));
-        });
-
-        document.getElementById('s-open').innerText = openC;
-        document.getElementById('s-taken').innerText = takenC;
-        document.getElementById('s-house').innerText = houseC;
-
-        const lastC = localStorage.getItem('mapCenter'), lastZ = localStorage.getItem('mapZoom');
-        if(lastC) map.setView(JSON.parse(lastC), lastZ);
-        else if(markerGroup.length > 0) map.fitBounds(L.latLngBounds(markerGroup), {padding: [30,30]});
-
-        function highlightMarkers(ids) {
-            Object.keys(markers).forEach(id => {
-                const isFree = streets[id].status === 'free';
-                markers[id].setStyle({ color: isFree ? '#27ae60' : '#e74c3c', radius: 8, weight: 3 });
-            });
-            ids.forEach(id => { if (markers[id]) markers[id].setStyle({ color: 'yellow', radius: 12, weight: 5 }); });
+        function init() {
+            if (!currentUser) {
+                currentUser = prompt("Bitte gib deinen Namen ein:");
+                if (currentUser) localStorage.setItem('userName', currentUser);
+            }
+            document.getElementById('currentName').innerText = currentUser || "Nicht gesetzt";
+            renderMap();
+            renderList();
+            updateStats();
         }
 
+        function renderMap() {
+            // Cleanup existing layers
+            Object.values(layers).forEach(l => {
+                if(l.marker) map.removeLayer(l.marker);
+                if(l.line) map.removeLayer(l.line);
+            });
+            
+            Object.keys(streets).forEach(id => {
+                const s = streets[id];
+                const isMine = s.user === currentUser && s.status === 'taken';
+                const isFree = s.status === 'free';
+                
+                let color = isFree ? '#27ae60' : '#e74c3c';
+                if (isMine) color = '#f39c12'; // Orange for mine
+
+                // 1. Draw Polyline (if path exists)
+                let lineLayer = null;
+                if (s.path && s.path.length > 1) {
+                    lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.7 }).addTo(map);
+                    // Click on line -> Trigger Popup on Marker
+                    lineLayer.on('click', () => marker.openPopup());
+                }
+
+                // 2. Draw Marker (Center)
+                const marker = L.circleMarker(s.coords, { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' }).addTo(map);
+                
+                let btnHtml = "";
+                if (isFree) {
+                    btnHtml = `<button onclick="updateStatus('${id}', 'taken')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Übernehmen</button>`;
+                } else if (isMine) {
+                    btnHtml = `<button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Freigeben</button>`;
+                } else {
+                    btnHtml = `<span style="color:#e74c3c">Belegt: ${s.user}</span>`;
+                }
+
+                const popupContent = `
+                    <div style="text-align:center;">
+                        <b>${s.name}</b><br>
+                        🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'}<br><br>
+                        ${btnHtml}
+                    </div>
+                `;
+                marker.bindPopup(popupContent);
+                if(lineLayer) lineLayer.bindPopup(popupContent);
+
+                layers[id] = { marker: marker, line: lineLayer };
+                markerGroup.push(L.latLng(s.coords[0], s.coords[1]));
+            });
+
+            // Restore view logic... (simplified for brevity)
+            if(markerGroup.length > 0 && !localStorage.getItem('mapCenter')) 
+                map.fitBounds(L.latLngBounds(markerGroup), {padding: [30,30]});
+        }
+
+        function filterList() {
+            const term = document.getElementById('searchBox').value.toLowerCase();
+            const items = document.querySelectorAll('.street-item');
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(term) ? 'flex' : 'none';
+            });
+        }
+
+        function renderList() {
+            const list = document.getElementById('main-list');
+            list.innerHTML = '';
+            
+            // Sort: Mine first, then Free, then Taken
+            const sortedIds = Object.keys(streets).sort((a,b) => {
+                const sA = streets[a], sB = streets[b];
+                const wA = sA.user === currentUser ? 2 : (sA.status === 'free' ? 1 : 0);
+                const wB = sB.user === currentUser ? 2 : (sB.status === 'free' ? 1 : 0);
+                return wB - wA || sA.name.localeCompare(sB.name);
+            });
+
+            sortedIds.forEach(id => {
+                const s = streets[id];
+                const isMine = s.user === currentUser;
+                const li = document.createElement('li');
+                li.className = 'street-item';
+                
+                let actionBtn = '';
+                if(s.status === 'free') {
+                    actionBtn = `<button style="background:var(--free); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'taken')">Hol ich!</button>`;
+                } else if(isMine) {
+                    actionBtn = `<button style="background:var(--taken); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')">Freigeben</button>`;
+                } else {
+                    actionBtn = `<small style="color:var(--taken)">${s.user}</small>`;
+                }
+
+                li.innerHTML = `
+                    <div class="street-info" style="${isMine ? 'font-weight:bold; color:var(--mine);' : ''}">
+                        ${s.name} 
+                        <span class="badge">🏠 ${s.households}</span>
+                        <span class="badge">📏 ${s.length || 0}m</span>
+                    </div>
+                    <div>${actionBtn}</div>
+                `;
+                // Click on list item -> Zoom to map
+                li.querySelector('.street-info').onclick = () => {
+                    const l = layers[id];
+                    if(l) {
+                        map.flyTo(l.marker.getLatLng(), 17);
+                        l.marker.openPopup();
+                    }
+                };
+                li.querySelector('.street-info').style.cursor = 'pointer';
+                
+                list.appendChild(li);
+            });
+        }
+
+
+        function updateStats() {
+            let open = 0, taken = 0, mine = 0, houses = 0;
+            Object.values(streets).forEach(s => {
+                houses += s.households;
+                if(s.status === 'free') open++;
+                else {
+                    taken++;
+                    if(s.user === currentUser) mine++;
+                }
+            });
+            document.getElementById('s-open').innerText = open;
+            document.getElementById('s-taken').innerText = taken;
+            document.getElementById('s-mine').innerText = mine;
+            document.getElementById('s-house').innerText = houses;
+        }
+
+        function updateStatus(id, newStatus) {
+            if(!currentUser) return init();
+            
+            const ids = Array.isArray(id) ? id : [id];
+            
+            // Optimistic update
+            ids.forEach(sid => {
+                streets[sid].status = newStatus;
+                streets[sid].user = newStatus === 'free' ? '' : currentUser;
+            });
+            renderMap(); renderList(); updateStats(); // Local update
+
+            // Server update
+            localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
+            localStorage.setItem('mapZoom', map.getZoom());
+            
+            fetch('/update', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id: id, status: newStatus, user: currentUser})
+            }).then(() => {
+                // Reload not strictly needed if optimistic worked, but good for sync
+                // location.reload(); 
+            });
+        }
+
+        // Selection Tool
         let isSelecting = false, rect = null, start = null;
         function toggleSelectionMode() {
             isSelecting = !isSelecting;
-            document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : '';
+            document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : 'var(--info)';
             map.dragging[isSelecting ? 'disable' : 'enable']();
             map.getContainer().style.cursor = isSelecting ? 'crosshair' : '';
         }
-
         map.on('mousedown', e => { if(!isSelecting) return; start = e.latlng; rect = L.rectangle([start, start], {color: '#3498db', weight: 2}).addTo(map); });
         map.on('mousemove', e => { if(isSelecting && rect) rect.setBounds([start, e.latlng]); });
         map.on('mouseup', e => {
             if(!isSelecting || !rect) return;
             const b = rect.getBounds();
+            
+            // Only select FREE streets
             const ids = Object.keys(streets).filter(id => streets[id].status === 'free' && b.contains(streets[id].coords));
+            
             if(ids.length > 0) {
-                highlightMarkers(ids);
-                const sumH = ids.reduce((sum, id) => sum + streets[id].households, 0);
-                setTimeout(() => {
-                    if(confirm(`${ids.length} Straßen (${sumH} Häuser) übernehmen?`)) handleUpdate(ids);
-                    else highlightMarkers([]);
-                }, 100);
+                if(confirm(`${ids.length} Straßen reservieren?`)) updateStatus(ids, 'taken');
             }
             map.removeLayer(rect); rect = null; toggleSelectionMode();
         });
 
-        function handleUpdate(id) {
-            let name = localStorage.getItem('userName');
-            if(!name) { name = prompt("Dein Name:"); if(name) localStorage.setItem('userName', name); }
-            if(!name) return;
-            localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
-            localStorage.setItem('mapZoom', map.getZoom());
-            fetch('/update', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({id: id, status: 'taken', user: name})
-            }).then(() => location.reload());
-        }
-
+        // PDF Export
         async function exportToPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
-            const userName = localStorage.getItem('userName') || "Austeiler";
             doc.setFontSize(16);
-            doc.text(`Flyer-Einsatzplan: ${userName}`, 15, 20);
+            doc.text(`Flyer-Einsatzplan: ${currentUser}`, 15, 20);
+            
+            // Filter map for my streets? 
+            // Better: Just screenshot current view or focus on my streets
+            const myStreets = Object.values(streets).filter(s => s.user === currentUser);
+            if(myStreets.length === 0) { alert("Du hast noch keine Straßen gewählt!"); return; }
+
+            // Highlight only mine for the screenshot? 
+            // For now, simple screenshot
             const canvas = await html2canvas(document.getElementById('map'), { useCORS: true, scale: 2 });
-            doc.addImage(canvas.toDataURL('image/png'), 'PNG', 15, 30, 180, 90);
-            let y = 135;
-            Object.keys(streets).filter(id => streets[id].user === userName).forEach(id => {
-                doc.rect(15, y - 3, 4, 4);
-                doc.text(`${streets[id].name} (${streets[id].households} Häuser)`, 22, y);
-                y += 7; if(y > 280) { doc.addPage(); y = 20; }
+            doc.addImage(canvas.toDataURL('image/png'), 'PNG', 15, 30, 180, 100);
+            
+            let y = 140;
+            doc.setFontSize(12);
+            doc.text("Deine Straßenliste:", 15, y); y += 10;
+            
+            myStreets.forEach(s => {
+                doc.setFontSize(10);
+                doc.text(`[ ] ${s.name} (${s.households} Häuser, ${s.length}m)`, 20, y);
+                y += 6; 
+                if(y > 280) { doc.addPage(); y = 20; }
             });
-            doc.save(`Plan_${userName}.pdf`);
+            
+            const totalH = myStreets.reduce((sum, s) => sum + s.households, 0);
+            doc.setFontSize(12);
+            doc.text(`Gesamt: ${myStreets.length} Straßen, ${totalH} Haushalte`, 15, y + 10);
+            
+            doc.save(`Flyer_Plan_${currentUser}.pdf`);
         }
 
-        function resetName() { const n = prompt("Neuer Name:"); if(n) localStorage.setItem('userName', n); }
+        function resetName() { 
+            const n = prompt("Neuer Name:"); 
+            if(n) { 
+                localStorage.setItem('userName', n); 
+                currentUser = n; 
+                document.getElementById('currentName').innerText = n;
+                renderMap(); renderList(); // Refresh view
+            } 
+        }
+
+        init();
     </script>
 </body>
 </html>
