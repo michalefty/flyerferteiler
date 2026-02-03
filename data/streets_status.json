@@ -1752,8 +1752,8 @@
           9.1967965
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "dorfstraße": {
       "coords": [
@@ -1841,8 +1841,8 @@
           9.1905835
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "dornauer_ring_part1": {
       "coords": [
