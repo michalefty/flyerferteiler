@@ -196,8 +196,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "am_altenbach_part2": {
       "coords": [
@@ -219,8 +219,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "am_berg": {
       "coords": [
@@ -1526,8 +1526,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "breslauer_straße": {
       "coords": [
@@ -1614,8 +1614,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "danziger_straße": {
       "coords": [
@@ -4472,8 +4472,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "jahnstraße": {
       "coords": [
@@ -4617,8 +4617,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "jägersgarten": {
       "coords": [
@@ -4791,8 +4791,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "kleewiesenweg_part1": {
       "coords": [
@@ -6478,8 +6478,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "pommernstraße": {
       "coords": [
@@ -8681,8 +8681,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "spessartstraße_part5": {
       "coords": [
