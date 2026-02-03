@@ -748,8 +748,8 @@
           9.1840753
         ]
       ],
-      "status": "taken",
-      "user": "test"
+      "status": "free",
+      "user": ""
     },
     "bahnhofstraße": {
       "coords": [
@@ -4558,8 +4558,8 @@
           9.1500323
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "kübler_ring_part2": {
       "coords": [
@@ -4627,8 +4627,8 @@
           9.1491298
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "kübler_ring_part3": {
       "coords": [
@@ -4688,8 +4688,8 @@
           9.1480983
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "lerchenweg": {
       "coords": [
@@ -7711,8 +7711,8 @@
           9.1517814
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "tulpenweg": {
       "coords": [
