@@ -142,7 +142,8 @@ def count_houses():
     for p in path[::3]: # Optimization: Check every 3rd point (approx every 10-20m usually)
         query_parts.append(f'nwr["addr:housenumber"](around:35,{p[0]},{p[1]});')
     
-    query = f'[out:json][timeout:25];({''.join(query_parts)}); out count;'
+    combined_query = ''.join(query_parts)
+    query = f'[out:json][timeout:25];({combined_query}); out count;'
     
     try:
         r = requests.post("http://overpass-api.de/api/interpreter", data={'data': query}, timeout=30)
