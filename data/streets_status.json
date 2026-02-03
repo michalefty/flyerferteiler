@@ -3671,8 +3671,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "am_talberg": {
       "coords": [
@@ -7461,8 +7461,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "blumengasse": {
       "coords": [
@@ -9298,8 +9298,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "brünnelweg": {
       "coords": [
@@ -11348,8 +11348,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "dietersklingenweg": {
       "coords": [
@@ -14084,8 +14084,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "friedensstraße": {
       "coords": [
@@ -14568,8 +14568,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "friedrichstraße": {
       "coords": [
@@ -18921,8 +18921,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "hertzstraße_part1": {
       "coords": [
@@ -24991,8 +24991,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "kettelerstraße": {
       "coords": [
@@ -27736,8 +27736,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "leimengrübweg": {
       "coords": [
@@ -29285,8 +29285,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "mainstraße": {
       "coords": [
@@ -37519,8 +37519,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "schlosshof": {
       "coords": [
@@ -46398,8 +46398,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "wilhelm-busch-straße": {
       "coords": [
