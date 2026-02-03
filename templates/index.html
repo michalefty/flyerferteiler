@@ -35,6 +35,11 @@
         <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
         <button class="btn" style="background:var(--primary)" onclick="exportToPDF()">📄 PDF Export (Meine)</button>
         <button class="btn" style="background:#95a5a6" onclick="resetName()">Name: <span id="currentName">...</span></button>
+        <button class="btn" style="background:#34495e" onclick="toggleAdmin()">🔑 Admin</button>
+        <div id="adminControls" style="display:none; gap:10px;">
+            <button class="btn" style="background:#e67e22" onclick="startDrawing()">✏️ Straße einzeichnen</button>
+            <button id="finishDrawBtn" class="btn" style="background:#27ae60; display:none;" onclick="finishDrawing()">✅ Fertig</button>
+        </div>
         <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 200px;">
     </div>
 
@@ -396,6 +401,102 @@
                 document.getElementById('currentName').innerText = n;
                 renderMap(); renderList(); // Refresh view
             } 
+        }
+
+        // --- Admin & Drawing Logic ---
+        let isAdmin = false;
+        let drawPoints = [];
+        let drawLine = null;
+
+        async function toggleAdmin() {
+            if (isAdmin) {
+                isAdmin = false;
+                document.getElementById('adminControls').style.display = 'none';
+                return;
+            }
+            const pwd = prompt("Admin-Passwort:");
+            if (!pwd) return;
+
+            const res = await fetch('/admin/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({password: pwd})
+            });
+            const data = await res.json();
+            if (data.success) {
+                isAdmin = true;
+                document.getElementById('adminControls').style.display = 'flex';
+                alert("Admin-Modus aktiv.");
+            } else {
+                alert("Falsches Passwort!");
+            }
+        }
+
+        function startDrawing() {
+            if (!isAdmin) return;
+            isSelecting = false; // Disable other modes
+            map.dragging.disable();
+            map.getContainer().style.cursor = 'crosshair';
+            
+            drawPoints = [];
+            if (drawLine) map.removeLayer(drawLine);
+            drawLine = L.polyline([], {color: 'red', weight: 4, dashArray: '5, 10'}).addTo(map);
+            
+            map.on('click', addDrawPoint);
+            document.getElementById('finishDrawBtn').style.display = 'inline-block';
+        }
+
+        function addDrawPoint(e) {
+            drawPoints.push([e.latlng.lat, e.latlng.lng]);
+            drawLine.setLatLngs(drawPoints);
+        }
+
+        async function finishDrawing() {
+            map.off('click', addDrawPoint);
+            map.dragging.enable();
+            map.getContainer().style.cursor = '';
+            document.getElementById('finishDrawBtn').style.display = 'none';
+
+            if (drawPoints.length < 2) {
+                alert("Bitte mindestens 2 Punkte setzen!");
+                if(drawLine) map.removeLayer(drawLine);
+                return;
+            }
+
+            const name = prompt("Name der Straße:");
+            if (!name) return;
+            const households = prompt("Anzahl Haushalte:");
+            if (!households) return;
+
+            // Calculate Length
+            let length = 0;
+            for(let i=0; i<drawPoints.length-1; i++) {
+                length += map.distance(drawPoints[i], drawPoints[i+1]);
+            }
+
+            // Calculate Center
+            const center = drawPoints[Math.floor(drawPoints.length/2)];
+
+            const payload = {
+                name: name,
+                households: parseInt(households),
+                length: Math.round(length),
+                coords: center,
+                path: drawPoints
+            };
+
+            const res = await fetch('/admin/add_street', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            
+            if (res.ok) {
+                alert("Straße gespeichert!");
+                location.reload();
+            } else {
+                alert("Fehler beim Speichern.");
+            }
         }
 
         init();

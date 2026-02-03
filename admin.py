@@ -230,6 +230,9 @@ def generate_multi_plan():
                 remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
                 branch = getattr(config, 'GIT_Branch', 'main')
                 
+                print("🔄 Hole Änderungen vom Server (Pull --rebase)...")
+                subprocess.run(["git", "pull", "--rebase", remote, branch], check=True)
+                
                 subprocess.run(["git", "push", remote, branch], check=True)
                 print("✅ Push erfolgreich!")
             except subprocess.CalledProcessError as e:

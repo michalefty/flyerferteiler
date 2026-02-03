@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import json
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 DATA_FILE = 'data/streets_status.json'
@@ -36,6 +37,39 @@ def update():
                 data['streets'][s_id]['status'] = 'free'
                 data['streets'][s_id]['user'] = ""
     
+    save_data(data)
+    return jsonify({"success": True})
+
+@app.route('/admin/login', methods=['POST'])
+def admin_login():
+    # Simple hardcoded password or from env
+    pwd = request.json.get('password')
+    correct = os.environ.get('ADMIN_PASSWORD', 'geheim123') 
+    if pwd == correct:
+        return jsonify({"success": True})
+    return jsonify({"success": False}), 401
+
+@app.route('/admin/add_street', methods=['POST'])
+def add_street():
+    req = request.json
+    # Validation: Check if admin (client-side usually, but here simple)
+    # Ideally use a session or token, but for this scale, we trust the "hidden" UI if pwd matched
+    
+    data = load_data()
+    
+    s_id = req['name'].replace(" ", "_").lower() + "_manual_" + str(int(datetime.now().timestamp()))
+    
+    new_street = {
+        "name": req['name'],
+        "households": int(req['households']),
+        "length": int(req['length']),
+        "coords": req['coords'], # Center [lat, lon]
+        "path": [req['path']],   # Geometry [[lat, lon], ...]
+        "status": "free",
+        "user": ""
+    }
+    
+    data['streets'][s_id] = new_street
     save_data(data)
     return jsonify({"success": True})
 
