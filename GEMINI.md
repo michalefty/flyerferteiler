@@ -27,3 +27,6 @@
 - [ ] Der Admin sollte eine Übersicht erhalten - wieviele Leute ich eingetragen haben...
 - [ ] die Farben der Staßen die von den Usern reserviert werden sollten nicht grün/ähnlich sein größerer Kontrast.
 - [ ] wäre eine Legende mit den Farben == User möglich?
+- [ ] checken ob Webseite antwortet bevor vorgeschlagen wird dass sie neu gestartet werden soll.
+- [ ] lustige begründung warum flyerferteiler und nich flyerverteiler
+- [ ] ein countdown wie lange die abfrage noch läuft
