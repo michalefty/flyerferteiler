@@ -33,6 +33,19 @@ def fetch_overpass_data(query):
     return None
 
 def fetch_streets_multi_plz(plz_liste):
+    # --- Cache Check ---
+    cache_dir = "cache"
+    os.makedirs(cache_dir, exist_ok=True)
+    cache_key = "_".join(sorted(plz_liste))
+    cache_file = os.path.join(cache_dir, f"streets_{cache_key}.json")
+    
+    if os.path.exists(cache_file):
+        if input(f"💾 Cache für {', '.join(plz_liste)} gefunden. Verwenden? (j/n): ").strip().lower() == 'j':
+            print("📂 Lade Daten aus Cache...")
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return data['streets'], data['coords']
+
     print(f"🔍 Suche ALLES: Straßen, Adresspunkte und Hausumrisse für {', '.join(plz_liste)}...")
     area_filters = "".join([f'area["postal_code"="{p}"];' for p in plz_liste])
     
@@ -181,6 +194,10 @@ def fetch_streets_multi_plz(plz_liste):
             data["length"] = int(data["length"])
             final_streets[s_id] = data
 
+    # --- Cache Save ---
+    with open(cache_file, 'w', encoding='utf-8') as f:
+        json.dump({'streets': final_streets, 'coords': coords_list}, f)
+
     return final_streets, coords_list
 
 def generate_multi_plan():
@@ -195,6 +212,29 @@ def generate_multi_plan():
     label = input("Anzeigename: ")
     streets_dict, coords_list = fetch_streets_multi_plz(plz_liste)
     if not streets_dict: return
+
+    # --- Merge Logic: Existing Data ---
+    if os.path.exists('data/streets_status.json'):
+        if input("🔄 Bestehende Daten (Status & manuelle Straßen) integrieren? (j/n): ").strip().lower() == 'j':
+            try:
+                with open('data/streets_status.json', 'r', encoding='utf-8') as f:
+                    old_data = json.load(f)
+                
+                merged, manual = 0, 0
+                for sid, sdata in old_data.get('streets', {}).items():
+                    # Status übernehmen
+                    if sid in streets_dict:
+                        if sdata.get('status') == 'taken':
+                            streets_dict[sid]['status'] = 'taken'
+                            streets_dict[sid]['user'] = sdata.get('user', '')
+                            merged += 1
+                    # Manuelle Straßen übernehmen
+                    elif '_manual_' in sid:
+                        streets_dict[sid] = sdata
+                        manual += 1
+                print(f"✅ Integriert: {merged} Status-Updates, {manual} manuelle Straßen.")
+            except Exception as e:
+                print(f"⚠️ Merge-Fehler: {e}")
 
     avg_lat = sum(c[0] for c in coords_list) / len(coords_list)
     avg_lon = sum(c[1] for c in coords_list) / len(coords_list)

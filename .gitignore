@@ -11,6 +11,9 @@ __pycache__/
 # Aber Achtung: Für den ersten Deploy auf Render muss die Datei einmalig hochgeladen werden!
 # data/streets_status.json
 
+# Cache
+cache/
+
 # Betriebssystem-Dateien
 .DS_Store
 Thumbs.db
