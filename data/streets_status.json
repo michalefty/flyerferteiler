@@ -685,8 +685,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "amselweg": {
       "coords": [
@@ -3099,8 +3099,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "friedenstraße": {
       "coords": [
@@ -3288,8 +3288,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "grünewaldstraße_part1": {
       "coords": [
@@ -4080,8 +4080,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "höhwaldweg_part1": {
       "coords": [
@@ -4258,8 +4258,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "im_hag": {
       "coords": [
@@ -8292,8 +8292,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "spessartstraße_part2": {
       "coords": [
