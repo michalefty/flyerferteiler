@@ -41,8 +41,8 @@
           9.1470189
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "alexandrastraße": {
       "coords": [
@@ -2708,8 +2708,8 @@
           9.1488326
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "test"
     },
     "goethestraße": {
       "coords": [
