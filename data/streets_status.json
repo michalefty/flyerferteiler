@@ -573,8 +573,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "am_spottenberg": {
       "coords": [
@@ -612,8 +612,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "am_weiher": {
       "coords": [
@@ -712,8 +712,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "an_der_geeb": {
       "coords": [
@@ -1042,8 +1042,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "berliner_ring": {
       "coords": [
@@ -1145,8 +1145,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "blumenstraße": {
       "coords": [
@@ -1557,8 +1557,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "brunnengasse": {
       "coords": [
@@ -1637,8 +1637,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "doktor-albert-hoffa-straße_part1": {
       "coords": [
@@ -2469,8 +2469,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "dürerstraße": {
       "coords": [
@@ -2749,8 +2749,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "elisenstraße": {
       "coords": [
@@ -2848,8 +2848,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "fasanenweg": {
       "coords": [
@@ -2891,8 +2891,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "finkenweg": {
       "coords": [
@@ -2918,8 +2918,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "fliederweg": {
       "coords": [
@@ -3138,8 +3138,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "friedhofstraße": {
       "coords": [
@@ -3493,8 +3493,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "hasenhecke_part2": {
       "coords": [
@@ -3524,8 +3524,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "helenenstraße": {
       "coords": [
@@ -4644,8 +4644,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "karlsbader_straße": {
       "coords": [
@@ -4687,8 +4687,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "karolinenstraße": {
       "coords": [
@@ -5063,8 +5063,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "kurmainzer_ring_part1": {
       "coords": [
@@ -5240,8 +5240,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "königsberger_straße_part1": {
       "coords": [
@@ -5321,8 +5321,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "königsberger_straße_part2": {
       "coords": [
@@ -5356,8 +5356,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "kübler_ring_part1": {
       "coords": [
@@ -5658,8 +5658,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "lindenstraße": {
       "coords": [
@@ -5895,8 +5895,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "märzbrückenweg": {
       "coords": [
@@ -5977,8 +5977,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "mühlweg_part1": {
       "coords": [
@@ -6044,8 +6044,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "mühlweg_part2": {
       "coords": [
@@ -6163,8 +6163,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "nelkenweg": {
       "coords": [
@@ -6505,8 +6505,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "prof.-dr.-dölger-straße": {
       "coords": [
@@ -7100,8 +7100,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "schloßbergstraße": {
       "coords": [
@@ -7239,8 +7239,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "sodentalstraße_part1": {
       "coords": [
@@ -8885,8 +8885,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "sulzbacher_straße": {
       "coords": [
@@ -9109,8 +9109,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Alex"
     },
     "theresienstraße": {
       "coords": [
@@ -9218,8 +9218,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "wiesenstraße": {
       "coords": [
@@ -9249,8 +9249,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Michael"
     },
     "wingertstraße": {
       "coords": [
