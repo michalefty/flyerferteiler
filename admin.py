@@ -264,8 +264,13 @@ def generate_multi_plan():
                 print("⏳ Führe Git-Operationen durch...")
                 subprocess.run(["git", "add", "data/streets_status.json"], check=True)
                 
-                msg = getattr(config, 'GIT_COMMIT_MESSAGE', f"Update Plan: {label}")
-                subprocess.run(["git", "commit", "-m", msg], check=True)
+                # Check if there are changes to commit
+                # git diff --cached --quiet returns 0 if no changes, 1 if changes exist
+                if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 1:
+                    msg = getattr(config, 'GIT_COMMIT_MESSAGE', f"Update Plan: {label}")
+                    subprocess.run(["git", "commit", "-m", msg], check=True)
+                else:
+                    print("ℹ️ Keine Änderungen zum Committen.")
                 
                 remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
                 branch = getattr(config, 'GIT_BRANCH', 'main')
