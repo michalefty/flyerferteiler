@@ -6980,8 +6980,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "rosenweg": {
       "coords": [
