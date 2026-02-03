@@ -2957,8 +2957,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "am_pfad": {
       "coords": [
@@ -4898,8 +4898,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "bachgasse_part1": {
       "coords": [
@@ -7422,8 +7422,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "bissingerstraße": {
       "coords": [
@@ -11751,8 +11751,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "draisstraße": {
       "coords": [
@@ -12204,8 +12204,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "eichelbergweg": {
       "coords": [
@@ -12581,8 +12581,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "elserstraße": {
       "coords": [
@@ -13313,8 +13313,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "fichtenstraße": {
       "coords": [
@@ -19102,8 +19102,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "hilde-hecht-straße": {
       "coords": [
@@ -23856,8 +23856,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "jahnstraße": {
       "coords": [
@@ -24601,8 +24601,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "karlsruher_straße": {
       "coords": [
@@ -28451,8 +28451,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "lochgartenweg": {
       "coords": [
@@ -28891,8 +28891,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "lutherstraße": {
       "coords": [
@@ -30519,8 +30519,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "moselstraße": {
       "coords": [
@@ -34766,8 +34766,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "peterstraße": {
       "coords": [
@@ -38131,8 +38131,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "schwalbenweg": {
       "coords": [
@@ -39081,8 +39081,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "hugo"
     },
     "spitalgäßchen": {
       "coords": [
