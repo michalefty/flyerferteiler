@@ -3357,8 +3357,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Kim"
     },
     "grünewaldstraße_part2": {
       "coords": [
@@ -3422,8 +3422,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Kim"
     },
     "hasenhecke_part1": {
       "coords": [
@@ -4193,8 +4193,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Kim"
     },
     "höhwaldweg_part2": {
       "coords": [
@@ -5186,8 +5186,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Kim"
     },
     "kurmainzer_ring_part2": {
       "coords": [
@@ -5213,8 +5213,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Kim"
     },
     "kurt-schumacher-straße": {
       "coords": [
@@ -8582,8 +8582,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Kim"
     },
     "spessartstraße_part4": {
       "coords": [
