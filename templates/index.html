@@ -86,7 +86,7 @@
 
                 // 1. Draw Polyline (if path exists)
                 let lineLayer = null;
-                if (s.path && s.path.length > 1) {
+                if (s.path && s.path.length > 0) {
                     lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.7 }).addTo(map);
                     // Click on line -> Trigger Popup on Marker
                     lineLayer.on('click', () => marker.openPopup());
@@ -310,33 +310,80 @@
         async function exportToPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
-            doc.setFontSize(16);
-            doc.text(`Flyer-Einsatzplan: ${currentUser}`, 15, 20);
+            doc.setFontSize(22);
+            doc.text(`Flyer-Einsatzplan`, 105, 20, { align: 'center' });
             
-            // Filter map for my streets? 
-            // Better: Just screenshot current view or focus on my streets
-            const myStreets = Object.values(streets).filter(s => s.user === currentUser);
-            if(myStreets.length === 0) { alert("Du hast noch keine Straßen gewählt!"); return; }
+            doc.setFontSize(14);
+            doc.text(`Helfer: ${currentUser}`, 105, 30, { align: 'center' });
+            doc.text(`Datum: ${new Date().toLocaleDateString()}`, 105, 38, { align: 'center' });
 
-            // Highlight only mine for the screenshot? 
-            // For now, simple screenshot
-            const canvas = await html2canvas(document.getElementById('map'), { useCORS: true, scale: 2 });
-            doc.addImage(canvas.toDataURL('image/png'), 'PNG', 15, 30, 180, 100);
+            const myStreets = Object.values(streets).filter(s => s.user === currentUser);
             
-            let y = 140;
+            if(myStreets.length === 0) { 
+                alert("Du hast noch keine Straßen gewählt!"); 
+                return; 
+            }
+
+            // Stats
+            const totalH = myStreets.reduce((sum, s) => sum + s.households, 0);
+            const totalL = myStreets.reduce((sum, s) => sum + (s.length || 0), 0);
+            
+            doc.setLineWidth(0.5);
+            doc.line(20, 45, 190, 45);
+            
             doc.setFontSize(12);
-            doc.text("Deine Straßenliste:", 15, y); y += 10;
+            doc.text(`Gesamt: ${myStreets.length} Straßen | ${totalH} Haushalte | ca. ${Math.round(totalL/1000 * 10)/10} km`, 20, 55);
+
+            let y = 70;
+            doc.setFontSize(14);
+            doc.text("Deine Straßenliste:", 20, y);
+            y += 10;
             
-            myStreets.forEach(s => {
-                doc.setFontSize(10);
-                doc.text(`[ ] ${s.name} (${s.households} Häuser, ${s.length}m)`, 20, y);
-                y += 6; 
-                if(y > 280) { doc.addPage(); y = 20; }
+            // Table Header
+            doc.setFillColor(230, 230, 230);
+            doc.rect(20, y-6, 170, 8, 'F');
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'bold');
+            doc.text("Straße", 25, y);
+            doc.text("Häuser", 130, y);
+            doc.text("Länge", 160, y);
+            doc.setFont(undefined, 'normal');
+            y += 10;
+
+            myStreets.sort((a,b) => a.name.localeCompare(b.name)).forEach((s, index) => {
+                // Background for readability
+                if (index % 2 === 0) {
+                    doc.setFillColor(245, 245, 245);
+                    doc.rect(20, y-6, 170, 8, 'F');
+                }
+                
+                // Checkbox
+                doc.rect(22, y-4, 4, 4);
+                
+                // Content
+                doc.text(s.name, 30, y);
+                doc.text(`${s.households}`, 130, y);
+                doc.text(`${s.length || 0}m`, 160, y);
+                
+                y += 8; 
+                
+                // New Page Logic
+                if(y > 270) { 
+                    doc.addPage(); 
+                    y = 20; 
+                    doc.setFontSize(10);
+                    doc.text("(Fortsetzung)", 20, y);
+                    y += 10;
+                }
             });
             
-            const totalH = myStreets.reduce((sum, s) => sum + s.households, 0);
-            doc.setFontSize(12);
-            doc.text(`Gesamt: ${myStreets.length} Straßen, ${totalH} Haushalte`, 15, y + 10);
+            // Footer
+            const pageCount = doc.internal.getNumberOfPages();
+            for(let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.text(`Seite ${i} von ${pageCount}`, 190, 285, { align: 'right' });
+            }
             
             doc.save(`Flyer_Plan_${currentUser}.pdf`);
         }

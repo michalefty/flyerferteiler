@@ -4,6 +4,12 @@ import os
 from datetime import datetime
 import math
 import time
+import subprocess
+
+try:
+    import config
+except ImportError:
+    config = None
 
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371000  # Radius of Earth in meters
@@ -15,7 +21,7 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * c
 
 def fetch_overpass_data(query):
-    url = "http://overpass-api.de/api/interpreter"
+    url = getattr(config, 'OVERPASS_URL', "http://overpass-api.de/api/interpreter")
     for attempt in range(3):
         try:
             response = requests.post(url, data={'data': query}, timeout=120)
@@ -31,7 +37,7 @@ def fetch_streets_multi_plz(plz_liste):
     area_filters = "".join([f'area["postal_code"="{p}"];' for p in plz_liste])
     
     # Query 1: Streets with geometry
-    q_streets = f'[out:json][timeout:90];({area_filters})->.a; way["highway"~"residential|tertiary|unclassified|living_street"]["name"](area.a); out geom;'
+    q_streets = f'[out:json][timeout:90];({area_filters})->.a; way["highway"~"residential|tertiary|unclassified|living_street|pedestrian"]["name"](area.a); out geom;'
     
     # Query 2: Addresses (nodes, ways, relations)
     q_houses = f'[out:json][timeout:90];({area_filters})->.a; nwr["addr:housenumber"](area.a); out center;'
@@ -62,8 +68,11 @@ def fetch_streets_multi_plz(plz_liste):
                 p1 = geometry[i]
                 p2 = geometry[i+1]
                 length += haversine(p1['lat'], p1['lon'], p2['lat'], p2['lon'])
-                nodes.append((p1['lat'], p1['lon']))
-            
+                nodes.append([p1['lat'], p1['lon']])
+            # Add last point
+            if geometry:
+                 nodes.append([geometry[-1]['lat'], geometry[-1]['lon']])
+
             # Simple center approximation (average of all points)
             center_lat = sum(p['lat'] for p in geometry) / len(geometry)
             center_lon = sum(p['lon'] for p in geometry) / len(geometry)
@@ -75,16 +84,17 @@ def fetch_streets_multi_plz(plz_liste):
                     "name": name,
                     "households": 0,
                     "length": 0,
-                    "coords": [center_lat, center_lon], # Start with this segment's center
+                    "coords": [center_lat, center_lon], 
                     "status": "free", 
                     "user": "", 
-                    "nodes": []
+                    "paths": [] # List of lists (MultiLineString)
                 }
             
             raw_streets[s_id_base]["length"] += length
-            raw_streets[s_id_base]["nodes"].extend(nodes)
-            # Update center (running average would be better, but this is okay for now)
-            # We'll keep the first found center or update it? Let's just keep adding nodes and re-calc center later if needed.
+            raw_streets[s_id_base]["paths"].append(nodes)
+            # Update center (weighted average would be better, but keep simple)
+            # Just keep the first found center for now, or update?
+            # Let's keep the first one as "anchor"
 
     # 2. Assign Households to Streets
     print(f"🏠 Verarbeite {len(data_h.get('elements', []))} gefundene Adress-Objekte...")
@@ -98,18 +108,14 @@ def fetch_streets_multi_plz(plz_liste):
         min_d = 999
         best_id = None
         
-        # Determine nearest street
-        # Optimization: This is O(N*M), could be slow for huge datasets. 
-        # For a few hundred streets/houses it's fine.
         for s_id, s_data in raw_streets.items():
-            # Check distance to ANY node of the street (simplified)
-            # Optimization: Check distance to street "center" first? 
-            # Let's stick to node check for accuracy, but maybe sample nodes?
-            for n_lat, n_lon in s_data["nodes"][::5]: # Check every 5th node for speed
-                d = math.sqrt((h_lat - n_lat)**2 + (h_lon - n_lon)**2)
-                if d < min_d:
-                    min_d = d
-                    best_id = s_id
+            # Check distance to ANY node in ANY path
+            for path in s_data["paths"]:
+                for n_lat, n_lon in path[::5]: # Check every 5th node
+                    d = math.sqrt((h_lat - n_lat)**2 + (h_lon - n_lon)**2)
+                    if d < min_d:
+                        min_d = d
+                        best_id = s_id
         
         if best_id and min_d < THRESHOLD:
             raw_streets[best_id]["households"] += 1
@@ -120,50 +126,58 @@ def fetch_streets_multi_plz(plz_liste):
     for s_id, data in raw_streets.items():
         # Fallback for empty household counts
         if data["households"] == 0:
-            data["households"] = max(3, int(data["length"] / 20)) # Estimate based on length (1 house every 20m)
+            data["households"] = max(3, int(data["length"] / 20))
 
         # Split Logic
-        # Split if length > 600m OR households > 80
         should_split = data["length"] > 600 or data["households"] > 80
         
-        if should_split:
+        if should_split and len(data["paths"]) > 1:
+            # Distribute PATHS (segments) instead of slicing nodes to avoid jump lines
             num_segments = max(2, int(data["length"] / 400))
+            num_segments = min(num_segments, len(data["paths"])) # Can't split more than we have segments
+
             households_per_seg = math.ceil(data["households"] / num_segments)
-            length_per_seg = int(data["length"] / num_segments)
             
-            # Nodes aufteilen
-            total_nodes = data["nodes"]
-            chunk_size = math.ceil(len(total_nodes) / num_segments)
+            # Divide paths into chunks
+            chunk_size = math.ceil(len(data["paths"]) / num_segments)
             
             for i in range(num_segments):
-                # Slice nodes for this segment
-                # Overlap by 1 node to ensure visual continuity
-                start_idx = i * chunk_size
-                end_idx = min((i + 1) * chunk_size + 1, len(total_nodes))
-                seg_nodes = total_nodes[start_idx:end_idx]
+                start = i * chunk_size
+                end = start + chunk_size
+                seg_paths = data["paths"][start:end]
                 
-                # Fallback if slice is empty (rare edge case with few nodes but long distance)
-                if not seg_nodes: 
-                    seg_nodes = [data["coords"]] 
+                if not seg_paths: continue
 
-                # Calculate new center for this segment
-                seg_lat = sum(n[0] for n in seg_nodes) / len(seg_nodes)
-                seg_lon = sum(n[1] for n in seg_nodes) / len(seg_nodes)
+                # Recalculate length for this part
+                seg_len = 0
+                all_seg_nodes = []
+                for p in seg_paths:
+                    all_seg_nodes.extend(p)
+                    # Approx length calc (sum of segments)
+                    for k in range(len(p)-1):
+                        seg_len += haversine(p[k][0], p[k][1], p[k+1][0], p[k+1][1])
+
+                # Recalculate center
+                if all_seg_nodes:
+                    seg_lat = sum(n[0] for n in all_seg_nodes) / len(all_seg_nodes)
+                    seg_lon = sum(n[1] for n in all_seg_nodes) / len(all_seg_nodes)
+                else:
+                    seg_lat, seg_lon = data["coords"]
 
                 seg_id = f"{s_id}_part{i+1}"
                 final_streets[seg_id] = {
                     "name": f"{data['name']} ({i+1}/{num_segments})",
                     "households": households_per_seg,
-                    "length": length_per_seg,
+                    "length": int(seg_len),
                     "coords": [seg_lat, seg_lon],
-                    "path": seg_nodes, # Save geometry path
+                    "path": seg_paths, # List of lists
                     "status": "free",
                     "user": ""
                 }
         else:
-            # Save geometry for non-split streets too
-            data["path"] = data["nodes"]
-            del data["nodes"] # Remove old key
+            # No split
+            data["path"] = data["paths"] # Pass list of lists directly
+            del data["paths"]
             data["length"] = int(data["length"])
             final_streets[s_id] = data
 
@@ -201,6 +215,29 @@ def generate_multi_plan():
         json.dump(export_data, f, indent=2, sort_keys=True, ensure_ascii=False)
     
     print(f"\n✅ Erfolgreich! Straßen: {len(streets_dict)}, Häuser: {sum(s['households'] for s in streets_dict.values())}")
+
+    # Git Push Logic
+    if config:
+        ask = input("\n🚀 Änderungen jetzt zu GitHub pushen? (j/n): ").strip().lower()
+        if ask == 'j':
+            try:
+                print("⏳ Führe Git-Operationen durch...")
+                subprocess.run(["git", "add", "data/streets_status.json"], check=True)
+                
+                msg = getattr(config, 'GIT_COMMIT_MESSAGE', f"Update Plan: {label}")
+                subprocess.run(["git", "commit", "-m", msg], check=True)
+                
+                remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
+                branch = getattr(config, 'GIT_Branch', 'main')
+                
+                subprocess.run(["git", "push", remote, branch], check=True)
+                print("✅ Push erfolgreich!")
+            except subprocess.CalledProcessError as e:
+                print(f"❌ Fehler beim Git-Push: {e}")
+        else:
+            print("ℹ️ Kein Push durchgeführt.")
+    else:
+        print("⚠️ config.py fehlt. Git-Push übersprungen.")
 
 if __name__ == "__main__":
     generate_multi_plan()
