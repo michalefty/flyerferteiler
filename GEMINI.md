@@ -20,3 +20,10 @@
 - [ ] Overpass-Query im `admin.py` für GPS-Koordinaten optimieren.
 - [ ] User-Interface-Feinschliff (Filter für Sektoren).
 - [ ] Cleanup-Funktion für alte Backups im `admin.py`.
+- [ ] Die Dauer der Abfrage bitte als input (standart aus config.py)
+- [ ] admin.py Den restore vom letzten status und die geänderten straßen getrennt abfragen
+- [ ] wäre es eine Möglichkeit den Bereich der Häuser die zu einer Straße gehören zu verkleiner oder vergrößern? Denn aktuell sind noch nicht annähernd alle Häuser erfasst.
+- [ ] In der Doku und auch in der anzeige immer wieder drauf hinweisen das die Häuser pro Straße nur eine Schätzung sind.
+- [ ] Der Admin sollte eine Übersicht erhalten - wieviele Leute ich eingetragen haben...
+- [ ] die Farben der Staßen die von den Usern reserviert werden sollten nicht grün/ähnlich sein größerer Kontrast.
+- [ ] wäre eine Legende mit den Farben == User möglich?
