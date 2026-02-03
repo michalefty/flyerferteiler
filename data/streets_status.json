@@ -17067,8 +17067,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "hammelbächer_straße_part2": {
       "coords": [
@@ -21561,8 +21561,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "im_eichels": {
       "coords": [
@@ -22221,8 +22221,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "im_technologiepark": {
       "coords": [
@@ -25468,8 +25468,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "kohlklinge": {
       "coords": [
@@ -35470,8 +35470,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "rilkestraße": {
       "coords": [
@@ -36010,8 +36010,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "rungeweg": {
       "coords": [
@@ -38707,8 +38707,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "sommergasse_part1": {
       "coords": [
@@ -42224,8 +42224,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "tullastraße": {
       "coords": [
@@ -44816,8 +44816,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     },
     "weberstraße": {
       "coords": [
@@ -47830,8 +47830,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "thomas"
     }
   }
 }
