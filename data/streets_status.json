@@ -852,8 +852,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "MG"
     },
     "asternweg": {
       "coords": [
@@ -1034,8 +1034,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "MG"
     },
     "bergweg": {
       "coords": [
@@ -4419,8 +4419,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "MG"
     },
     "im_steinetz": {
       "coords": [
@@ -4462,8 +4462,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "MG"
     },
     "industriestraße_part1": {
       "coords": [
@@ -5850,8 +5850,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "MG"
     },
     "margarethenstraße": {
       "coords": [
