@@ -3374,8 +3374,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "am_schwimmbad": {
       "coords": [
@@ -11389,8 +11389,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "domhofgasse": {
       "coords": [
@@ -16481,8 +16481,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "gunterstraße": {
       "coords": [
@@ -17865,8 +17865,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "hauptstraße_part2": {
       "coords": [
@@ -18602,8 +18602,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "heidelbeerweg": {
       "coords": [
@@ -24429,8 +24429,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "kapellenstraße": {
       "coords": [
@@ -28348,8 +28348,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "liststraße": {
       "coords": [
@@ -34828,8 +34828,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "platanenweg": {
       "coords": [
@@ -39694,8 +39694,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "steinbergweg": {
       "coords": [
@@ -41730,8 +41730,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "taubenbergweg": {
       "coords": [
@@ -43338,8 +43338,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "wachenbergstraße_part2": {
       "coords": [
@@ -43619,8 +43619,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "wachenbergstraße_part3": {
       "coords": [
@@ -43993,8 +43993,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "wachenbergstraße_part5": {
       "coords": [
@@ -47185,8 +47185,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "wormser_straße": {
       "coords": [
