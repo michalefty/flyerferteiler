@@ -82,8 +82,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "ahornstraße_part2": {
       "coords": [
@@ -141,8 +141,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "abc"
     },
     "akazienweg": {
       "coords": [
