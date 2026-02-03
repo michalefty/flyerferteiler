@@ -936,8 +936,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "bahnhofstraße": {
       "coords": [
@@ -2234,8 +2234,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "dornauer_ring_part2": {
       "coords": [
@@ -2319,8 +2319,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "dornauer_weg": {
       "coords": [
@@ -2854,8 +2854,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "eulenweg": {
       "coords": [
@@ -5140,8 +5140,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "konrad-adenauer-straße": {
       "coords": [
@@ -5827,8 +5827,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "luisenstraße": {
       "coords": [
@@ -8597,8 +8597,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "spessartstraße_part3": {
       "coords": [
@@ -9054,8 +9054,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "südring": {
       "coords": [
