@@ -31,8 +31,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "akazienweg": {
       "coords": [
@@ -54,8 +54,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "alexandrastraße": {
       "coords": [
@@ -77,8 +77,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "alte_kleinwallstädter_straße": {
       "coords": [
@@ -197,8 +197,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "am_altenbach_part2": {
       "coords": [
@@ -220,8 +220,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "am_berg": {
       "coords": [
@@ -853,8 +853,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "asternweg": {
       "coords": [
@@ -1098,8 +1098,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "bahnhofstraße_part2": {
       "coords": [
@@ -1187,8 +1187,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "bahnhofstraße_part3": {
       "coords": [
@@ -1224,8 +1224,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "bergweg": {
       "coords": [
@@ -3998,8 +3998,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "hintere_dorfstraße": {
       "coords": [
@@ -4744,8 +4744,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "im_steinetz": {
       "coords": [
@@ -4787,8 +4787,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "industriestraße_part1": {
       "coords": [
@@ -4866,8 +4866,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "industriestraße_part2": {
       "coords": [
@@ -4923,8 +4923,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "jahnstraße": {
       "coords": [
@@ -5177,8 +5177,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "kirchgasse": {
       "coords": [
@@ -5950,8 +5950,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "kübler_ring_part2": {
       "coords": [
@@ -6082,8 +6082,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "lerchenweg": {
       "coords": [
@@ -6175,8 +6175,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "margarethenstraße": {
       "coords": [
@@ -6270,8 +6270,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "marienstraße": {
       "coords": [
@@ -6319,8 +6319,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "meisenweg": {
       "coords": [
@@ -6738,8 +6738,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "niedernberger_straße_part2": {
       "coords": [
@@ -6829,8 +6829,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "ober_der_steinhohle": {
       "coords": [
@@ -7143,8 +7143,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "ringstraße": {
       "coords": [
@@ -7305,8 +7305,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "rosenweg": {
       "coords": [
