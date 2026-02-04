@@ -446,7 +446,6 @@ def anonymize_users():
         print("ℹ️ Keine Namen gefunden, die gekürzt werden mussten.")
 
 import shutil
-import getpass
 
 def restore_backup():
     print("\n--- ⏪ RESTORE BACKUP ---")
@@ -640,19 +639,4 @@ def main_menu():
             print("Ungültige Eingabe.")
 
 if __name__ == "__main__":
-    # Security Check
-    required_pwd = None
-    if config:
-        required_pwd = getattr(config, 'ADMIN_PASSWORD', None) or os.environ.get('ADMIN_PASSWORD')
-    
-    if required_pwd:
-        try:
-            pwd = getpass.getpass("🔒 Admin-Passwort eingeben: ")
-            if pwd != required_pwd:
-                print("❌ Falsches Passwort.")
-                exit(1)
-        except KeyboardInterrupt:
-            print("\nAbbruch.")
-            exit(0)
-            
     main_menu()
