@@ -403,7 +403,8 @@ def schedule_stop_vm(days=None):
         cmd_str = f"sudo shutdown -h +{minutes}"
         
         print(f"⏲️  Plane Shutdown via 'shutdown' in {minutes} Minuten ({days} Tagen)...")
-        cmd = ["gcloud", "compute", "ssh", name, "--zone", zone, "--command", cmd_str]
+        # Use '--' to separate the command from gcloud flags, safer than --command
+        cmd = ["gcloud", "compute", "ssh", name, "--zone", zone, "--", cmd_str]
         
         try:
             subprocess.run(cmd, check=True)
