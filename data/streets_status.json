@@ -3009,8 +3009,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "erlenstraße": {
       "coords": [
@@ -6013,8 +6013,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "kübler_ring_part3": {
       "coords": [
@@ -6898,8 +6898,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "pfortengasse": {
       "coords": [
@@ -9273,8 +9273,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "sudetenstraße": {
       "coords": [
@@ -9587,8 +9587,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ML"
     },
     "tulpenweg": {
       "coords": [
