@@ -31,8 +31,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "akazienweg": {
       "coords": [
@@ -54,8 +54,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "alexandrastraße": {
       "coords": [
@@ -77,8 +77,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "alte_kleinwallstädter_straße": {
       "coords": [
@@ -197,8 +197,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_altenbach_part2": {
       "coords": [
@@ -853,8 +853,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "asternweg": {
       "coords": [
@@ -1098,8 +1098,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "bahnhofstraße_part2": {
       "coords": [
@@ -1187,8 +1187,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "bahnhofstraße_part3": {
       "coords": [
@@ -1224,8 +1224,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "bergweg": {
       "coords": [
@@ -3998,8 +3998,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "hintere_dorfstraße": {
       "coords": [
@@ -4787,8 +4787,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "industriestraße_part1": {
       "coords": [
@@ -4866,8 +4866,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "industriestraße_part2": {
       "coords": [
@@ -4923,8 +4923,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "jahnstraße": {
       "coords": [
@@ -5177,8 +5177,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "kirchgasse": {
       "coords": [
@@ -6175,8 +6175,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "margarethenstraße": {
       "coords": [
@@ -6270,8 +6270,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "marienstraße": {
       "coords": [
@@ -6319,8 +6319,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "meisenweg": {
       "coords": [
@@ -6738,8 +6738,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "niedernberger_straße_part2": {
       "coords": [
@@ -6829,8 +6829,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "ober_der_steinhohle": {
       "coords": [
@@ -7143,8 +7143,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "ringstraße": {
       "coords": [
@@ -7305,8 +7305,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "rosenweg": {
       "coords": [
