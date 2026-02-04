@@ -54,7 +54,8 @@ def admin_login():
     if not correct and config:
         correct = getattr(config, 'ADMIN_PASSWORD', None)
     if not correct:
-        correct = 'geheim123'
+        # Fallback removed for security
+        return jsonify({"success": False, "msg": "Server configuration error"}), 500
         
     if pwd == correct:
         return jsonify({"success": True})

@@ -16,19 +16,37 @@
 - **Backups:** VM erstellt vor jedem Pull ein Backup in `data/backups/`.
 - **Sektorisierung:** Admin-Skript berechnet Sektoren basierend auf Helferanzahl.
 
-## 🔜 Nächste Schritte / Offene Punkte
-- [ ] Overpass-Query im `admin.py` für GPS-Koordinaten optimieren.
-- [ ] User-Interface-Feinschliff (Filter für Sektoren).
-- [ ] Cleanup-Funktion für alte Backups im `admin.py`.
-- [ ] Die Dauer der Abfrage bitte als input (standart aus config.py)
-- [ ] admin.py Den restore vom letzten status und die geänderten straßen getrennt abfragen
-- [ ] wäre es eine Möglichkeit den Bereich der Häuser die zu einer Straße gehören zu verkleiner oder vergrößern? Denn aktuell sind noch nicht annähernd alle Häuser erfasst.
-- [ ] In der Doku und auch in der anzeige immer wieder drauf hinweisen das die Häuser pro Straße nur eine Schätzung sind.
-- [ ] Der Admin sollte eine Übersicht erhalten - wieviele Leute ich eingetragen haben...
-- [ ] die Farben der Staßen die von den Usern reserviert werden sollten nicht grün/ähnlich sein größerer Kontrast.
-- [ ] wäre eine Legende mit den Farben == User möglich?
-- [ ] checken ob Webseite antwortet bevor vorgeschlagen wird dass sie neu gestartet werden soll.
-- [ ] lustige begründung warum flyerferteiler und nich flyerverteiler
-- [ ] ein countdown wie lange die abfrage noch läuft
-- [ ] beim dark-theme wird der pdf-export button nicht lesbar
-- [ ] das passwort für den admin-zugang wird in der config.py gesetzt, bitte trotzdem bei admin.py nachfragen
+## 🔜 Roadmap & Offene Punkte
+
+### 🖥️ Frontend & UX
+- [x] **Datenschutz-Hinweis:** Expliziter Hinweis im UI, nur Kürzel/Vornamen zu verwenden (DSGVO).
+- [ ] **Sektor-Filter:** Filteroptionen für Sektoren im UI implementieren.
+- [ ] **Farbkontrast:** Reservierte Straßen kontrastreicher gestalten (nicht grün/ähnlich zu "frei").
+- [ ] **Legende:** Farblegende für User/Status auf der Karte hinzufügen.
+- [ ] **Dark Mode Fix:** Lesbarkeit des PDF-Export-Buttons im Dark Theme korrigieren.
+- [ ] **Countdown:** Anzeige der verbleibenden Zeit für die aktuelle Abfrage/Session.
+- [ ] **Admin-Übersicht:** Dashboard für Admins: Anzahl eingetragener Helfer/User anzeigen.
+
+### 🛠️ Admin-CLI (`admin.py`) & Backend
+- [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
+- [ ] **Backup Cleanup:** Funktion zum Löschen alter Backups implementieren.
+- [ ] **Abfragedauer:** Input-Prompt für die Dauer der Abfrage hinzufügen (Default aus `config.py`).
+- [ ] **Restore-Logik:** Restore vom letzten Status und Abfrage geänderter Straßen trennen.
+- [ ] **Server-Check:** Vor Neustart-Vorschlag prüfen, ob die Webseite tatsächlich nicht antwortet.
+- [ ] **Passwort-Prompt:** Admin-Passwort interaktiv abfragen, auch wenn es in `config.py` steht.
+
+### 🗺️ Datenqualität & Algorithmus (Overpass/OSM)
+- [ ] **Overpass-Optimierung:** GPS-Koordinaten-Abfrage in `admin.py` optimieren.
+- [ ] **Gebietssuche (Polygon):** Umstellung von reiner Straßensuche auf Polygon-Suche (besser für überregionale Straßen).
+- [ ] **Hausnummern-Import:** Direkte Abfrage von `node["addr:housenumber"]` und `way` via Overpass API.
+- [ ] **Gewichtung:** Gebäude-Typ-Faktor einführen (z.B. `building=apartments` → höhere Flyer-Anzahl).
+- [ ] **Radius-Justierung:** Option prüfen, den Erfassungsradius für Häuser pro Straße konfigurierbar zu machen.
+
+### 📄 PDF & Export
+- [ ] **Rendering-Check:** Prüfen, ob Karten im PDF durch HTTPS-Umstellung korrekt dargestellt werden (kein Spiegeln mehr).
+- [ ] **Asset-Pfade:** Sicherstellen, dass PDF-Library absolute Pfade oder lokale URLs (`http://127.0.0.1...`) nutzt.
+
+### 📚 Dokumentation & Sonstiges
+- [ ] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
+- [ ] **Easter Egg:** "Warum Flyerferteiler?" – Lustige Begründung/Story hinzufügen.
+- [ ] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.

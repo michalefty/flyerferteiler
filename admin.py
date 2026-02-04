@@ -342,5 +342,53 @@ def schedule_stop_vm():
         except subprocess.CalledProcessError as e:
             print(f"❌ Fehler beim Planen des Shutdowns: {e}")
 
+def anonymize_users():
+    print("\n--- 🛡️ User-Namen Anonymisieren (DSGVO) ---")
+    data_file = 'data/streets_status.json'
+    
+    if not os.path.exists(data_file):
+        print(f"❌ Datei '{data_file}' nicht gefunden.")
+        return
+
+    with open(data_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    count = 0
+    for s in data.get('streets', {}).values():
+        user = s.get('user', '').strip()
+        if user:
+            # Simple heuristic: Split by space
+            parts = user.split()
+            if len(parts) >= 2:
+                # Firstname + Lastname -> Firstname + L.
+                new_name = f"{parts[0]} {parts[-1][0]}."
+                if new_name != user:
+                    s['user'] = new_name
+                    count += 1
+            # Special case: Single name stays single name (nickname assumption)
+
+    if count > 0:
+        print(f"✅ {count} Namen wurden gekürzt (z.B. 'Max Mustermann' -> 'Max M.').")
+        if input("💾 Änderungen speichern? (j/n): ").strip().lower() == 'j':
+            with open(data_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, sort_keys=True, ensure_ascii=False)
+            print("💾 Gespeichert!")
+    else:
+        print("ℹ️ Keine Namen gefunden, die gekürzt werden mussten.")
+
+def main_menu():
+    print("\n--- 🛠️ ADMIN TOOL ---")
+    print("1. 🗺️  Neuen Plan erstellen (PLZ Suche)")
+    print("2. 🛡️  User-Namen anonymisieren (DSGVO)")
+    
+    choice = input("\nWähle eine Option (1-2): ").strip()
+    
+    if choice == '1':
+        generate_multi_plan()
+    elif choice == '2':
+        anonymize_users()
+    else:
+        print("Ungültige Eingabe.")
+
 if __name__ == "__main__":
-    generate_multi_plan()
+    main_menu()
