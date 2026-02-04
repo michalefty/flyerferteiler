@@ -3085,8 +3085,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "fasanenweg": {
       "coords": [
@@ -9529,8 +9529,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "theodor-heuss-straße_part2": {
       "coords": [
@@ -9560,8 +9560,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "theresienstraße": {
       "coords": [
