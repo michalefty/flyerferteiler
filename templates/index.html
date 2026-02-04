@@ -56,7 +56,7 @@
         <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
     <p style="text-align:center; font-size:0.85em; color:#7f8c8d; margin-top:-10px; margin-bottom: 20px;">
-        ℹ️ Hinweis: Die angegebenen Häuserzahlen sind Schätzungen.
+        ℹ️ Hinweis: Die angegebenen Häuserzahlen sind Schätzungen (ggf. weniger wg. "Keine Werbung").
     </p>
 
     <div class="controls">
@@ -96,11 +96,12 @@
 
     <div class="footer-links">
         <a onclick="openModal('impressumModal')">Impressum</a> | 
-        <a onclick="openModal('privacyModal')">Datenschutz & Lizenz</a>
+        <a onclick="openModal('privacyModal')">Datenschutz & Lizenz</a> |
+        <a href="https://github.com/michalefty/flyerferteiler" target="_blank">GitHub</a>
     </div>
     
-    <!-- Footer Easter Egg -->
-    <div id="footer-egg" style="text-align:center; font-size:1.5em; cursor:pointer; margin-top:10px;" onclick="showEasterEgg()" title="?">🥧</div>
+    <!-- Footer Quotes -->
+    <div id="footer-egg" style="text-align:center; font-size:0.9em; color:#95a5a6; margin-top:15px; font-style:italic;"></div>
 
     <!-- Modals -->
     <div id="helpModal" class="modal">
@@ -184,8 +185,19 @@
         let currentUser = localStorage.getItem('userName') || "";
         let sortTargetId = null;
 
-        function showEasterEgg() {
-            alert("🐰 Easter Egg gefunden!\n\nWarum 'Ferteiler'?\nWeil wir Flyer so schnell verteilen, dass für Rechtschreibung keine Zeit blieb! 🏃💨");
+        function showRandomQuote() {
+            const quotes = [
+                "Wer schreibt, der bleibt - wer verteilt, der eilt!",
+                "Schritte zählen leicht gemacht.",
+                "Frische Luft inklusive.",
+                "Flyer verteilen: Das analoge Social Media.",
+                "Heute schon gelaufen?",
+                "Jeder Flyer zählt!",
+                "Verteilen ist wie Wandern, nur mit Mission.",
+                "Der Weg ist das Ziel (und der Briefkasten)."
+            ];
+            const q = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('footer-egg').innerText = q;
         }
 
         function getDist(s1, s2) {
@@ -232,6 +244,7 @@
             renderList();
             updateStats();
             updateCountdown();
+            showRandomQuote();
             
             // Auto-Open Help on first visit
             if (!localStorage.getItem('helpSeen')) {
