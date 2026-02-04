@@ -50,3 +50,7 @@
 - [ ] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
 - [ ] **Easter Egg:** "Warum Flyerferteiler?" – Lustige Begründung/Story hinzufügen.
 - [ ] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
+
+
+new idea:
+- [ ] sortieren nach bereichen - die Straßenliste sind aktuell nach alphabet sortiert besser wäre es wenn der user eine straße anwählt die liste umsortiert wird nach von der straße abgehenden allerdings sollte die sortierung auch wieder zurückgestellt werdne können.
