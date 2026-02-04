@@ -53,3 +53,11 @@
 - [x] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
 - [x] **Easter Egg:** "Warum Flyerferteiler?" – Lustige Begründung/Story hinzufügen.
 - [ ] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
+
+
+Bugs
+- [ ] Die Map auf dem PDF-Export ist nicht gut - die Karte ist verzerrt und die Straßenpfade sind nicht auf der karte referenziert... vielleicht nur die Pfade mit Straßennamen daneben?
+- [ ] Auf der Webseite werden nicht die ungefähre Anzahl der ausgewählten Häuser angezeigt und auch nicht die Strecke, was wäre noch nützlich?
+- [ ] Die Legende wird nicht dargestellt.
+- [ ] Das Easter Egg darf auch gerne in der Footerzeile als Popup integriert werden (Hinweise dürfen dann hier aus dem GEMINI.md entfernt werden)
+- [ ] Die Übernahme von Straßen sollte auch erlaubt sein - mit Hinweis für den Übernehmer das das ja nicht heimlich passieren sollte
