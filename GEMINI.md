@@ -37,10 +37,12 @@
 
 ### 🗺️ Datenqualität & Algorithmus (Overpass/OSM)
 - [x] **Overpass-Optimierung:** GPS-Koordinaten-Abfrage in `admin.py` optimieren.
-- [ ] **Gebietssuche (Polygon):** Umstellung von reiner Straßensuche auf Polygon-Suche (besser für überregionale Straßen).
-- [ ] **Hausnummern-Import:** Direkte Abfrage von `node["addr:housenumber"]` und `way` via Overpass API.
+- [x] **Hausnummern-Import:** Direkte Abfrage von `node["addr:housenumber"]` und `way` via Overpass API.
 - [x] **Gewichtung:** Gebäude-Typ-Faktor einführen (z.B. `building=apartments` → höhere Flyer-Anzahl).
-- [ ] **Radius-Justierung:** Option prüfen, den Erfassungsradius für Häuser pro Straße konfigurierbar zu machen.
+- [x] **Radius-Justierung:** Option prüfen, den Erfassungsradius für Häuser pro Straße konfigurierbar zu machen.
+
+### 💤 Backlog / Später
+- [ ] **Gebietssuche (Polygon):** Umstellung von reiner Straßensuche auf Polygon-Suche (besser für überregionale Straßen).
 
 ### 📄 PDF & Export
 - [ ] **Rendering-Check:** Prüfen, ob Karten im PDF durch HTTPS-Umstellung korrekt dargestellt werden (kein Spiegeln mehr).

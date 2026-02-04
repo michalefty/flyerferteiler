@@ -32,7 +32,7 @@ def fetch_overpass_data(query):
             time.sleep(5)
     return None
 
-def fetch_streets_multi_plz(plz_liste):
+def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
     # --- Cache Check ---
     cache_dir = "cache"
     os.makedirs(cache_dir, exist_ok=True)
@@ -112,7 +112,8 @@ def fetch_streets_multi_plz(plz_liste):
 
     # 2. Assign Households to Streets
     print(f"🏠 Verarbeite {len(data_h.get('elements', []))} gefundene Adress-Objekte...")
-    THRESHOLD = 0.0004 # Approx 40m
+    # Convert meters to degrees (approx)
+    THRESHOLD = radius_threshold_m / 111320.0
     GRID_SIZE = 0.001 # Approx 111m
     
     # --- Optimization: Spatial Grid ---
@@ -268,7 +269,15 @@ def generate_multi_plan():
         survey_days = default_days
         print(f"⚠️ Ungültige Eingabe, nutze Default: {survey_days} Tage")
 
-    streets_dict, coords_list = fetch_streets_multi_plz(plz_liste)
+    # New: Ask for Radius
+    try:
+        rad_input = input("Suchradius für Häuser (Meter) [Default: 45]: ").strip()
+        radius = int(rad_input) if rad_input else 45
+    except ValueError:
+        radius = 45
+        print(f"⚠️ Ungültige Eingabe, nutze Default: {radius}m")
+
+    streets_dict, coords_list = fetch_streets_multi_plz(plz_liste, radius)
     if not streets_dict: return
 
     # --- Merge Logic: Existing Data ---
