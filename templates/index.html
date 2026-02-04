@@ -55,6 +55,9 @@
         <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
         <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
+    <p style="text-align:center; font-size:0.85em; color:#7f8c8d; margin-top:-10px; margin-bottom: 20px;">
+        ℹ️ Hinweis: Die angegebenen Häuserzahlen sind Schätzungen.
+    </p>
 
     <div class="controls">
         <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
@@ -518,7 +521,18 @@
             doc.setFontSize(12);
             doc.text(`Gesamt: ${myStreets.length} Straßen | ${totalH} Haushalte | ca. ${Math.round(totalL/1000 * 10)/10} km`, 20, 55);
 
-            let y = 70;
+            // Capture Map
+            try {
+                const mapEl = document.getElementById('map');
+                const canvas = await html2canvas(mapEl, { useCORS: true, scale: 1.5 });
+                const imgData = canvas.toDataURL('image/jpeg', 0.8);
+                doc.addImage(imgData, 'JPEG', 20, 65, 170, 90); 
+            } catch(e) {
+                console.error(e);
+                doc.text("(Kartenfehler)", 105, 110, {align:'center'});
+            }
+
+            let y = 165;
             doc.setFontSize(14);
             doc.text("Deine Straßenliste:", 20, y);
             y += 10;
@@ -554,6 +568,9 @@
         function resetName() { 
             const n = prompt("Neuer Name (Vorname/Kürzel):"); 
             if(n) { 
+                if (n.toLowerCase() === 'ferteiler') {
+                    alert("🐰 Easter Egg gefunden!\n\nWarum 'Ferteiler'?\nWeil wir Flyer so schnell verteilen, dass für Rechtschreibung keine Zeit blieb! 🏃💨");
+                }
                 localStorage.setItem('userName', n); 
                 currentUser = n; 
                 document.getElementById('currentName').innerText = n;

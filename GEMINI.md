@@ -26,6 +26,7 @@
 - [x] **Dark Mode Fix:** Lesbarkeit des PDF-Export-Buttons im Dark Theme korrigieren.
 - [x] **Countdown:** Anzeige der verbleibenden Zeit für die aktuelle Abfrage/Session.
 - [x] **Admin-Übersicht:** Dashboard für Admins: Anzahl eingetragener Helfer/User anzeigen.
+- [x] **Sortierung nach Bereichen:** Straßenliste nach Nähe sortieren (Nachbarn zeigen), wenn eine Straße ausgewählt wird.
 
 ### 🛠️ Admin-CLI (`admin.py`) & Backend
 - [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
@@ -45,14 +46,10 @@
 - [ ] **Gebietssuche (Polygon):** Umstellung von reiner Straßensuche auf Polygon-Suche (besser für überregionale Straßen).
 
 ### 📄 PDF & Export
-- [ ] **Rendering-Check:** Prüfen, ob Karten im PDF durch HTTPS-Umstellung korrekt dargestellt werden (kein Spiegeln mehr).
-- [ ] **Asset-Pfade:** Sicherstellen, dass PDF-Library absolute Pfade oder lokale URLs (`http://127.0.0.1...`) nutzt.
+- [x] **Rendering-Check:** Prüfen, ob Karten im PDF durch HTTPS-Umstellung korrekt dargestellt werden (kein Spiegeln mehr).
+- [x] **Asset-Pfade:** Sicherstellen, dass PDF-Library absolute Pfade oder lokale URLs (`http://127.0.0.1...`) nutzt.
 
 ### 📚 Dokumentation & Sonstiges
-- [ ] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
-- [ ] **Easter Egg:** "Warum Flyerferteiler?" – Lustige Begründung/Story hinzufügen.
+- [x] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
+- [x] **Easter Egg:** "Warum Flyerferteiler?" – Lustige Begründung/Story hinzufügen.
 - [ ] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
-
-
-new idea:
-- [x] sortieren nach bereichen - die Straßenliste sind aktuell nach alphabet sortiert besser wäre es wenn der user eine straße anwählt die liste umsortiert wird nach von der straße abgehenden allerdings sollte die sortierung auch wieder zurückgestellt werdne können.
