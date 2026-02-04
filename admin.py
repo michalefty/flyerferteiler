@@ -389,6 +389,61 @@ def anonymize_users():
     else:
         print("ℹ️ Keine Namen gefunden, die gekürzt werden mussten.")
 
+import shutil
+import getpass
+
+def restore_backup():
+    print("\n--- ⏪ RESTORE BACKUP ---")
+    backup_dir = 'data/backups'
+    target_file = 'data/streets_status.json'
+    
+    if not os.path.exists(backup_dir):
+        print(f"❌ Verzeichnis '{backup_dir}' nicht gefunden.")
+        return
+
+    # List all JSON files
+    files = [f for f in os.listdir(backup_dir) if f.endswith('.json')]
+    if not files:
+        print("ℹ️ Keine Backups gefunden.")
+        return
+
+    # Sort by modification time (newest first)
+    files.sort(key=lambda x: os.path.getmtime(os.path.join(backup_dir, x)), reverse=True)
+    
+    print(f"Verfügbare Backups:")
+    for i, f in enumerate(files[:10]):
+        dt = datetime.fromtimestamp(os.path.getmtime(os.path.join(backup_dir, f))).strftime('%d.%m.%Y %H:%M')
+        print(f"{i+1}. {f} ({dt})")
+        
+    choice = input("\nBackup wählen (Nummer) oder '0' für Abbruch: ").strip()
+    if not choice.isdigit() or choice == '0': return
+    
+    idx = int(choice) - 1
+    if idx < 0 or idx >= len(files):
+        print("❌ Ungültige Auswahl.")
+        return
+        
+    selected_file = os.path.join(backup_dir, files[idx])
+    
+    print(f"\n⚠️  Achtung: Überschreibe '{target_file}' mit '{files[idx]}'!")
+    if input("Wirklich wiederherstellen? (j/n): ").strip().lower() == 'j':
+        try:
+            shutil.copy2(selected_file, target_file)
+            print("✅ Wiederherstellung erfolgreich.")
+            
+            # Git Push Option (since we changed data)
+            if input("🚀 Änderungen zu GitHub pushen? (j/n): ").strip().lower() == 'j':
+                 subprocess.run(["git", "add", target_file], check=True)
+                 msg = f"Restore Backup: {files[idx]}"
+                 subprocess.run(["git", "commit", "-m", msg], check=True)
+                 remote = getattr(config, 'GIT_REMOTE_URL', 'origin') if config else 'origin'
+                 branch = getattr(config, 'GIT_BRANCH', 'main') if config else 'main'
+                 subprocess.run(["git", "push", remote, branch], check=True)
+                 print("✅ Push erfolgreich!")
+                 
+        except Exception as e:
+            print(f"❌ Fehler: {e}")
+
 def cleanup_backups():
     print("\n--- 🧹 Backups Bereinigen ---")
     backup_dir = 'data/backups'
@@ -436,22 +491,112 @@ def cleanup_backups():
     else:
         print("❌ Abbruch.")
 
+def check_server_status():
+    print("\n--- 🏥 SERVER STATUS CHECK ---")
+    url = getattr(config, 'PRODUCTION_URL', None) if config else None
+    
+    if not url:
+        url = input("🌐 Server-URL eingeben (z.B. http://1.2.3.4:8080): ").strip()
+    
+    if not url:
+        print("❌ Keine URL angegeben.")
+        return
+
+    if not url.startswith("http"):
+        url = "http://" + url
+        
+    print(f"📡 Prüfe Erreichbarkeit von {url} ...")
+    try:
+        start = time.time()
+        resp = requests.get(url, timeout=5)
+        duration = (time.time() - start) * 1000
+        
+        if resp.status_code == 200:
+            print(f"✅ Server ist ONLINE (Status 200). Antwortzeit: {duration:.0f}ms")
+            
+            # Optional: Check content
+            if "Flyer-Verteilung" in resp.text:
+                print("✅ App-Inhalt verifiziert.")
+            else:
+                print("⚠️  Status 200, aber erwarteter Inhalt fehlt (Wartungsseite?).")
+        else:
+            print(f"⚠️  Server antwortet mit Status-Code: {resp.status_code}")
+            
+    except requests.exceptions.ConnectionError:
+        print("❌ VERBINDUNGSFEHLER: Server nicht erreichbar.")
+        print("   -> Ist die VM gestartet?")
+        print("   -> Ist die Firewall offen (Port 80/443/8080)?")
+    except requests.exceptions.Timeout:
+        print("❌ TIMEOUT: Server antwortet nicht rechtzeitig (5s).")
+    except Exception as e:
+        print(f"❌ Fehler: {e}")
+    input("\n(Drücke Enter um zurückzukehren)")
+
+def print_help():
+    print("\n--- 📖 HILFE & DOKUMENTATION ---")
+    print("1. 🗺️  Neuen Plan erstellen (PLZ Suche):")
+    print("   - Fragt nach PLZ(s) und lädt Straßendaten von der Overpass API.")
+    print("   - Berechnet Haushaltszahlen und segmentiert lange Straßen.")
+    print("   - Erstellt/Aktualisiert 'data/streets_status.json'.")
+    print("   - Pusht Änderungen zu GitHub und startet ggf. die VM.")
+    print("\n2. 🛡️  User-Namen anonymisieren (DSGVO):")
+    print("   - Scannt 'data/streets_status.json'.")
+    print("   - Kürzt Klarnamen auf Vornamen + Initial (z.B. 'Max Mustermann' -> 'Max M.').")
+    print("\n3. 🧹 Alte Backups bereinigen:")
+    print("   - Löscht alte JSON-Dateien aus 'data/backups/'.")
+    print("   - Behält die N neuesten Dateien (konfigurierbar).")
+    print("\n4. ⏪ Restore Backup:")
+    print("   - Stellt einen älteren Stand aus 'data/backups/' wieder her.")
+    print("\n5. 🏥 Server Status Check:")
+    print("   - Prüft, ob die Web-App erreichbar ist.")
+    print("   - Misst Antwortzeit.")
+    input("\n(Drücke Enter um zurückzukehren)")
+
 def main_menu():
-    print("\n--- 🛠️ ADMIN TOOL ---")
-    print("1. 🗺️  Neuen Plan erstellen (PLZ Suche)")
-    print("2. 🛡️  User-Namen anonymisieren (DSGVO)")
-    print("3. 🧹 Alte Backups bereinigen")
-    
-    choice = input("\nWähle eine Option (1-3): ").strip()
-    
-    if choice == '1':
-        generate_multi_plan()
-    elif choice == '2':
-        anonymize_users()
-    elif choice == '3':
-        cleanup_backups()
-    else:
-        print("Ungültige Eingabe.")
+    while True:
+        print("\n--- 🛠️ ADMIN TOOL ---")
+        print("1. 🗺️  Neuen Plan erstellen (PLZ Suche)")
+        print("2. 🛡️  User-Namen anonymisieren (DSGVO)")
+        print("3. 🧹 Alte Backups bereinigen")
+        print("4. ⏪ Restore Backup")
+        print("5. 🏥 Server Status Check")
+        print("6. ❓ Hilfe anzeigen")
+        print("0. ❌ Beenden")
+        
+        choice = input("\nWähle eine Option (0-6): ").strip()
+        
+        if choice == '1':
+            generate_multi_plan()
+        elif choice == '2':
+            anonymize_users()
+        elif choice == '3':
+            cleanup_backups()
+        elif choice == '4':
+            restore_backup()
+        elif choice == '5':
+            check_server_status()
+        elif choice == '6' or choice == '?' or choice.lower() == 'h':
+            print_help()
+        elif choice == '0':
+            print("👋 Bye!")
+            break
+        else:
+            print("Ungültige Eingabe.")
 
 if __name__ == "__main__":
+    # Security Check
+    required_pwd = None
+    if config:
+        required_pwd = getattr(config, 'ADMIN_PASSWORD', None) or os.environ.get('ADMIN_PASSWORD')
+    
+    if required_pwd:
+        try:
+            pwd = getpass.getpass("🔒 Admin-Passwort eingeben: ")
+            if pwd != required_pwd:
+                print("❌ Falsches Passwort.")
+                exit(1)
+        except KeyboardInterrupt:
+            print("\nAbbruch.")
+            exit(0)
+            
     main_menu()

@@ -31,9 +31,9 @@
 - [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
 - [x] **Backup Cleanup:** Funktion zum Löschen alter Backups implementieren.
 - [x] **Abfragedauer:** Input-Prompt für die Dauer der Abfrage hinzufügen.
-- [ ] **Restore-Logik:** Restore vom letzten Status und Abfrage geänderter Straßen trennen.
-- [ ] **Server-Check:** Vor Neustart-Vorschlag prüfen, ob die Webseite tatsächlich nicht antwortet.
-- [ ] **Passwort-Prompt:** Admin-Passwort interaktiv abfragen, auch wenn es in `config.py` steht.
+- [x] **Restore-Logik:** Restore vom letzten Status und Abfrage geänderter Straßen trennen.
+- [x] **Server-Check:** Vor Neustart-Vorschlag prüfen, ob die Webseite tatsächlich nicht antwortet.
+- [x] **Passwort-Prompt:** Admin-Passwort interaktiv abfragen, auch wenn es in `config.py` steht.
 
 ### 🗺️ Datenqualität & Algorithmus (Overpass/OSM)
 - [ ] **Overpass-Optimierung:** GPS-Koordinaten-Abfrage in `admin.py` optimieren.
