@@ -11,10 +11,12 @@
         :root { 
             --bg: #f4f7f6; --text: #000; --card-bg: white; 
             --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12; 
+            --btn-text-on-primary: white;
         }
         [data-theme="dark"] {
             --bg: #2c3e50; --text: #ecf0f1; --card-bg: #34495e;
             --primary: #ecf0f1; --info: #2980b9;
+            --btn-text-on-primary: #2c3e50;
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; }
         .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
@@ -41,19 +43,22 @@
 <body>
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h1>Flyer-Verteilung {{ metadata.city }}</h1>
-        <small>Geplante Laufzeit: {{ survey_days }} Tage</small>
+        <div style="text-align:right">
+            <small>Geplante Laufzeit: {{ survey_days }} Tage</small><br>
+            <span id="countdown" style="font-weight:bold; color:var(--taken)"></span>
+        </div>
     </div>
     
     <div class="stats-bar">
-        <div class="stat-card"><h4>Offen</h4><p id="s-open">-</p></div>
-        <div class="stat-card"><h4>Vergeben</h4><p id="s-taken">-</p></div>
-        <div class="stat-card"><h4>Meine Straßen</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
-        <div class="stat-card"><h4>Gesamt Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
+        <div class="stat-card"><h4><span style="color:var(--free)">■</span> Offen</h4><p id="s-open">-</p></div>
+        <div class="stat-card"><h4><span style="color:var(--taken)">■</span> Vergeben</h4><p id="s-taken">-</p></div>
+        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
+        <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
 
     <div class="controls">
         <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
-        <button class="btn" style="background:var(--primary)" onclick="exportToPDF()">📄 PDF Export (Meine)</button>
+        <button class="btn" style="background:var(--primary); color:var(--btn-text-on-primary)" onclick="exportToPDF()">📄 PDF Export (Meine)</button>
         <button class="btn" style="background:#95a5a6" onclick="resetName()">Name: <span id="currentName">...</span></button>
         <button class="btn" style="background:#7f8c8d" onclick="openModal('helpModal')">❓ Hilfe</button>
         <button class="btn" style="background:#000" onclick="toggleTheme()">🌙 Theme</button>
@@ -61,7 +66,8 @@
         <!-- Admin Toggle -->
         <button class="btn" style="background:transparent; color:var(--text); border:1px solid #ccc; font-weight:normal;" onclick="toggleAdmin()">🔒</button>
 
-        <div id="adminControls" style="display:none; gap:10px;">
+        <div id="adminControls" style="display:none; gap:10px; align-items:center;">
+            <span id="adminStats" style="background:var(--card-bg); padding:8px; border-radius:4px; border:1px solid #ccc; font-size:0.9em;"></span>
             <button class="btn" style="background:#e67e22" onclick="startDrawing()">✏️ Straße einzeichnen</button>
             <button id="finishDrawBtn" class="btn" style="background:#27ae60; display:none;" onclick="finishDrawing()">✅ Fertig</button>
             <button class="btn" style="background:#8e44ad" onclick="downloadExport()">🌍 Export GeoJSON</button>
@@ -145,9 +151,29 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         const streets = {{ streets|tojson }};
+        const startDateStr = "{{ metadata.date }}";
+        const durationDays = {{ survey_days }};
         const layers = {}; // Stores both marker and polyline
         const markerGroup = [];
         let currentUser = localStorage.getItem('userName') || "";
+        let sortTargetId = null;
+
+        function getDist(s1, s2) {
+            if (s1 === s2) return 0;
+            return map.distance(s1.coords, s2.coords);
+        }
+
+        function sortByProximity(id) {
+            sortTargetId = id;
+            renderList();
+            document.querySelector('.street-list').scrollTop = 0;
+            map.closePopup();
+        }
+
+        function resetSort() {
+            sortTargetId = null;
+            renderList();
+        }
 
         function init() {
             if (!currentUser) {
@@ -173,6 +199,7 @@
             renderMap();
             renderList();
             updateStats();
+            updateCountdown();
             
             // Auto-Open Help on first visit
             if (!localStorage.getItem('helpSeen')) {
@@ -197,13 +224,41 @@
             body.setAttribute('data-theme', next);
         }
 
+        function updateCountdown() {
+             if(!startDateStr) return;
+             const parts = startDateStr.split('.');
+             if(parts.length !== 3) return;
+             
+             const start = new Date(parts[2], parts[1]-1, parts[0]); 
+             const end = new Date(start);
+             end.setDate(end.getDate() + durationDays);
+             
+             const now = new Date();
+             const diff = end - now;
+             
+             const el = document.getElementById('countdown');
+             if (diff < 0) {
+                 el.innerText = "Beendet";
+                 return;
+             }
+             
+             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+             
+             el.innerText = `⏳ Noch ${days}d ${hours}h`;
+        }
+
         function getUserColor(username) {
             let hash = 0;
             for (let i = 0; i < username.length; i++) {
                 hash = username.charCodeAt(i) + ((hash << 5) - hash);
             }
-            const hue = Math.abs(hash % 360);
-            return `hsl(${hue}, 60%, 45%)`; 
+            // Avoid green spectrum (approx 80-170) to distinguish from "free" (green)
+            let hue = Math.abs(hash % 360);
+            if (hue > 70 && hue < 180) {
+                 hue = (hue + 110) % 360; 
+            }
+            return `hsl(${hue}, 65%, 40%)`; 
         }
 
         function renderMap() {
@@ -252,7 +307,8 @@
                 const popupContent = `
                     <div style="text-align:center;">
                         <b>${s.name}</b><br>
-                        🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'} <br><br>
+                        🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'} <br>
+                        <button onclick="sortByProximity('${id}')" style="background:none; border:none; color:var(--info); cursor:pointer; text-decoration:underline; font-size:0.9em; margin:5px 0;">📍 Nachbarn zeigen</button><br>
                         ${btnHtml}
                     </div>
                 `;
@@ -280,8 +336,17 @@
                 const sA = streets[a], sB = streets[b];
                 const wA = sA.user === currentUser ? 2 : (sA.status === 'free' ? 1 : 0);
                 const wB = sB.user === currentUser ? 2 : (sB.status === 'free' ? 1 : 0);
-                return wB - wA || sA.name.localeCompare(sB.name);
+                
+                if (wA !== wB) return wB - wA;
+                if (sortTargetId) return getDist(sA, streets[sortTargetId]) - getDist(sB, streets[sortTargetId]);
+                return sA.name.localeCompare(sB.name);
             });
+
+            const h3 = document.querySelector('.street-list h3');
+            if(h3) {
+                if (sortTargetId) h3.innerHTML = `Nahe '${streets[sortTargetId].name}' <button onclick="resetSort()" style="border:none;background:none;cursor:pointer">❌</button>`;
+                else h3.innerText = "Alle Straßen";
+            }
 
             sortedIds.forEach(id => {
                 const s = streets[id];
@@ -520,11 +585,20 @@
             if (data.success) {
                 isAdmin = true;
                 document.getElementById('adminControls').style.display = 'flex';
+                updateAdminStats();
                 alert("Admin-Modus aktiv.");
                 renderMap(); renderList(); 
             } else {
                 alert("Falsches Passwort!");
             }
+        }
+
+        function updateAdminStats() {
+            const users = new Set();
+            Object.values(streets).forEach(s => {
+                if(s.user) users.add(s.user);
+            });
+            document.getElementById('adminStats').innerText = `👥 ${users.size} Helfer`;
         }
 
         function startDrawing() {

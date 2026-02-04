@@ -21,11 +21,11 @@
 ### 🖥️ Frontend & UX
 - [x] **Datenschutz-Hinweis:** Expliziter Hinweis im UI, nur Kürzel/Vornamen zu verwenden (DSGVO).
 - [x] **Daten: Überregionale Straßen (Backend):** Filter erweitert für Bundes-/Landesstraßen (primary/secondary).
-- [ ] **Farbkontrast:** Reservierte Straßen kontrastreicher gestalten (nicht grün/ähnlich zu "frei").
-- [ ] **Legende:** Farblegende für User/Status auf der Karte hinzufügen.
-- [ ] **Dark Mode Fix:** Lesbarkeit des PDF-Export-Buttons im Dark Theme korrigieren.
-- [ ] **Countdown:** Anzeige der verbleibenden Zeit für die aktuelle Abfrage/Session.
-- [ ] **Admin-Übersicht:** Dashboard für Admins: Anzahl eingetragener Helfer/User anzeigen.
+- [x] **Farbkontrast:** Reservierte Straßen kontrastreicher gestalten (nicht grün/ähnlich zu "frei").
+- [x] **Legende:** Farblegende für User/Status auf der Karte hinzufügen.
+- [x] **Dark Mode Fix:** Lesbarkeit des PDF-Export-Buttons im Dark Theme korrigieren.
+- [x] **Countdown:** Anzeige der verbleibenden Zeit für die aktuelle Abfrage/Session.
+- [x] **Admin-Übersicht:** Dashboard für Admins: Anzahl eingetragener Helfer/User anzeigen.
 
 ### 🛠️ Admin-CLI (`admin.py`) & Backend
 - [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
@@ -53,4 +53,4 @@
 
 
 new idea:
-- [ ] sortieren nach bereichen - die Straßenliste sind aktuell nach alphabet sortiert besser wäre es wenn der user eine straße anwählt die liste umsortiert wird nach von der straße abgehenden allerdings sollte die sortierung auch wieder zurückgestellt werdne können.
+- [x] sortieren nach bereichen - die Straßenliste sind aktuell nach alphabet sortiert besser wäre es wenn der user eine straße anwählt die liste umsortiert wird nach von der straße abgehenden allerdings sollte die sortierung auch wieder zurückgestellt werdne können.
