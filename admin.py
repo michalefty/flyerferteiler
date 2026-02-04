@@ -113,7 +113,23 @@ def fetch_streets_multi_plz(plz_liste):
     # 2. Assign Households to Streets
     print(f"🏠 Verarbeite {len(data_h.get('elements', []))} gefundene Adress-Objekte...")
     THRESHOLD = 0.0004 # Approx 40m
+    GRID_SIZE = 0.001 # Approx 111m
     
+    # --- Optimization: Spatial Grid ---
+    street_grid = {}
+    
+    def get_grid_key(lat, lon):
+        return (int(lat / GRID_SIZE), int(lon / GRID_SIZE))
+
+    print("🧩 Erstelle Spatial Grid für Straßen...")
+    for s_id, s_data in raw_streets.items():
+        for path in s_data["paths"]:
+            for n in path[::5]: # Downsample for grid population
+                key = get_grid_key(n[0], n[1])
+                if key not in street_grid: street_grid[key] = set()
+                street_grid[key].add(s_id)
+                
+    # Loop Houses
     for h in data_h.get('elements', []):
         h_lat = h.get('lat') or h.get('center', {}).get('lat')
         h_lon = h.get('lon') or h.get('center', {}).get('lon')
@@ -122,7 +138,18 @@ def fetch_streets_multi_plz(plz_liste):
         min_d = 999
         best_id = None
         
-        for s_id, s_data in raw_streets.items():
+        # Get Candidate Streets (Current cell + 8 neighbors)
+        g_lat, g_lon = get_grid_key(h_lat, h_lon)
+        candidates = set()
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                k = (g_lat + dx, g_lon + dy)
+                if k in street_grid:
+                    candidates.update(street_grid[k])
+        
+        # Only check candidates
+        for s_id in candidates:
+            s_data = raw_streets[s_id]
             # Check distance to ANY node in ANY path
             for path in s_data["paths"]:
                 for n_lat, n_lon in path[::5]: # Check every 5th node
@@ -132,7 +159,27 @@ def fetch_streets_multi_plz(plz_liste):
                         best_id = s_id
         
         if best_id and min_d < THRESHOLD:
-            raw_streets[best_id]["households"] += 1
+            # --- Weighting Logic ---
+            # --- Weighting Logic ---
+            weight = 1
+            tags = h.get('tags', {})
+            
+            # 1. Explicit flats count
+            if 'addr:flats' in tags:
+                try:
+                    flats_val = tags['addr:flats']
+                    if '-' in flats_val: # e.g. "1-10"
+                        parts = flats_val.split('-')
+                        weight = max(1, int(parts[1]) - int(parts[0]) + 1)
+                    else:
+                        weight = max(1, int(flats_val))
+                except:
+                    pass
+            # 2. Building Type Heuristic
+            elif tags.get('building') in ['apartments', 'dormitory', 'terrace']:
+                weight = 6 # Estimate for apartment buildings without flat count
+            
+            raw_streets[best_id]["households"] += weight
 
     # 3. Post-Process: Cleanup, Min Households, Splitting
     final_streets = {}
