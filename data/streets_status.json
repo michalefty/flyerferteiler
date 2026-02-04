@@ -3460,8 +3460,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "goethestraße": {
       "coords": [
