@@ -116,8 +116,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "am_altenbach_part1": {
       "coords": [
@@ -319,8 +319,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "am_friedrichsberg": {
       "coords": [
@@ -368,8 +368,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "am_lenzengrund": {
       "coords": [
@@ -491,8 +491,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "am_sportplatz": {
       "coords": [
@@ -686,8 +686,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "amselweg": {
       "coords": [
@@ -826,8 +826,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "annastraße": {
       "coords": [
@@ -880,8 +880,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "auf_der_birkenhöhe": {
       "coords": [
@@ -937,8 +937,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "bahnhofstraße_part1": {
       "coords": [
@@ -1475,8 +1475,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "breiter_weg_part1": {
       "coords": [
@@ -1514,8 +1514,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "breiter_weg_part2": {
       "coords": [
@@ -1763,8 +1763,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "breslauer_straße": {
       "coords": [
@@ -1979,8 +1979,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "doktor-albert-hoffa-straße_part2": {
       "coords": [
@@ -2060,8 +2060,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "doktor-karl-reus-straße_part1": {
       "coords": [
@@ -2107,8 +2107,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "doktor-karl-reus-straße_part2": {
       "coords": [
@@ -2266,8 +2266,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "dorfstraße": {
       "coords": [
@@ -2373,8 +2373,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "dornauer_ring_part1": {
       "coords": [
@@ -2424,8 +2424,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "dornauer_ring_part2": {
       "coords": [
@@ -2509,8 +2509,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "dornauer_weg": {
       "coords": [
@@ -2608,8 +2608,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "dr.-gerhard-rüdiger-straße": {
       "coords": [
@@ -2675,8 +2675,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "drosselweg": {
       "coords": [
@@ -3044,8 +3044,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "eulenweg": {
       "coords": [
@@ -3182,8 +3182,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "flurweg": {
       "coords": [
@@ -3237,8 +3237,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "franz-schüßler-straße": {
       "coords": [
@@ -3336,8 +3336,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "friedenstraße": {
       "coords": [
@@ -4214,8 +4214,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "hohe-wart-straße_part2": {
       "coords": [
@@ -4311,8 +4311,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "hollerweg": {
       "coords": [
@@ -4382,8 +4382,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "holzwiesenweg": {
       "coords": [
@@ -4443,8 +4443,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "höfchen": {
       "coords": [
@@ -4490,8 +4490,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "höhfeldstraße": {
       "coords": [
@@ -4644,8 +4644,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "höhwaldweg_part2": {
       "coords": [
@@ -5068,8 +5068,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "jägersgarten": {
       "coords": [
@@ -5465,8 +5465,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "konrad-adenauer-straße": {
       "coords": [
@@ -5637,8 +5637,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "kurmainzer_ring_part2": {
       "coords": [
@@ -5664,8 +5664,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "kurt-schumacher-straße": {
       "coords": [
@@ -6152,8 +6152,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "luisenstraße": {
       "coords": [
@@ -6373,8 +6373,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "mühlbachstraße": {
       "coords": [
@@ -6641,8 +6641,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "niedernberger_straße_part1": {
       "coords": [
@@ -7027,8 +7027,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "rainweg": {
       "coords": [
@@ -7090,8 +7090,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "renatastraße": {
       "coords": [
@@ -7282,8 +7282,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "ritastraße": {
       "coords": [
@@ -7336,8 +7336,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "schafbrückenweg": {
       "coords": [
@@ -7578,8 +7578,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "schulstraße": {
       "coords": [
@@ -7635,8 +7635,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "schwalbenring": {
       "coords": [
@@ -7877,8 +7877,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "sodentalstraße_part3": {
       "coords": [
@@ -8079,8 +8079,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "sodentalstraße_part5": {
       "coords": [
@@ -8446,8 +8446,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "sodentalstraße_part8": {
       "coords": [
@@ -8611,8 +8611,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "sodentalstraße_part9": {
       "coords": [
@@ -8676,8 +8676,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     },
     "spessartstraße_part1": {
       "coords": [
@@ -9379,8 +9379,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "TS"
     },
     "südring": {
       "coords": [
@@ -9456,8 +9456,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "theodor-heuss-straße_part1": {
       "coords": [
@@ -9618,8 +9618,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Schü"
     },
     "wachenbachweg": {
       "coords": [
@@ -9735,8 +9735,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "PK"
     }
   }
 }
