@@ -369,10 +369,34 @@ def start_vm():
         zone = getattr(config, 'VM_ZONE', 'europe-west3-c')
         project = getattr(config, 'VM_PROJECT', '')
         
-        cmd = ["gcloud", "compute", "instances", "start", name, "--zone", zone]
-        if project:
-            cmd.extend(["--project", project])
+        base_cmd = ["gcloud", "compute", "instances"]
+        flags = ["--zone", zone]
+        if project: flags.extend(["--project", project])
+
+        # 1. Check Status
+        print(f"🔍 Prüfe Status von '{name}'...")
+        try:
+            status_cmd = base_cmd + ["describe", name, "--format=get(status)"] + flags
+            res = subprocess.run(status_cmd, capture_output=True, text=True, check=True)
+            status = res.stdout.strip()
             
+            if status == "RUNNING":
+                print(f"⚠️  VM '{name}' läuft bereits.")
+                if input("🔄 Soll die VM neu gestartet werden? (j/n): ").strip().lower() == 'j':
+                    print(f"🔄 Starte Neustart (Reset) von '{name}'...")
+                    reset_cmd = base_cmd + ["reset", name] + flags
+                    subprocess.run(reset_cmd, check=True)
+                    print("✅ VM neu gestartet. Warte auf Boot (30s)...")
+                    time.sleep(30)
+                else:
+                    print("ℹ️  Verwende laufende Instanz.")
+                return True # Proceed
+                
+        except subprocess.CalledProcessError:
+            print("⚠️  Status konnte nicht geprüft werden (oder VM existiert nicht). Versuche Start...")
+
+        # 2. Start if not running or check failed
+        cmd = base_cmd + ["start", name] + flags
         print(f"🚀 Starte VM '{name}' in Zone '{zone}'...")
         try:
             subprocess.run(cmd, check=True)

@@ -75,6 +75,7 @@
             <button id="finishDrawBtn" class="btn" style="background:#27ae60; display:none;" onclick="finishDrawing()">✅ Fertig</button>
             <button class="btn" style="background:#8e44ad" onclick="downloadExport()">🌍 Export GeoJSON</button>
         </div>
+        <div id="selectionInfo" style="display:none; background:var(--info); color:white; padding:10px; border-radius:6px;"></div>
         <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 150px;">
     </div>
 
@@ -97,6 +98,9 @@
         <a onclick="openModal('impressumModal')">Impressum</a> | 
         <a onclick="openModal('privacyModal')">Datenschutz & Lizenz</a>
     </div>
+    
+    <!-- Footer Easter Egg -->
+    <div id="footer-egg" style="text-align:center; font-size:1.5em; cursor:pointer; margin-top:10px;" onclick="showEasterEgg()" title="?">🥧</div>
 
     <!-- Modals -->
     <div id="helpModal" class="modal">
@@ -153,6 +157,25 @@
         const map = L.map('map').setView([51.1657, 10.4515], 6); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
+        // Legend
+        const legend = L.control({position: 'bottomright'});
+        legend.onAdd = function (map) {
+            const div = L.DomUtil.create('div', 'info legend');
+            div.style.background = 'var(--card-bg)';
+            div.style.padding = '10px';
+            div.style.borderRadius = '8px';
+            div.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+            div.style.color = 'var(--text)';
+            div.innerHTML = `
+                <div style="margin-bottom:5px"><b>Legende</b></div>
+                <div><span style="color:var(--free)">■</span> Offen</div>
+                <div><span style="color:var(--taken)">■</span> Vergeben</div>
+                <div><span style="color:var(--mine)">■</span> Meine</div>
+            `;
+            return div;
+        };
+        legend.addTo(map);
+        
         const streets = {{ streets|tojson }};
         const startDateStr = "{{ metadata.date }}";
         const durationDays = {{ survey_days }};
@@ -160,6 +183,10 @@
         const markerGroup = [];
         let currentUser = localStorage.getItem('userName') || "";
         let sortTargetId = null;
+
+        function showEasterEgg() {
+            alert("🐰 Easter Egg gefunden!\n\nWarum 'Ferteiler'?\nWeil wir Flyer so schnell verteilen, dass für Rechtschreibung keine Zeit blieb! 🏃💨");
+        }
 
         function getDist(s1, s2) {
             if (s1 === s2) return 0;
@@ -297,7 +324,10 @@
                 } else if (isMine) {
                     btnHtml = `<button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Freigeben</button>`;
                 } else {
-                    btnHtml = `<span style="color:${color}; font-weight:bold;">Belegt: ${s.user}</span>`;
+                    btnHtml = `<div style="display:flex;align-items:center;justify-content:center;gap:5px">
+                        <span style="color:${color}; font-weight:bold;">Belegt: ${s.user}</span>
+                        <button onclick="stealStreet('${id}')" title="Übernehmen" style="background:white; border:1px solid #ccc; border-radius:4px; cursor:pointer;">✋</button>
+                    </div>`;
                 }
 
                 if(isAdmin) {
@@ -363,7 +393,7 @@
                 } else if(isMine) {
                     actionBtn = `<button style="background:var(--taken); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')">Freigeben</button>`;
                 } else {
-                    actionBtn = `<small style="color:var(--taken)">${s.user}</small>`;
+                    actionBtn = `<small style="color:var(--taken)">${s.user}</small> <button onclick="stealStreet('${id}')" style="border:1px solid #ccc; background:none; cursor:pointer; font-size:0.8em">✋</button>`;
                 }
 
                 if(isAdmin) {
@@ -390,6 +420,13 @@
                 li.querySelector('.street-info').style.cursor = 'pointer';
                 list.appendChild(li);
             });
+        }
+        
+        function stealStreet(id) {
+             const s = streets[id];
+             if(confirm(`Möchtest du die Straße '${s.name}' von ${s.user} übernehmen?\n(Bitte nur nach Absprache!)`)) {
+                 updateStatus(id, 'taken'); 
+             }
         }
 
         function updateStats() {
@@ -435,6 +472,7 @@
         function toggleSelectionMode() {
             isSelecting = !isSelecting;
             document.getElementById('selectBtn').style.background = isSelecting ? 'orange' : 'var(--info)';
+            document.getElementById('selectionInfo').style.display = 'none';
             if (isSelecting) {
                 map.dragging.disable();
                 if (map.tap) map.tap.disable();
@@ -459,6 +497,24 @@
                 L.DomEvent.preventDefault(e);
                 const latlng = e.latlng || map.mouseEventToLatLng(e.originalEvent);
                 rect.setBounds([start, latlng]);
+                
+                // Update Selection Info
+                const b = rect.getBounds();
+                let count = 0, houses = 0, length = 0;
+                Object.values(streets).forEach(s => {
+                    if (s.status === 'free' && b.contains(s.coords)) {
+                        count++;
+                        houses += s.households;
+                        length += (s.length || 0);
+                    }
+                });
+                const info = document.getElementById('selectionInfo');
+                if (count > 0) {
+                    info.style.display = 'inline-block';
+                    info.innerHTML = `Auswahl: <b>${count}</b> Straßen | 🏠 ${houses} | 📏 ${(length/1000).toFixed(1)}km`;
+                } else {
+                    info.style.display = 'none';
+                }
             }
         }
 
