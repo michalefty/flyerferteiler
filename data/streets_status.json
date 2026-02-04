@@ -713,8 +713,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "an_der_geeb": {
       "coords": [
@@ -1851,8 +1851,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "danziger_straße": {
       "coords": [
@@ -2706,8 +2706,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "dürerstraße": {
       "coords": [
@@ -3128,8 +3128,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "finkenweg": {
       "coords": [
@@ -3155,8 +3155,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "fliederweg": {
       "coords": [
@@ -3375,8 +3375,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "friedhofstraße": {
       "coords": [
@@ -3460,8 +3460,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "goethestraße": {
       "coords": [
@@ -3730,8 +3730,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "hasenhecke_part2": {
       "coords": [
@@ -3761,8 +3761,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "hauptstraße_part1": {
       "coords": [
@@ -3890,8 +3890,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "hauptstraße_part2": {
       "coords": [
@@ -3975,8 +3975,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "helenenstraße": {
       "coords": [
@@ -4091,8 +4091,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "hohe-wart-straße_part1": {
       "coords": [
@@ -5242,8 +5242,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "kleewiesenweg_part1": {
       "coords": [
@@ -5289,8 +5289,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "kleewiesenweg_part2": {
       "coords": [
@@ -5392,8 +5392,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "kleinwallstädter_straße": {
       "coords": [
@@ -5514,8 +5514,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "kurmainzer_ring_part1": {
       "coords": [
@@ -5691,8 +5691,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "königsberger_straße_part1": {
       "coords": [
@@ -6109,8 +6109,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "lindenstraße": {
       "coords": [
@@ -6346,8 +6346,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "märzbrückenweg": {
       "coords": [
@@ -6428,8 +6428,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "mühlweg_part1": {
       "coords": [
@@ -6614,8 +6614,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "nelkenweg": {
       "coords": [
@@ -6956,8 +6956,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "prof.-dr.-dölger-straße": {
       "coords": [
@@ -7551,8 +7551,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "schloßbergstraße": {
       "coords": [
@@ -7690,8 +7690,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "sodentalstraße_part1": {
       "coords": [
@@ -9132,8 +9132,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "AH"
     },
     "spessartstraße_part5": {
       "coords": [
@@ -9700,8 +9700,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "WW"
     },
     "wingertstraße": {
       "coords": [
