@@ -51,5 +51,4 @@
 
 ### 📚 Dokumentation & Sonstiges
 - [x] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
-- [x] **Easter Egg:** "Warum Flyerferteiler?" – Lustige Begründung/Story hinzufügen.
 - [x] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
