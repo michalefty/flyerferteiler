@@ -50,9 +50,9 @@
     </div>
     
     <div class="stats-bar">
-        <div class="stat-card"><h4><span style="color:var(--free)">■</span> Offen</h4><p id="s-open">-</p></div>
-        <div class="stat-card"><h4><span style="color:var(--taken)">■</span> Vergeben</h4><p id="s-taken">-</p></div>
-        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">-</p></div>
+        <div class="stat-card"><h4><span style="color:var(--free)">■</span> Offen</h4><p id="s-open">- Str.</p></div>
+        <div class="stat-card"><h4><span style="color:var(--taken)">■</span> Vergeben</h4><p id="s-taken">- Str.</p></div>
+        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">- Str.</p></div>
         <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
     <p style="text-align:center; font-size:0.85em; color:#7f8c8d; margin-top:-10px; margin-bottom: 20px;">
@@ -196,6 +196,7 @@
         function sortByProximity(id) {
             sortTargetId = id;
             renderList();
+            renderMap();
             document.querySelector('.street-list').scrollTop = 0;
             map.closePopup();
         }
@@ -203,6 +204,7 @@
         function resetSort() {
             sortTargetId = null;
             renderList();
+            renderMap();
         }
 
         function init() {
@@ -313,6 +315,18 @@
                 let lineLayer = null;
                 if (s.path && s.path.length > 0) {
                     lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.8 }).addTo(map);
+                    
+                    // Highlight Neighbors if sorting is active
+                    if (sortTargetId && id !== sortTargetId) {
+                        const dist = map.distance(s.coords, streets[sortTargetId].coords);
+                        if (dist < 800) {
+                             L.polyline(s.path, { color: '#3498db', weight: 2, dashArray: '5, 10', opacity: 1 }).addTo(map);
+                        }
+                    } else if (sortTargetId && id === sortTargetId) {
+                         // Highlight Target
+                         L.polyline(s.path, { color: '#3498db', weight: 8, opacity: 0.3 }).addTo(map);
+                    }
+
                     lineLayer.on('click', () => marker.openPopup());
                 }
 
@@ -430,19 +444,22 @@
         }
 
         function updateStats() {
-            let open = 0, taken = 0, mine = 0, houses = 0;
+            let open = 0, taken = 0, mine = 0, totalHouses = 0, myHouses = 0;
             Object.values(streets).forEach(s => {
-                houses += s.households;
+                totalHouses += s.households;
                 if(s.status === 'free') open++;
                 else {
                     taken++;
-                    if(s.user === currentUser) mine++;
+                    if(s.user === currentUser) {
+                        mine++;
+                        myHouses += s.households;
+                    }
                 }
             });
-            document.getElementById('s-open').innerText = open;
-            document.getElementById('s-taken').innerText = taken;
-            document.getElementById('s-mine').innerText = mine;
-            document.getElementById('s-house').innerText = houses;
+            document.getElementById('s-open').innerText = open + " Str.";
+            document.getElementById('s-taken').innerText = taken + " Str.";
+            document.getElementById('s-mine').innerText = mine + " Str.";
+            document.getElementById('s-house').innerText = `${myHouses} / ${totalHouses}`;
         }
 
         function updateStatus(id, newStatus) {
