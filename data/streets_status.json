@@ -4,7 +4,7 @@
       49.912835472279184,
       9.166675212719118
     ],
-    "city": "Sulzbach am Main BI",
+    "city": "Sulzbach am Main - BI-Verteiler",
     "date": "04.02.2026",
     "duration": 1,
     "plz": "63834",
@@ -499,7 +499,7 @@
         49.915183379999995,
         9.1634781
       ],
-      "households": 6,
+      "households": 2,
       "length": 293,
       "name": "Am Sportplatz",
       "path": [
@@ -945,7 +945,7 @@
         49.91352280571428,
         9.150145751428573
       ],
-      "households": 10,
+      "households": 9,
       "length": 941,
       "name": "Bahnhofstraße (1/3)",
       "path": [
@@ -1106,7 +1106,7 @@
         49.91899206470589,
         9.147587811764705
       ],
-      "households": 10,
+      "households": 9,
       "length": 244,
       "name": "Bahnhofstraße (2/3)",
       "path": [
@@ -1195,7 +1195,7 @@
         49.918166199999995,
         9.147682380000001
       ],
-      "households": 10,
+      "households": 9,
       "length": 129,
       "name": "Bahnhofstraße (3/3)",
       "path": [
@@ -1390,7 +1390,7 @@
         49.906326225,
         9.154475625
       ],
-      "households": 28,
+      "households": 20,
       "length": 506,
       "name": "Blumenstraße",
       "path": [
@@ -1483,7 +1483,7 @@
         49.906968716666675,
         9.151906316666668
       ],
-      "households": 2,
+      "households": 3,
       "length": 196,
       "name": "Breiter Weg (1/4)",
       "path": [
@@ -1522,7 +1522,7 @@
         49.90173333999999,
         9.155941455
       ],
-      "households": 2,
+      "households": 3,
       "length": 693,
       "name": "Breiter Weg (2/4)",
       "path": [
@@ -1617,7 +1617,7 @@
         49.8961361375,
         9.160850308333332
       ],
-      "households": 2,
+      "households": 3,
       "length": 824,
       "name": "Breiter Weg (3/4)",
       "path": [
@@ -1728,7 +1728,7 @@
         49.90499071428572,
         9.1534316
       ],
-      "households": 2,
+      "households": 3,
       "length": 196,
       "name": "Breiter Weg (4/4)",
       "path": [
@@ -1882,7 +1882,7 @@
         49.921256436363635,
         9.190931527272728
       ],
-      "households": 5,
+      "households": 3,
       "length": 962,
       "name": "Doktor-Albert-Hoffa-Straße (1/3)",
       "path": [
@@ -1987,7 +1987,7 @@
         49.92172150625,
         9.19733010625
       ],
-      "households": 5,
+      "households": 3,
       "length": 284,
       "name": "Doktor-Albert-Hoffa-Straße (2/3)",
       "path": [
@@ -2068,7 +2068,7 @@
         49.922991425000006,
         9.2085756875
       ],
-      "households": 14,
+      "households": 18,
       "length": 61,
       "name": "Doktor-Karl-Reus-Straße (1/2)",
       "path": [
@@ -2115,7 +2115,7 @@
         49.92307945000001,
         9.202330380555555
       ],
-      "households": 14,
+      "households": 18,
       "length": 895,
       "name": "Doktor-Karl-Reus-Straße (2/2)",
       "path": [
@@ -2381,7 +2381,7 @@
         49.89731224999999,
         9.1869461375
       ],
-      "households": 14,
+      "households": 12,
       "length": 147,
       "name": "Dornauer Ring (1/2)",
       "path": [
@@ -2432,7 +2432,7 @@
         49.89694028235294,
         9.189088058823529
       ],
-      "households": 14,
+      "households": 12,
       "length": 541,
       "name": "Dornauer Ring (2/2)",
       "path": [
@@ -2517,7 +2517,7 @@
         49.90771178333333,
         9.153532333333334
       ],
-      "households": 13,
+      "households": 7,
       "length": 403,
       "name": "Dornauer Weg",
       "path": [
@@ -2921,7 +2921,7 @@
         49.9168273,
         9.16744265
       ],
-      "households": 12,
+      "households": 13,
       "length": 368,
       "name": "Egerländer Straße",
       "path": [
@@ -3769,7 +3769,7 @@
         49.907044481481485,
         9.15101068148148
       ],
-      "households": 23,
+      "households": 21,
       "length": 447,
       "name": "Hauptstraße (1/2)",
       "path": [
@@ -3898,7 +3898,7 @@
         49.90787863125,
         9.150832549999997
       ],
-      "households": 23,
+      "households": 21,
       "length": 174,
       "name": "Hauptstraße (2/2)",
       "path": [
@@ -4006,7 +4006,7 @@
         49.90963178,
         9.15051184
       ],
-      "households": 13,
+      "households": 17,
       "length": 333,
       "name": "Hintere Dorfstraße",
       "path": [
@@ -4319,7 +4319,7 @@
         49.906888325000004,
         9.1573267875
       ],
-      "households": 21,
+      "households": 16,
       "length": 350,
       "name": "Hollerweg",
       "path": [
@@ -5103,7 +5103,7 @@
         49.9163367,
         9.167672128571429
       ],
-      "households": 16,
+      "households": 15,
       "length": 228,
       "name": "Karlsbader Straße",
       "path": [
@@ -6278,7 +6278,7 @@
         49.9159906,
         9.15431025
       ],
-      "households": 14,
+      "households": 7,
       "length": 263,
       "name": "Marienstraße",
       "path": [
@@ -6436,7 +6436,7 @@
         49.91187000833333,
         9.153449533333331
       ],
-      "households": 13,
+      "households": 18,
       "length": 264,
       "name": "Mühlweg (1/2)",
       "path": [
@@ -6503,7 +6503,7 @@
         49.91228826399999,
         9.157999100000001
       ],
-      "households": 13,
+      "households": 18,
       "length": 609,
       "name": "Mühlweg (2/2)",
       "path": [
@@ -6906,7 +6906,7 @@
         49.908648525,
         9.153504475
       ],
-      "households": 3,
+      "households": 4,
       "length": 80,
       "name": "Pfortengasse",
       "path": [
@@ -6964,7 +6964,7 @@
         49.90797082,
         9.157994120000001
       ],
-      "households": 26,
+      "households": 15,
       "length": 528,
       "name": "Prof.-Dr.-Dölger-Straße",
       "path": [
@@ -7290,7 +7290,7 @@
         49.915696249999996,
         9.1535721
       ],
-      "households": 5,
+      "households": 7,
       "length": 101,
       "name": "Ritastraße",
       "path": [
@@ -9281,7 +9281,7 @@
         49.91352996,
         9.16254356
       ],
-      "households": 9,
+      "households": 7,
       "length": 433,
       "name": "Sudetenstraße",
       "path": [
