@@ -23,7 +23,10 @@ def save_data(data):
 @app.route('/')
 def index():
     data = load_data()
-    days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
+    # Prioritize metadata duration, then config, then default 7
+    days = data.get('metadata', {}).get('duration')
+    if days is None:
+        days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
     return render_template('index.html', metadata=data['metadata'], streets=data['streets'], survey_days=days)
 
 @app.route('/update', methods=['POST'])

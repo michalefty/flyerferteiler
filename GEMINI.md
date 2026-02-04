@@ -20,7 +20,7 @@
 
 ### 🖥️ Frontend & UX
 - [x] **Datenschutz-Hinweis:** Expliziter Hinweis im UI, nur Kürzel/Vornamen zu verwenden (DSGVO).
-- [ ] **Sektor-Filter:** Filteroptionen für Sektoren im UI implementieren.
+- [x] **Daten: Überregionale Straßen (Backend):** Filter erweitert für Bundes-/Landesstraßen (primary/secondary).
 - [ ] **Farbkontrast:** Reservierte Straßen kontrastreicher gestalten (nicht grün/ähnlich zu "frei").
 - [ ] **Legende:** Farblegende für User/Status auf der Karte hinzufügen.
 - [ ] **Dark Mode Fix:** Lesbarkeit des PDF-Export-Buttons im Dark Theme korrigieren.
@@ -29,8 +29,8 @@
 
 ### 🛠️ Admin-CLI (`admin.py`) & Backend
 - [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
-- [ ] **Backup Cleanup:** Funktion zum Löschen alter Backups implementieren.
-- [ ] **Abfragedauer:** Input-Prompt für die Dauer der Abfrage hinzufügen (Default aus `config.py`).
+- [x] **Backup Cleanup:** Funktion zum Löschen alter Backups implementieren.
+- [x] **Abfragedauer:** Input-Prompt für die Dauer der Abfrage hinzufügen.
 - [ ] **Restore-Logik:** Restore vom letzten Status und Abfrage geänderter Straßen trennen.
 - [ ] **Server-Check:** Vor Neustart-Vorschlag prüfen, ob die Webseite tatsächlich nicht antwortet.
 - [ ] **Passwort-Prompt:** Admin-Passwort interaktiv abfragen, auch wenn es in `config.py` steht.

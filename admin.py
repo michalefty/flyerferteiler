@@ -50,7 +50,8 @@ def fetch_streets_multi_plz(plz_liste):
     area_filters = "".join([f'area["postal_code"="{p}"];' for p in plz_liste])
     
     # Query 1: Streets with geometry
-    q_streets = f'[out:json][timeout:90];({area_filters})->.a; way["highway"~"residential|tertiary|unclassified|living_street|pedestrian"]["name"](area.a); out geom;'
+    # Added primary/secondary to capture main roads (Bundes-/Landesstraßen)
+    q_streets = f'[out:json][timeout:90];({area_filters})->.a; way["highway"~"primary|secondary|tertiary|unclassified|residential|living_street|pedestrian"]["name"](area.a); out geom;'
     
     # Query 2: Addresses (nodes, ways, relations)
     q_houses = f'[out:json][timeout:90];({area_filters})->.a; nwr["addr:housenumber"](area.a); out center;'
@@ -210,6 +211,16 @@ def generate_multi_plan():
 
     if not plz_liste: return
     label = input("Anzeigename: ")
+    
+    # New: Ask for duration
+    default_days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
+    try:
+        dur_input = input(f"Dauer der Abfrage in Tagen (Default: {default_days}): ").strip()
+        survey_days = int(dur_input) if dur_input else default_days
+    except ValueError:
+        survey_days = default_days
+        print(f"⚠️ Ungültige Eingabe, nutze Default: {survey_days} Tage")
+
     streets_dict, coords_list = fetch_streets_multi_plz(plz_liste)
     if not streets_dict: return
 
@@ -245,7 +256,8 @@ def generate_multi_plan():
             "plz": ", ".join(plz_liste),
             "date": datetime.now().strftime("%d.%m.%Y"),
             "center": [avg_lat, avg_lon],
-            "total_streets": len(streets_dict)
+            "total_streets": len(streets_dict),
+            "duration": survey_days
         },
         "streets": streets_dict
     }
@@ -285,7 +297,7 @@ def generate_multi_plan():
                 manage_vm = input("\n☁️  Soll die Cloud-VM jetzt gestartet und der Timer gesetzt werden? (j/n): ").strip().lower()
                 if manage_vm == 'j':
                     start_vm()
-                    schedule_stop_vm()
+                    schedule_stop_vm(survey_days)
 
             except subprocess.CalledProcessError as e:
                 print(f"❌ Fehler beim Git-Push: {e}")
@@ -315,9 +327,10 @@ def start_vm():
             return False
     return True
 
-def schedule_stop_vm():
+def schedule_stop_vm(days=None):
     # Calculate minutes
-    days = getattr(config, 'SURVEY_DURATION_DAYS', 7)
+    if days is None:
+        days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
     minutes = days * 24 * 60
     
     print(f"⏲️  Setze Shutdown-Timer auf {days} Tage ({minutes} Minuten)...")
@@ -376,17 +389,67 @@ def anonymize_users():
     else:
         print("ℹ️ Keine Namen gefunden, die gekürzt werden mussten.")
 
+def cleanup_backups():
+    print("\n--- 🧹 Backups Bereinigen ---")
+    backup_dir = 'data/backups'
+    if not os.path.exists(backup_dir):
+        print(f"❌ Verzeichnis '{backup_dir}' nicht gefunden.")
+        return
+
+    # List all JSON files
+    files = [os.path.join(backup_dir, f) for f in os.listdir(backup_dir) if f.endswith('.json')]
+    if not files:
+        print("ℹ️ Keine Backups gefunden.")
+        return
+
+    # Sort by modification time (newest first)
+    files.sort(key=os.path.getmtime, reverse=True)
+
+    print(f"📦 Gesamtanzahl Backups: {len(files)}")
+    print(f"🆕 Neuestes: {os.path.basename(files[0])} ({datetime.fromtimestamp(os.path.getmtime(files[0])).strftime('%d.%m.%Y %H:%M')})")
+    print(f"🏚️ Ältestes: {os.path.basename(files[-1])} ({datetime.fromtimestamp(os.path.getmtime(files[-1])).strftime('%d.%m.%Y %H:%M')})")
+
+    try:
+        keep_input = input("\nWie viele (neueste) Backups behalten? (Default: 10): ").strip()
+        keep = int(keep_input) if keep_input else 10
+    except ValueError:
+        print("❌ Ungültige Eingabe.")
+        return
+
+    if keep < 1: keep = 1
+    to_delete = files[keep:]
+
+    if not to_delete:
+        print("✅ Keine Dateien zu löschen (Anzahl <= Limit).")
+        return
+
+    print(f"\n⚠️ Es werden {len(to_delete)} alte Dateien gelöscht!")
+    if input("Wirklich löschen? (j/n): ").strip().lower() == 'j':
+        deleted_count = 0
+        for f in to_delete:
+            try:
+                os.remove(f)
+                deleted_count += 1
+            except Exception as e:
+                print(f"❌ Fehler bei {os.path.basename(f)}: {e}")
+        print(f"✅ {deleted_count} Backups erfolgreich gelöscht.")
+    else:
+        print("❌ Abbruch.")
+
 def main_menu():
     print("\n--- 🛠️ ADMIN TOOL ---")
     print("1. 🗺️  Neuen Plan erstellen (PLZ Suche)")
     print("2. 🛡️  User-Namen anonymisieren (DSGVO)")
+    print("3. 🧹 Alte Backups bereinigen")
     
-    choice = input("\nWähle eine Option (1-2): ").strip()
+    choice = input("\nWähle eine Option (1-3): ").strip()
     
     if choice == '1':
         generate_multi_plan()
     elif choice == '2':
         anonymize_users()
+    elif choice == '3':
+        cleanup_backups()
     else:
         print("Ungültige Eingabe.")
 
