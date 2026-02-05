@@ -345,6 +345,11 @@ def generate_multi_plan():
 
     avg_lat = sum(c[0] for c in coords_list) / len(coords_list)
     avg_lon = sum(c[1] for c in coords_list) / len(coords_list)
+    
+    # Calculate Bounding Box
+    lats = [c[0] for c in coords_list]
+    lons = [c[1] for c in coords_list]
+    bbox = [[min(lats), min(lons)], [max(lats), max(lons)]]
 
     export_data = {
         "metadata": {
@@ -352,6 +357,7 @@ def generate_multi_plan():
             "plz": ", ".join(plz_liste),
             "date": datetime.now().strftime("%d.%m.%Y"),
             "center": [avg_lat, avg_lon],
+            "bbox": bbox,
             "total_streets": len(streets_dict),
             "duration": survey_days
         },

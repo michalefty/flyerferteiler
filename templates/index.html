@@ -8,9 +8,9 @@
     <script src="/static/lib/jspdf/jspdf.umd.min.js"></script>
     <script src="/static/lib/html2canvas/html2canvas.min.js"></script>
     <style>
-        :root { 
-            --bg: #f4f7f6; --text: #000; --card-bg: white; 
-            --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12; 
+        :root {
+            --bg: #f4f7f6; --text: #000; --card-bg: white;
+            --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12;
             --btn-text-on-primary: white;
         }
         [data-theme="dark"] {
@@ -24,14 +24,14 @@
         #map { height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         /* Dark Mode Map Filter */
         [data-theme="dark"] .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
-        
+
         .controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; }
         .btn { border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
         .street-list { background: var(--card-bg); padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
         .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; align-items: center; }
         .street-info { flex-grow: 1; }
         .badge { font-size: 0.8em; padding: 2px 6px; border-radius: 4px; background: #eee; color: #555; margin-left: 5px; }
-        
+
         /* Modal Styles */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
         .modal-content { background-color: var(--card-bg); margin: 10% auto; padding: 20px; border-radius: 8px; width: 80%; max-width: 600px; color: var(--text); position: relative; }
@@ -47,24 +47,26 @@
         <span style="font-weight:normal; font-size:0.9em;">Änderungen werden hier nicht dauerhaft gespeichert.</span><br>
         <button onclick="publishLive('{{ preview_uuid }}')" style="margin-top:10px; background:#c0392b; color:white; border:none; padding:10px 20px; font-size:1.1em; cursor:pointer; border-radius:6px; font-weight:bold;">🚀 JETZT LIVE SCHALTEN</button>
     </div>
-            <script>
-                async function publishLive(uuid) {
-                    if(confirm("Bist du sicher? \nDer aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
-                        const res = await fetch('/admin/publish', {
-                            method: 'POST', 
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({uuid: uuid})
-                        });
-                        const d = await res.json();
-                        if(d.success) {
-                            alert("✅ Erfolgreich veröffentlicht! Weiterleitung zum Live-Plan...");
-                            window.location.href = "/";
-                        } else {
-                            alert("Fehler: " + d.msg);
-                        }
-                    }
+    <script>
+        async function publishLive(uuid) {
+            if(confirm("Bist du sicher? 
+Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
+                const res = await fetch('/admin/publish', {
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({uuid: uuid})
+                });
+                const d = await res.json();
+                if(d.success) {
+                    alert("✅ Erfolgreich veröffentlicht! Weiterleitung zum Live-Plan...");
+                    window.location.href = "/";
+                } else {
+                    alert("Fehler: " + d.msg);
                 }
-            </script>    {% endif %}
+            }
+        }
+    </script>
+    {% endif %}
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h1>Flyer-Ferteilung {{ metadata.city }}</h1>
         <div style="text-align:right">
@@ -293,8 +295,7 @@
         function sortByProximity(id) {
             sortTargetId = id;
             renderList();
-            updateHighlights();
-            // Scroll to top of list
+            updateHighlights(); // Ensure visual cues update
             document.querySelector('.street-list').scrollTop = 0;
         }
 
@@ -343,8 +344,11 @@
                      const bg = nIsFree ? '#27ae60' : (nIsMine ? '#f39c12' : '#e74c3c');
                      
                      // Helper: Escape single quotes for JS string
-                     const safeName = n.name.replace(/'/g, "\\'");
-                     const onClick = nIsFree ? `updateStatus('${n.id}', 'taken')` : `map.flyTo([${n.coords}], 18)`;
+                     const safeName = n.name.replace(/'/g, "\'");
+                     const onClick = nIsFree ? `updateStatus('${n.id}', 'taken')` : `map.flyTo([${n.coords}], 18); map._layers[layers['${n.id}'].marker._leaflet_id].openPopup();`; // Direct popup open approach for taken
+                     
+                     // Alternative click handler for already taken neighbors to just fly there
+                     // We need to trigger selection/sorting for them too if we want highlighting
                      
                      neighborHtml += `<button onclick="${onClick}" style="background:${bg}; color:white; border:none; padding:4px 8px; border-radius:12px; font-size:0.85em; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.1);" title="${nIsFree ? 'Übernehmen' : 'Zeigen'}">${n.name}</button>`;
                 });
@@ -368,18 +372,18 @@
             }
             document.getElementById('currentName').innerText = currentUser || "Nicht gesetzt";
             
-            // Collect bounds
-            Object.values(streets).forEach(s => {
-                markerGroup.push([s.coords[0], s.coords[1]]);
-            });
-
-            // Initial FitBounds
-            if (markerGroup.length > 0 && !localStorage.getItem('mapCenter')) {
-                map.fitBounds(markerGroup, {padding: [50,50]});
+            // Initial View Strategy: Prefer BBox from backend
+            const bbox = {{ metadata.bbox|tojson if metadata.bbox else 'null' }};
+            
+            if (bbox) {
+                 map.fitBounds(bbox, {padding:[50,50]});
             } else if (localStorage.getItem('mapCenter')) {
                 map.setView(JSON.parse(localStorage.getItem('mapCenter')), localStorage.getItem('mapZoom'));
-            } else if (markerGroup.length > 0) {
-                 map.fitBounds(markerGroup, {padding: [50,50]});
+            } else {
+                // Fallback: Calculate bounds client-side
+                Object.values(streets).forEach(s => markerGroup.push(s.coords));
+                if (markerGroup.length > 0) map.fitBounds(markerGroup, {padding:[50,50]});
+                else map.setView({{ metadata.center|tojson }}, 14);
             }
 
             renderMap();
@@ -388,20 +392,6 @@
             updateCountdown();
             showRandomQuote();
             
-            // Auto-sort list when popup opens
-            map.on('popupopen', function(e) {
-                // Find street ID by coordinates or use a lookup?
-                // Easier: renderMap binds popup.
-                // We can't easily get ID from popupopen event unless we stored it in the layer options.
-                // But wait, renderMap sets layers[id]. 
-                // We can reverse lookup or attach ID to layer.
-            });
-            
-            // Actually, better to trigger sort inside the click handler or bindPopup function?
-            // Leaflet doesn't pass ID to popupopen easily. 
-            // Let's modify renderMap to attach ID to the marker options or similar.
-            
-            // Auto-Open Help on first visit
             if (!localStorage.getItem('helpSeen')) {
                 openModal('helpModal');
                 localStorage.setItem('helpSeen', 'true');
@@ -461,6 +451,7 @@
             return `hsl(${hue}, 65%, 40%)`; 
         }
 
+        // Highlight Group for selection lines
         const highlightGroup = L.layerGroup().addTo(map);
 
         function renderMap() {
@@ -477,11 +468,11 @@
                 const markerStyle = { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' };
 
                 if (layers[id]) {
-                    // Update existing
+                    // Reuse existing layers (prevents Popup closing)
                     if(layers[id].line) layers[id].line.setStyle(lineStyle);
                     if(layers[id].marker) layers[id].marker.setStyle(markerStyle);
                 } else {
-                    // Create new
+                    // Create New Layers
                     let lineLayer = null;
                     if (s.path && s.path.length > 0) {
                         lineLayer = L.polyline(s.path, lineStyle).addTo(map);
@@ -496,6 +487,7 @@
                     layers[id] = { marker: marker, line: lineLayer };
                 }
             });
+            // Update highlights in case selection persists
             updateHighlights();
         }
 
@@ -508,25 +500,25 @@
                 if (!s.path || s.path.length === 0) return;
 
                 if (id === sortTargetId) {
-                    // Highlight Target (thick transparent overlay)
+                    // Highlight Target
                     L.polyline(s.path, { color: '#3498db', weight: 12, opacity: 0.3 }).addTo(highlightGroup);
                 } else {
                     // Highlight Neighbors
                     const dist = map.distance(s.coords, streets[sortTargetId].coords);
                     if (dist < 800) {
-                         // Simple distance check for visual noise reduction
-                         // The dashed line overlay
+                         // Dashed line for neighbors
                          L.polyline(s.path, { color: '#3498db', weight: 2, dashArray: '5, 10', opacity: 0.6, interactive: false }).addTo(highlightGroup);
                     }
                 }
             });
         }
 
-        // Global Event Listener for Popup Open (to sort list)
+        // Global Event Listener for Popup Open (updates list sorting)
         map.on('popupopen', function(e) {
             const layer = e.popup._source;
             if (layer && layer.streetId) {
-                sortByProximity(layer.streetId);
+                // Just update state, don't re-render entire map
+                sortByProximity(layer.streetId); 
             }
         });
 
@@ -588,11 +580,12 @@
                     <div>${actionBtn}</div>
                 `;
                 
+                // --- CLICK ON LIST ITEM ---
                 li.querySelector('.street-info').onclick = () => {
                     const l = layers[id];
                     if(l) {
-                        map.flyTo(l.marker.getLatLng(), 17);
-                        l.marker.openPopup();
+                        map.flyTo(l.marker.getLatLng(), 17); // Zoom to street
+                        l.marker.openPopup(); // Open Popup (triggers sort via event)
                     }
                 };
                 li.querySelector('.street-info').style.cursor = 'pointer';
@@ -602,7 +595,8 @@
         
         function stealStreet(id) {
              const s = streets[id];
-             if(confirm(`Möchtest du die Straße '${s.name}' von ${s.user} übernehmen?\n(Bitte nur nach Absprache!)`)) {
+             if(confirm(`Möchtest du die Straße '${s.name}' von ${s.user} übernehmen?
+(Bitte nur nach Absprache!)`)) {
                  updateStatus(id, 'taken'); 
              }
         }
@@ -620,9 +614,9 @@
                     }
                 }
             });
-            document.getElementById('s-open').innerText = open + " Strassen";
-            document.getElementById('s-taken').innerText = taken + " Strassen";
-            document.getElementById('s-mine').innerText = mine + " Strassen";
+            document.getElementById('s-open').innerText = open + " Str.";
+            document.getElementById('s-taken').innerText = taken + " Str.";
+            document.getElementById('s-mine').innerText = mine + " Str.";
             document.getElementById('s-house').innerText = `${myHouses} / ${totalHouses}`;
         }
 
@@ -635,7 +629,21 @@
                 streets[sid].status = newStatus;
                 streets[sid].user = newStatus === 'free' ? '' : currentUser;
             });
-            renderMap(); renderList(); updateStats(); 
+            
+            // --- REFRESH POPUP CONTENT ---
+            // If popup is open, update it so chips change color instantly
+            const popup = map._popup; 
+            if (popup && popup._source && popup.isOpen()) {
+                const sourceId = popup._source.streetId;
+                popup.setContent(generatePopupContent(sourceId));
+            }
+
+            renderMap(); 
+            renderList(); 
+            updateStats(); 
+            // Do not call updateHighlights directly, it's called by renderMap or sortByProximity
+            // But we need to ensure highlights update if status changed colors? 
+            // renderMap calls updateHighlights at the end.
 
             localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
             localStorage.setItem('mapZoom', map.getZoom());
