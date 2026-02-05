@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import uuid
 from datetime import datetime
 import math
 import time
@@ -280,32 +281,23 @@ def generate_multi_plan():
     streets_dict, coords_list = fetch_streets_multi_plz(plz_liste, radius)
     if not streets_dict: return
 
-    # --- Merge Logic: Existing Data ---
-    if os.path.exists('data/streets_status.json'):
-        if input("🔄 Bestehende Daten (Status & manuelle Straßen) integrieren? (j/n): ").strip().lower() == 'j':
-            try:
-                with open('data/streets_status.json', 'r', encoding='utf-8') as f:
-                    old_data = json.load(f)
-                
-                merged, manual = 0, 0
-                for sid, sdata in old_data.get('streets', {}).items():
-                    # Status übernehmen
-                    if sid in streets_dict:
-                        if sdata.get('status') == 'taken':
-                            streets_dict[sid]['status'] = 'taken'
-                            streets_dict[sid]['user'] = sdata.get('user', '')
-                            merged += 1
-                    # Manuelle Straßen übernehmen
-                    elif '_manual_' in sid:
-                        streets_dict[sid] = sdata
-                        manual += 1
-                print(f"✅ Integriert: {merged} Status-Updates, {manual} manuelle Straßen.")
-            except Exception as e:
-                print(f"⚠️ Merge-Fehler: {e}")
+
 
     # --- Merge Logic: Existing Data ---
+    should_ask_import = False
     if os.path.exists('data/streets_status.json'):
-        print("\n🔄 Bestehende Daten gefunden.")
+        try:
+            with open('data/streets_status.json', 'r', encoding='utf-8') as f:
+                old_meta = json.load(f).get('metadata', {})
+                old_plz = old_meta.get('plz', '').replace(' ', '').split(',')
+                # Check overlap
+                if any(p in old_plz for p in plz_liste):
+                    should_ask_import = True
+        except:
+            pass
+
+    if should_ask_import:
+        print("\n🔄 Bestehende Daten für diese PLZ gefunden.")
         print("   Wähle Import-Optionen für DIESE PLZ-Gebiete:")
         print("   1. Status & User-Input übernehmen (Reservierungen)")
         print("   2. Manuell eingezeichnete Straßen übernehmen")
