@@ -2117,8 +2117,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-karl-reus-straße_part2": {
       "coords": [
@@ -2276,8 +2276,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "dorfstraße": {
       "coords": [
@@ -8089,8 +8089,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part5": {
       "coords": [
@@ -8456,8 +8456,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part8": {
       "coords": [
@@ -9745,8 +9745,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     }
   }
 }
