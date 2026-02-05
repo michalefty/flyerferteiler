@@ -6428,8 +6428,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "mühlweg_part1": {
       "coords": [
@@ -6956,8 +6956,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "prof.-dr.-dölger-straße": {
       "coords": [
@@ -9700,8 +9700,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "wingertstraße": {
       "coords": [
