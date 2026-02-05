@@ -398,6 +398,7 @@ def generate_multi_plan():
     else: # Staging Default
         staging_id = str(uuid.uuid4())
         staging_file = 'data/staging.json'
+        access_file = 'data/staging_access.json'
         
         # Save Content
         with open(staging_file, 'w', encoding='utf-8') as f:
@@ -405,17 +406,40 @@ def generate_multi_plan():
             
         # Save Meta Access
         access_data = {"uuid": staging_id, "created": datetime.now().isoformat()}
-        with open('data/staging_access.json', 'w') as f:
+        with open(access_file, 'w') as f:
             json.dump(access_data, f)
             
-        print(f"\n✅ STAGING Version erstellt!")
-        print(f"🔗 Vorschau-Link: /preview/{staging_id}")
-        print(f"   (z.B. https://flyerverteiler.de/preview/{staging_id})")
-        print("\nℹ️  Du kannst den Plan dort prüfen und per Knopfdruck live schalten.")
-        return # Skip Git Push for Staging locally (usually we want to push the staging file too if we deploy via git)
+        print(f"\n✅ STAGING Version lokal erstellt!")
+        
+        # Git Push for Staging
+        if config:
+            if input("🚀 Staging-Dateien zu GitHub pushen (für Server-Preview)? (j/n): ").strip().lower() == 'j':
+                try:
+                    print("⏳ Pushe Staging-Dateien...")
+                    subprocess.run(["git", "add", staging_file, access_file], check=True)
+                    subprocess.run(["git", "commit", "-m", f"Staging Build: {label}"], check=True)
+                    
+                    remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
+                    branch = getattr(config, 'GIT_BRANCH', 'main')
+                    subprocess.run(["git", "push", remote, branch], check=True)
+                    
+                    print("\n✅ Staging erfolgreich gepusht!")
+                    print(f"🔗 Vorschau-Link: https://flyerferteiler.de/preview/{staging_id}")
+                    print("⏳ HINWEIS: Es dauert ca. 2 Minuten, bis der Server die Daten geladen hat.")
+                    print("   Bitte warte kurz und lade dann die Vorschau-Seite.")
+                    
+                    # VM Management (Optional restart if needed to pull? Usually script handles it)
+                    # manage_vm = input("\n☁️  VM neu starten (falls Sync hängt)? (j/n): ").strip().lower()
+                    # if manage_vm == 'j': start_vm()
 
-    # Git Push Logic (Only reached if Live chosen above or we duplicate logic? Let's restructure slightly)
-    # Re-using the git logic from original code but adapting flow.
+                except subprocess.CalledProcessError as e:
+                    print(f"❌ Git-Fehler: {e}")
+            else:
+                print("ℹ️ Kein Push durchgeführt. Vorschau nur lokal verfügbar.")
+        
+        return 
+
+    # Git Push Logic (Only reached if Live chosen above)
     
     if mode == '1' and config:
         ask = input("\n🚀 Änderungen jetzt zu GitHub pushen? (j/n): ").strip().lower()

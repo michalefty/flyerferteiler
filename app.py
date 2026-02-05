@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import json
 import os
+import subprocess
 from datetime import datetime
 import requests
 import math
@@ -42,13 +43,41 @@ def publish_staging():
         # Backup old live
         if os.path.exists(DATA_FILE):
              ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-             shutil.copy2(DATA_FILE, f"data/backups/pre_publish_{ts}.json")
+             backup_path = f"data/backups/pre_publish_{ts}.json"
+             os.makedirs('data/backups', exist_ok=True)
+             shutil.copy2(DATA_FILE, backup_path)
              
         shutil.copy2('data/staging.json', DATA_FILE)
         
-        # Cleanup
-        os.remove('data/staging.json')
-        os.remove('data/staging_access.json')
+        # Cleanup Local Files
+        try:
+            os.remove('data/staging.json')
+            os.remove('data/staging_access.json')
+        except OSError:
+            pass
+            
+        # --- GIT OPERATIONS ---
+        try:
+            # 1. Stage the new Live file
+            subprocess.run(["git", "add", DATA_FILE], check=True)
+            
+            # 2. Stage the deletion of Staging files (if tracked)
+            # Use 'git rm --cached' or just 'git rm' if they exist, but we deleted them physically above.
+            # If files are missing, 'git add -u' handles deletions.
+            subprocess.run(["git", "add", "-u", "data/"], check=True)
+            
+            # 3. Commit
+            commit_msg = f"Deploy Staging: {uuid_in[:8]}"
+            subprocess.run(["git", "commit", "-m", commit_msg], check=True)
+            
+            # 4. Push
+            # Note: This requires SSH keys/credentials to be available to the web server user.
+            subprocess.run(["git", "push"], check=True)
+            
+        except subprocess.CalledProcessError as e:
+            # Log error but don't fail the request completely if local switch worked
+            print(f"Git Push Error during Publish: {e}")
+            return jsonify({"success": True, "msg": "Published locally, but Git Sync failed."})
         
         return jsonify({"success": True})
     
