@@ -415,22 +415,41 @@ def generate_multi_plan():
         if config:
             if input("🚀 Staging-Dateien zu GitHub pushen (für Server-Preview)? (j/n): ").strip().lower() == 'j':
                 try:
-                    print("⏳ Pushe Staging-Dateien...")
-                    subprocess.run(["git", "add", staging_file, access_file], check=True)
+                    print("⏳ Pushe Staging-Dateien (inkl. Assets)...")
+                    # Force add static in case they were ignored or new
+                    subprocess.run(["git", "add", staging_file, access_file, "static/"], check=True)
                     subprocess.run(["git", "commit", "-m", f"Staging Build: {label}"], check=True)
                     
                     remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
                     branch = getattr(config, 'GIT_BRANCH', 'main')
                     subprocess.run(["git", "push", remote, branch], check=True)
                     
-                    print("\n✅ Staging erfolgreich gepusht!")
-                    print(f"🔗 Vorschau-Link: https://flyerferteiler.de/preview/{staging_id}")
-                    print("⏳ HINWEIS: Es dauert ca. 2 Minuten, bis der Server die Daten geladen hat.")
-                    print("   Bitte warte kurz und lade dann die Vorschau-Seite.")
+                    preview_url = f"https://flyerferteiler.de/preview/{staging_id}"
+                    print(f"\n✅ Staging erfolgreich gepusht!")
+                    print(f"⏳ Warte auf Deployment (Checke URL alle 10s)...")
                     
-                    # VM Management (Optional restart if needed to pull? Usually script handles it)
-                    # manage_vm = input("\n☁️  VM neu starten (falls Sync hängt)? (j/n): ").strip().lower()
-                    # if manage_vm == 'j': start_vm()
+                    # Polling Loop
+                    start_wait = time.time()
+                    while True:
+                        try:
+                            r = requests.get(preview_url, timeout=5)
+                            # Check for 200 AND specific content (to avoid false positives)
+                            if r.status_code == 200 and "VORSCHAU MODUS" in r.text:
+                                print(f"\n🚀 PREVIEW ONLINE: {preview_url}")
+                                break
+                            elif r.status_code == 200:
+                                print(f"   ... Status 200 (aber Inhalt fehlt noch?), warte weiter ...")
+                            else:
+                                print(f"   ... Status {r.status_code}, warte weiter ...")
+                        except Exception:
+                             print("   ... Verbindung noch nicht möglich ...")
+                        
+                        if time.time() - start_wait > 300: # 5 Min Timeout
+                            print("\n⚠️  Timeout: Server braucht länger als erwartet.")
+                            print(f"   Bitte manuell prüfen: {preview_url}")
+                            break
+                            
+                        time.sleep(10)
 
                 except subprocess.CalledProcessError as e:
                     print(f"❌ Git-Fehler: {e}")
