@@ -2275,8 +2275,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "bahnhofstraße_part2": {
       "coords": [
