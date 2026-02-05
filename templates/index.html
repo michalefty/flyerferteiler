@@ -170,10 +170,18 @@
             <p>Deine Daten (Name und gewählte Straßen) werden auf unserem Server gespeichert, damit andere sehen können, welche Gebiete bereits abgedeckt sind.</p>
             <p>Die Daten werden nach Abschluss der Aktion (ca. {{ survey_days }} Tage) <b>automatisch gelöscht</b>.</p>
             <p>Wir verwenden LocalStorage in deinem Browser, um deinen Namen für deinen nächsten Besuch zu speichern.</p>
+            <p><b>Technische Hinweise:</b><br>
+            Alle verwendeten Programm-Bibliotheken (Karten-Darstellung, PDF-Erstellung) werden <b>lokal von unserem Server geladen</b>. Es finden keine Verbindungen zu Drittanbietern (CDNs) statt, um deine Privatsphäre zu schützen.</p>
             
-            <h3>Lizenz</h3>
-            <p>Kartendaten © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende.</p>
-            <p>Software: MIT License - Open Source.</p>
+            <h3>Lizenz & Credits</h3>
+            <p><b>Software:</b> Dieses Projekt ist Open Source (MIT License).</p>
+            <p><b>Kartendaten:</b> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende (ODbL).</p>
+            <p><b>Verwendete Bibliotheken:</b></p>
+            <ul style="font-size:0.9em;">
+                <li><a href="https://leafletjs.com/" target="_blank">Leaflet</a> (BSD-2-Clause) - Interaktive Karte</li>
+                <li><a href="https://parall.ax/products/jspdf" target="_blank">jsPDF</a> (MIT) - PDF Generierung</li>
+                <li><a href="https://html2canvas.hertzen.com/" target="_blank">html2canvas</a> (MIT) - Screenshot Erstellung</li>
+            </ul>
         </div>
     </div>
 
