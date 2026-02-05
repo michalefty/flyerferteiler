@@ -47,25 +47,6 @@
         <span style="font-weight:normal; font-size:0.9em;">Änderungen werden hier nicht dauerhaft gespeichert.</span><br>
         <button onclick="publishLive('{{ preview_uuid }}')" style="margin-top:10px; background:#c0392b; color:white; border:none; padding:10px 20px; font-size:1.1em; cursor:pointer; border-radius:6px; font-weight:bold;">🚀 JETZT LIVE SCHALTEN</button>
     </div>
-    <script>
-        async function publishLive(uuid) {
-            if(confirm("Bist du sicher? 
-Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
-                const res = await fetch('/admin/publish', {
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({uuid: uuid})
-                });
-                const d = await res.json();
-                if(d.success) {
-                    alert("✅ Erfolgreich veröffentlicht! Weiterleitung zum Live-Plan...");
-                    window.location.href = "/";
-                } else {
-                    alert("Fehler: " + d.msg);
-                }
-            }
-        }
-    </script>
     {% endif %}
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h1>Flyer-Ferteilung {{ metadata.city }}</h1>
@@ -295,7 +276,8 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
         function sortByProximity(id) {
             sortTargetId = id;
             renderList();
-            updateHighlights(); // Ensure visual cues update
+            updateHighlights();
+            // Scroll to top of list
             document.querySelector('.street-list').scrollTop = 0;
         }
 
@@ -347,9 +329,6 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
                      const safeName = n.name.replace(/'/g, "\'");
                      const onClick = nIsFree ? `updateStatus('${n.id}', 'taken')` : `map.flyTo([${n.coords}], 18); map._layers[layers['${n.id}'].marker._leaflet_id].openPopup();`; // Direct popup open approach for taken
                      
-                     // Alternative click handler for already taken neighbors to just fly there
-                     // We need to trigger selection/sorting for them too if we want highlighting
-                     
                      neighborHtml += `<button onclick="${onClick}" style="background:${bg}; color:white; border:none; padding:4px 8px; border-radius:12px; font-size:0.85em; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.1);" title="${nIsFree ? 'Übernehmen' : 'Zeigen'}">${n.name}</button>`;
                 });
                 neighborHtml += '</div></div>';
@@ -376,13 +355,13 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
             const bbox = {{ metadata.bbox|tojson if metadata.bbox else 'null' }};
             
             if (bbox) {
-                 map.fitBounds(bbox, {padding:[50,50]});
+                 map.fitBounds(bbox, {padding: [50,50]});
             } else if (localStorage.getItem('mapCenter')) {
                 map.setView(JSON.parse(localStorage.getItem('mapCenter')), localStorage.getItem('mapZoom'));
             } else {
                 // Fallback: Calculate bounds client-side
                 Object.values(streets).forEach(s => markerGroup.push(s.coords));
-                if (markerGroup.length > 0) map.fitBounds(markerGroup, {padding:[50,50]});
+                if (markerGroup.length > 0) map.fitBounds(markerGroup, {padding: [50,50]});
                 else map.setView({{ metadata.center|tojson }}, 14);
             }
 
@@ -451,7 +430,6 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
             return `hsl(${hue}, 65%, 40%)`; 
         }
 
-        // Highlight Group for selection lines
         const highlightGroup = L.layerGroup().addTo(map);
 
         function renderMap() {
@@ -468,11 +446,11 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
                 const markerStyle = { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' };
 
                 if (layers[id]) {
-                    // Reuse existing layers (prevents Popup closing)
+                    // Update existing
                     if(layers[id].line) layers[id].line.setStyle(lineStyle);
                     if(layers[id].marker) layers[id].marker.setStyle(markerStyle);
                 } else {
-                    // Create New Layers
+                    // Create new
                     let lineLayer = null;
                     if (s.path && s.path.length > 0) {
                         lineLayer = L.polyline(s.path, lineStyle).addTo(map);
@@ -487,7 +465,6 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
                     layers[id] = { marker: marker, line: lineLayer };
                 }
             });
-            // Update highlights in case selection persists
             updateHighlights();
         }
 
@@ -500,24 +477,25 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
                 if (!s.path || s.path.length === 0) return;
 
                 if (id === sortTargetId) {
-                    // Highlight Target
+                    // Highlight Target (thick transparent overlay)
                     L.polyline(s.path, { color: '#3498db', weight: 12, opacity: 0.3 }).addTo(highlightGroup);
                 } else {
                     // Highlight Neighbors
                     const dist = map.distance(s.coords, streets[sortTargetId].coords);
                     if (dist < 800) {
-                         // Dashed line for neighbors
+                         // Simple distance check for visual noise reduction
+                         // The dashed line overlay
                          L.polyline(s.path, { color: '#3498db', weight: 2, dashArray: '5, 10', opacity: 0.6, interactive: false }).addTo(highlightGroup);
                     }
                 }
             });
         }
 
-        // Global Event Listener for Popup Open (updates list sorting)
+        // Global Event Listener for Popup Open (to sort list)
         map.on('popupopen', function(e) {
             const layer = e.popup._source;
             if (layer && layer.streetId) {
-                // Just update state, don't re-render entire map
+                // Don't call renderMap, just sort list and highlights
                 sortByProximity(layer.streetId); 
             }
         });
@@ -580,12 +558,11 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
                     <div>${actionBtn}</div>
                 `;
                 
-                // --- CLICK ON LIST ITEM ---
                 li.querySelector('.street-info').onclick = () => {
                     const l = layers[id];
                     if(l) {
-                        map.flyTo(l.marker.getLatLng(), 17); // Zoom to street
-                        l.marker.openPopup(); // Open Popup (triggers sort via event)
+                        map.flyTo(l.marker.getLatLng(), 17);
+                        l.marker.openPopup();
                     }
                 };
                 li.querySelector('.street-info').style.cursor = 'pointer';
@@ -958,6 +935,24 @@ Der aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
                     body: JSON.stringify({id: id})
                 });
                 if((await res.json()).success) location.reload();
+            }
+        }
+
+        // Global functions must be available for buttons
+        window.publishLive = async function(uuid) {
+            if(confirm("Bist du sicher? \nDer aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
+                const res = await fetch('/admin/publish', {
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({uuid: uuid})
+                });
+                const d = await res.json();
+                if(d.success) {
+                    alert("✅ Erfolgreich veröffentlicht! Weiterleitung zum Live-Plan...");
+                    window.location.href = "/";
+                } else {
+                    alert("Fehler: " + d.msg);
+                }
             }
         }
 
