@@ -303,59 +303,51 @@ def generate_multi_plan():
             except Exception as e:
                 print(f"⚠️ Merge-Fehler: {e}")
 
-import uuid
-
-def generate_multi_plan():
-    plz_liste = []
-    print("\n--- ADMIN TOOL (Präzise Hausnummernsuche) ---")
-    while True:
-        p = input("PLZ (oder '0' zum Starten): ").strip()
-        if p == '0': break
-        if len(p) == 5: plz_liste.append(p)
-
-    if not plz_liste: return
-    label = input("Anzeigename: ")
-    
-    # New: Ask for duration
-    default_days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
-    try:
-        dur_input = input(f"Dauer der Abfrage in Tagen (Default: {default_days}): ").strip()
-        survey_days = int(dur_input) if dur_input else default_days
-    except ValueError:
-        survey_days = default_days
-        print(f"⚠️ Ungültige Eingabe, nutze Default: {survey_days} Tage")
-
-    # New: Ask for Radius
-    try:
-        rad_input = input("Suchradius für Häuser (Meter) [Default: 45]: ").strip()
-        radius = int(rad_input) if rad_input else 45
-    except ValueError:
-        radius = 45
-        print(f"⚠️ Ungültige Eingabe, nutze Default: {radius}m")
-
-    streets_dict, coords_list = fetch_streets_multi_plz(plz_liste, radius)
-    if not streets_dict: return
-
     # --- Merge Logic: Existing Data ---
     if os.path.exists('data/streets_status.json'):
-        if input("🔄 Bestehende Daten (Status & manuelle Straßen) integrieren? (j/n): ").strip().lower() == 'j':
+        print("\n🔄 Bestehende Daten gefunden.")
+        print("   Wähle Import-Optionen für DIESE PLZ-Gebiete:")
+        print("   1. Status & User-Input übernehmen (Reservierungen)")
+        print("   2. Manuell eingezeichnete Straßen übernehmen")
+        print("   3. BEIDES (Status + Manuelle Straßen)")
+        print("   0. NICHTS (Start bei Null)")
+        
+        import_mode = input("Auswahl (0-3) [Default: 3]: ").strip()
+        if not import_mode: import_mode = '3'
+        
+        if import_mode in ['1', '2', '3']:
             try:
                 with open('data/streets_status.json', 'r', encoding='utf-8') as f:
                     old_data = json.load(f)
                 
                 merged, manual = 0, 0
-                for sid, sdata in old_data.get('streets', {}).items():
-                    # Status übernehmen
-                    if sid in streets_dict:
-                        if sdata.get('status') == 'taken':
+                old_streets = old_data.get('streets', {})
+                
+                # Filter old data by PLZ (heuristic: check valid keys if possible, otherwise by ID match)
+                # Since IDs are derived from names, we match by ID.
+                # Problem: Manual streets don't have PLZ info directly.
+                # Solution: We iterate old data and match.
+                
+                for sid, sdata in old_streets.items():
+                    # 1. Status & User
+                    if import_mode in ['1', '3'] and sid in streets_dict:
+                         if sdata.get('status') == 'taken':
                             streets_dict[sid]['status'] = 'taken'
                             streets_dict[sid]['user'] = sdata.get('user', '')
                             merged += 1
-                    # Manuelle Straßen übernehmen
-                    elif '_manual_' in sid:
+                            
+                    # 2. Manual Streets
+                    # Only import if they seem relevant? Hard to tell without geo-check.
+                    # But if we rebuild the same city, we probably want them.
+                    # Simple Check: Is the manual street near our fetched coordinates?
+                    elif import_mode in ['2', '3'] and '_manual_' in sid:
+                        # Optional: Geo-Check (Distance to any new street < 2km?)
+                        # For now: Just import all manual streets from previous file 
+                        # (Assumes we are working on same city/area)
                         streets_dict[sid] = sdata
                         manual += 1
-                print(f"✅ Integriert: {merged} Status-Updates, {manual} manuelle Straßen.")
+                        
+                print(f"✅ Integriert: {merged} Reservierungen, {manual} manuelle Straßen.")
             except Exception as e:
                 print(f"⚠️ Merge-Fehler: {e}")
 

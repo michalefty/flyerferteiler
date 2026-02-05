@@ -47,25 +47,24 @@
         <span style="font-weight:normal; font-size:0.9em;">Änderungen werden hier nicht dauerhaft gespeichert.</span><br>
         <button onclick="publishLive('{{ preview_uuid }}')" style="margin-top:10px; background:#c0392b; color:white; border:none; padding:10px 20px; font-size:1.1em; cursor:pointer; border-radius:6px; font-weight:bold;">🚀 JETZT LIVE SCHALTEN</button>
     </div>
-    <script>
-        async function publishLive(uuid) {
-            if(confirm("Bist du sicher? \nDer aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
-                const res = await fetch('/admin/publish', {
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({uuid: uuid})
-                });
-                const d = await res.json();
-                if(d.success) {
-                    alert("✅ Erfolgreich veröffentlicht! Seite wird neu geladen.");
-                    window.location.href = "/";
-                } else {
-                    alert("Fehler: " + d.msg);
+            <script>
+                async function publishLive(uuid) {
+                    if(confirm("Bist du sicher? \nDer aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
+                        const res = await fetch('/admin/publish', {
+                            method: 'POST', 
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({uuid: uuid})
+                        });
+                        const d = await res.json();
+                        if(d.success) {
+                            alert("✅ Erfolgreich veröffentlicht! Weiterleitung zum Live-Plan...");
+                            window.location.href = "/";
+                        } else {
+                            alert("Fehler: " + d.msg);
+                        }
+                    }
                 }
-            }
-        }
-    </script>
-    {% endif %}
+            </script>    {% endif %}
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h1>Flyer-Ferteilung {{ metadata.city }}</h1>
         <div style="text-align:right">
