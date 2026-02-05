@@ -294,16 +294,15 @@
         function sortByProximity(id) {
             sortTargetId = id;
             renderList();
-            renderMap();
+            updateHighlights();
             // Scroll to top of list
             document.querySelector('.street-list').scrollTop = 0;
-            // Removed map.closePopup() to keep context open
         }
 
         function resetSort() {
             sortTargetId = null;
             renderList();
-            renderMap();
+            updateHighlights();
         }
 
         function generatePopupContent(id) {
@@ -463,53 +462,64 @@
             return `hsl(${hue}, 65%, 40%)`; 
         }
 
+        const highlightGroup = L.layerGroup().addTo(map);
+
         function renderMap() {
-            Object.values(layers).forEach(l => {
-                if(l.marker) map.removeLayer(l.marker);
-                if(l.line) map.removeLayer(l.line);
-            });
-            
             Object.keys(streets).forEach(id => {
                 const s = streets[id];
                 const isMine = s.user === currentUser && s.status === 'taken';
                 const isFree = s.status === 'free';
                 
                 let color = isFree ? '#27ae60' : '#e74c3c';
-                
-                if (isMine) {
-                    color = '#f39c12'; 
-                } else if (!isFree && s.user) {
-                    color = getUserColor(s.user); 
+                if (isMine) color = '#f39c12'; 
+                else if (!isFree && s.user) color = getUserColor(s.user);
+
+                const lineStyle = { color: color, weight: isMine ? 6 : 4, opacity: 0.8 };
+                const markerStyle = { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' };
+
+                if (layers[id]) {
+                    // Update existing
+                    if(layers[id].line) layers[id].line.setStyle(lineStyle);
+                    if(layers[id].marker) layers[id].marker.setStyle(markerStyle);
+                } else {
+                    // Create new
+                    let lineLayer = null;
+                    if (s.path && s.path.length > 0) {
+                        lineLayer = L.polyline(s.path, lineStyle).addTo(map);
+                        lineLayer.streetId = id;
+                        lineLayer.bindPopup(() => generatePopupContent(id));
+                    }
+
+                    const marker = L.circleMarker(s.coords, markerStyle).addTo(map);
+                    marker.streetId = id;
+                    marker.bindPopup(() => generatePopupContent(id));
+
+                    layers[id] = { marker: marker, line: lineLayer };
                 }
+            });
+            updateHighlights();
+        }
 
-                let lineLayer = null;
-                if (s.path && s.path.length > 0) {
-                    lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.8 }).addTo(map);
-                    // Store ID for event handling
-                    lineLayer.streetId = id;
+        function updateHighlights() {
+            highlightGroup.clearLayers();
+            if (!sortTargetId) return;
 
-                    // Highlight Neighbors if sorting is active
-                    if (sortTargetId && id !== sortTargetId) {
-                        const dist = map.distance(s.coords, streets[sortTargetId].coords);
-                        if (dist < 800) {
-                             // Check if it's a direct neighbor (use getNeighbors logic or cached?)
-                             // For perf, just use distance radius for visual dimming/highlight
-                             L.polyline(s.path, { color: '#3498db', weight: 2, dashArray: '5, 10', opacity: 1 }).addTo(map);
-                        }
-                    } else if (sortTargetId && id === sortTargetId) {
-                         // Highlight Target
-                         L.polyline(s.path, { color: '#3498db', weight: 8, opacity: 0.3 }).addTo(map);
+            Object.keys(streets).forEach(id => {
+                const s = streets[id];
+                if (!s.path || s.path.length === 0) return;
+
+                if (id === sortTargetId) {
+                    // Highlight Target (thick transparent overlay)
+                    L.polyline(s.path, { color: '#3498db', weight: 12, opacity: 0.3 }).addTo(highlightGroup);
+                } else {
+                    // Highlight Neighbors
+                    const dist = map.distance(s.coords, streets[sortTargetId].coords);
+                    if (dist < 800) {
+                         // Simple distance check for visual noise reduction
+                         // The dashed line overlay
+                         L.polyline(s.path, { color: '#3498db', weight: 2, dashArray: '5, 10', opacity: 0.6, interactive: false }).addTo(highlightGroup);
                     }
                 }
-
-                const marker = L.circleMarker(s.coords, { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' }).addTo(map);
-                marker.streetId = id; // Attach ID
-                
-                // Dynamic Popup
-                marker.bindPopup(() => generatePopupContent(id));
-                if(lineLayer) lineLayer.bindPopup(() => generatePopupContent(id));
-
-                layers[id] = { marker: marker, line: lineLayer };
             });
         }
 
