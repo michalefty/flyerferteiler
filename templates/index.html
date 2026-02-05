@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flyer-Planer</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="/static/lib/leaflet/leaflet.css" />
+    <script src="/static/lib/jspdf/jspdf.umd.min.js"></script>
+    <script src="/static/lib/html2canvas/html2canvas.min.js"></script>
     <style>
         :root { 
             --bg: #f4f7f6; --text: #000; --card-bg: white; 
@@ -42,7 +42,32 @@
 </head>
 <body>
     <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h1>Flyer-Verteilung {{ metadata.city }}</h1>
+        {% if is_preview %}
+        <div style="background:#f1c40f; color:black; padding:15px; width:100%; text-align:center; margin-bottom:10px; border-radius:8px; font-weight:bold; border:2px solid #d35400;">
+            ⚠️ VORSCHAU MODUS (TEST) ⚠️<br>
+            <span style="font-weight:normal; font-size:0.9em;">Änderungen werden hier nicht dauerhaft gespeichert.</span><br>
+            <button onclick="publishLive('{{ preview_uuid }}')" style="margin-top:10px; background:#c0392b; color:white; border:none; padding:10px 20px; font-size:1.1em; cursor:pointer; border-radius:6px; font-weight:bold;">🚀 JETZT LIVE SCHALTEN</button>
+        </div>
+        <script>
+            async function publishLive(uuid) {
+                if(confirm("Bist du sicher? \nDer aktuelle Live-Plan wird überschrieben und dieser Plan wird aktiv.")) {
+                    const res = await fetch('/admin/publish', {
+                        method: 'POST', 
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({uuid: uuid})
+                    });
+                    const d = await res.json();
+                    if(d.success) {
+                        alert("✅ Erfolgreich veröffentlicht! Seite wird neu geladen.");
+                        window.location.href = "/";
+                    } else {
+                        alert("Fehler: " + d.msg);
+                    }
+                }
+            }
+        </script>
+        {% endif %}
+        <h1>Flyer-Ferteilung {{ metadata.city }}</h1>
         <div style="text-align:right">
             <small>Geplante Laufzeit: {{ survey_days }} Tage</small><br>
             <span id="countdown" style="font-weight:bold; color:var(--taken)"></span>
@@ -52,11 +77,11 @@
     <div class="stats-bar">
         <div class="stat-card"><h4><span style="color:var(--free)">■</span> Offen</h4><p id="s-open">- Str.</p></div>
         <div class="stat-card"><h4><span style="color:var(--taken)">■</span> Vergeben</h4><p id="s-taken">- Str.</p></div>
-        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">- Str.</p></div>
+        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Ausgewählt</h4><p id="s-mine" style="color:var(--mine)">- Str.</p></div>
         <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
     <p style="text-align:center; font-size:0.85em; color:#7f8c8d; margin-top:-10px; margin-bottom: 20px;">
-        ℹ️ Hinweis: Die angegebenen Häuserzahlen sind Schätzungen (ggf. weniger wg. "Keine Werbung").
+        ℹ️ Hinweis: Es müssen ggf. mehr, bei z.B. Mehrparteienhäusern, oder weniger, wegen "Keine Werbung"-Aufklebern, Flyer ausgeteilt werden.
     </p>
 
     <div class="controls">
@@ -81,8 +106,8 @@
 
     <div style="margin-bottom:15px; padding:10px; border:1px solid #e74c3c; border-left: 5px solid #e74c3c; background-color: rgba(231, 76, 60, 0.1); color:var(--text); border-radius: 4px;">
         <strong style="color:#c0392b;">⚠️ Datenschutz-Hinweis (DSGVO):</strong><br>
-        Bitte verwende zu deiner eigenen Sicherheit und Datensparsamkeit <b>nur deinen Vornamen oder ein Kürzel</b> (z.B. "Micha" oder "M.M.")!<br>
-        Verzichte auf die Eingabe deines vollständigen Klarnamens.
+        Bitte verwende zu deiner eigenen Sicherheit und Datensparsamkeit <b>nur deinen Spitznamen oder ein Kürzel</b> (z.B. "Lefty" oder "ML")!<br>
+        Verzichte auf die Eingabe deines vollständigen Namens.
     </div>
 
     <div id="map"></div>
@@ -152,7 +177,7 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/lib/leaflet/leaflet.js"></script>
     <script>
         // Initialize map (view will be updated in init)
         const map = L.map('map').setView([51.1657, 10.4515], 6); 
@@ -194,7 +219,21 @@
                 "Heute schon gelaufen?",
                 "Jeder Flyer zählt!",
                 "Verteilen ist wie Wandern, nur mit Mission.",
-                "Der Weg ist das Ziel (und der Briefkasten)."
+                "Der Weg ist das Ziel (und der Briefkasten).",
+                "Flyerferteiler: Weil wir Flyer so flink fertig ferteilen.",
+                "Das 'f' steht für fantastisch. Oder für 3 Uhr morgens ohne Kaffee.",
+                "Flyerferteiler: Die einzige App, die schneller zählt als du laufen kannst.",
+                "Warum mit 'f'? Weil wir keine Konkurrenz haben, die es uns verbieten könnte.",
+                "Vom Algorithmus berechnet, von strammen Waden ausgetragen.",
+                "Flyerferteiler: Wir kennen jede Sackgasse. Buchstäblich.",
+                "Wir schreiben Verteilung mit 'f', weil wir Individualisten sind.",
+                "Statistik: 10% Planung, 90% Treppensteigen, 100% Flyerferteiler.",
+                "Wer Rechtschreibfehler findet, darf sie behalten. Wer Briefkästen findet, darf einwerfen.",
+                "Flyerferteiler: Damit du nicht dreimal in die gleiche Sackgasse läufst.",
+                "Unsere Karte ist präziser als dein Orientierungssinn nach dem zehnten Wohnblock.",
+                "Wir haben das 'f' im Namen und den Turbo in den Beinen.",
+                "Flyerferteiler: Fehlerfrei bei der Hausnummer, kreativ bei der Rechtschreibung.",
+                "Keine Konkurrenz, keine Kompromisse, kein 'v'."
             ];
             const q = quotes[Math.floor(Math.random() * quotes.length)];
             document.getElementById('footer-egg').innerText = q;
@@ -205,18 +244,115 @@
             return map.distance(s1.coords, s2.coords);
         }
 
+        // Calculate neighbors based on geometry (point-to-point)
+        function getNeighbors(id) {
+            const s1 = streets[id];
+            const neighbors = [];
+            if (!s1.path) return [];
+            
+            // Flatten to get all points: [[[lat,lon]...]] -> [[lat,lon]...]
+            const p1Points = s1.path.flat(); 
+
+            Object.keys(streets).forEach(oid => {
+                if (id === oid) return;
+                const s2 = streets[oid];
+                if (!s2.path) return;
+                
+                // Fast Center Check (skip if > 500m)
+                if (map.distance(s1.coords, s2.coords) > 500) return;
+
+                let minD = Infinity;
+                const p2Points = s2.path.flat();
+                
+                // Check distance between points
+                // Optimization: Check only first/last points of segments for connectivity? 
+                // Full check is safer for T-junctions.
+                for (let p1 of p1Points) {
+                    for (let p2 of p2Points) {
+                        const d = map.distance(p1, p2);
+                        if(d < minD) minD = d;
+                        if(minD < 10) break; // Connected
+                    }
+                    if(minD < 10) break;
+                }
+                
+                if (minD < 40) { // Consider neighbors if < 40m
+                     neighbors.push({id: oid, ...s2, dist: minD});
+                }
+            });
+            return neighbors.sort((a,b) => a.dist - b.dist);
+        }
+
         function sortByProximity(id) {
             sortTargetId = id;
             renderList();
             renderMap();
+            // Scroll to top of list
             document.querySelector('.street-list').scrollTop = 0;
-            map.closePopup();
+            // Removed map.closePopup() to keep context open
         }
 
         function resetSort() {
             sortTargetId = null;
             renderList();
             renderMap();
+        }
+
+        function generatePopupContent(id) {
+            const s = streets[id];
+            const isMine = s.user === currentUser && s.status === 'taken';
+            const isFree = s.status === 'free';
+            
+            let color = isFree ? '#27ae60' : '#e74c3c';
+            if (isMine) color = '#f39c12'; 
+            else if (!isFree && s.user) color = getUserColor(s.user);
+
+            let btnHtml = "";
+            if (isFree) {
+                btnHtml = `<button onclick="updateStatus('${id}', 'taken')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer; width:100%; margin-top:5px;">Übernehmen</button>`;
+            } else if (isMine) {
+                btnHtml = `<button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer; width:100%; margin-top:5px;">Freigeben</button>`;
+            } else {
+                btnHtml = `<div style="display:flex;align-items:center;justify-content:center;gap:5px; margin-top:5px;">
+                    <span style="color:${color}; font-weight:bold;">Belegt: ${s.user}</span>
+                    <button onclick="stealStreet('${id}')" title="Übernehmen" style="background:white; border:1px solid #ccc; border-radius:4px; cursor:pointer;">✋</button>
+                </div>`;
+            }
+
+            if(isAdmin) {
+                btnHtml += `<hr style="margin:5px 0"><div style="display:flex; gap:5px; justify-content:center;">
+                    <button onclick="editStreet('${id}')" style="background:#f1c40f; border:none; border-radius:4px; cursor:pointer;">✏️</button>
+                    <button onclick="deleteStreet('${id}')" style="background:#e74c3c; border:none; border-radius:4px; cursor:pointer;">🗑️</button>
+                </div>`;
+            }
+
+            // Neighbors
+            const neighbors = getNeighbors(id);
+            let neighborHtml = "";
+            if(neighbors.length > 0) {
+                neighborHtml = '<div style="margin-top:10px; border-top:1px solid #eee; padding-top:5px; font-size:0.9em;"><strong>Angrenzend:</strong><div style="display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-top:5px;">';
+                neighbors.slice(0, 5).forEach(n => {
+                     const nIsFree = n.status === 'free';
+                     const nIsMine = n.user === currentUser;
+                     const bg = nIsFree ? '#27ae60' : (nIsMine ? '#f39c12' : '#e74c3c');
+                     
+                     // Helper: Escape single quotes for JS string
+                     const safeName = n.name.replace(/'/g, "\\'");
+                     const onClick = nIsFree ? `updateStatus('${n.id}', 'taken')` : `map.flyTo([${n.coords}], 18)`;
+                     
+                     neighborHtml += `<button onclick="${onClick}" style="background:${bg}; color:white; border:none; padding:4px 8px; border-radius:12px; font-size:0.85em; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.1);" title="${nIsFree ? 'Übernehmen' : 'Zeigen'}">${n.name}</button>`;
+                });
+                neighborHtml += '</div></div>';
+            }
+
+            return `
+                <div style="text-align:center; min-width:220px;">
+                    <b style="font-size:1.15em">${s.name}</b><br>
+                    <span style="color:#7f8c8d; font-size:0.9em;">🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'}</span>
+                    ${btnHtml}
+                    ${neighborHtml}
+                </div>
+            `;
         }
 
         function init() {
@@ -245,6 +381,19 @@
             updateStats();
             updateCountdown();
             showRandomQuote();
+            
+            // Auto-sort list when popup opens
+            map.on('popupopen', function(e) {
+                // Find street ID by coordinates or use a lookup?
+                // Easier: renderMap binds popup.
+                // We can't easily get ID from popupopen event unless we stored it in the layer options.
+                // But wait, renderMap sets layers[id]. 
+                // We can reverse lookup or attach ID to layer.
+            });
+            
+            // Actually, better to trigger sort inside the click handler or bindPopup function?
+            // Leaflet doesn't pass ID to popupopen easily. 
+            // Let's modify renderMap to attach ID to the marker options or similar.
             
             // Auto-Open Help on first visit
             if (!localStorage.getItem('helpSeen')) {
@@ -328,56 +477,41 @@
                 let lineLayer = null;
                 if (s.path && s.path.length > 0) {
                     lineLayer = L.polyline(s.path, { color: color, weight: isMine ? 6 : 4, opacity: 0.8 }).addTo(map);
-                    
+                    // Store ID for event handling
+                    lineLayer.streetId = id;
+
                     // Highlight Neighbors if sorting is active
                     if (sortTargetId && id !== sortTargetId) {
                         const dist = map.distance(s.coords, streets[sortTargetId].coords);
                         if (dist < 800) {
+                             // Check if it's a direct neighbor (use getNeighbors logic or cached?)
+                             // For perf, just use distance radius for visual dimming/highlight
                              L.polyline(s.path, { color: '#3498db', weight: 2, dashArray: '5, 10', opacity: 1 }).addTo(map);
                         }
                     } else if (sortTargetId && id === sortTargetId) {
                          // Highlight Target
                          L.polyline(s.path, { color: '#3498db', weight: 8, opacity: 0.3 }).addTo(map);
                     }
-
-                    lineLayer.on('click', () => marker.openPopup());
                 }
 
                 const marker = L.circleMarker(s.coords, { color: color, radius: isMine ? 8 : 5, fillOpacity: 0.9, weight: 1, fillColor: 'white' }).addTo(map);
+                marker.streetId = id; // Attach ID
                 
-                let btnHtml = "";
-                if (isFree) {
-                    btnHtml = `<button onclick="updateStatus('${id}', 'taken')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Übernehmen</button>`;
-                } else if (isMine) {
-                    btnHtml = `<button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">Freigeben</button>`;
-                } else {
-                    btnHtml = `<div style="display:flex;align-items:center;justify-content:center;gap:5px">
-                        <span style="color:${color}; font-weight:bold;">Belegt: ${s.user}</span>
-                        <button onclick="stealStreet('${id}')" title="Übernehmen" style="background:white; border:1px solid #ccc; border-radius:4px; cursor:pointer;">✋</button>
-                    </div>`;
-                }
-
-                if(isAdmin) {
-                    btnHtml += `<hr style="margin:5px 0"><div style="display:flex; gap:5px; justify-content:center;">
-                        <button onclick="editStreet('${id}')" style="background:#f1c40f; border:none; border-radius:4px; cursor:pointer;">✏️</button>
-                        <button onclick="deleteStreet('${id}')" style="background:#e74c3c; border:none; border-radius:4px; cursor:pointer;">🗑️</button>
-                    </div>`;
-                }
-
-                const popupContent = `
-                    <div style="text-align:center;">
-                        <b>${s.name}</b><br>
-                        🏠 ${s.households} Häuser | 📏 ${s.length ? s.length + 'm' : '?'} <br>
-                        <button onclick="sortByProximity('${id}')" style="background:none; border:none; color:var(--info); cursor:pointer; text-decoration:underline; font-size:0.9em; margin:5px 0;">📍 Nachbarn zeigen</button><br>
-                        ${btnHtml}
-                    </div>
-                `;
-                marker.bindPopup(popupContent);
-                if(lineLayer) lineLayer.bindPopup(popupContent);
+                // Dynamic Popup
+                marker.bindPopup(() => generatePopupContent(id));
+                if(lineLayer) lineLayer.bindPopup(() => generatePopupContent(id));
 
                 layers[id] = { marker: marker, line: lineLayer };
             });
         }
+
+        // Global Event Listener for Popup Open (to sort list)
+        map.on('popupopen', function(e) {
+            const layer = e.popup._source;
+            if (layer && layer.streetId) {
+                sortByProximity(layer.streetId);
+            }
+        });
 
         function filterList() {
             const term = document.getElementById('searchBox').value.toLowerCase();
@@ -416,7 +550,7 @@
                 
                 let actionBtn = '';
                 if(s.status === 'free') {
-                    actionBtn = `<button style="background:var(--free); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'taken')">Hol ich!</button>`;
+                    actionBtn = `<button style="background:var(--free); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'taken')">Mach' ich!</button>`;
                 } else if(isMine) {
                     actionBtn = `<button style="background:var(--taken); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')">Freigeben</button>`;
                 } else {
@@ -469,9 +603,9 @@
                     }
                 }
             });
-            document.getElementById('s-open').innerText = open + " Str.";
-            document.getElementById('s-taken').innerText = taken + " Str.";
-            document.getElementById('s-mine').innerText = mine + " Str.";
+            document.getElementById('s-open').innerText = open + " Strassen";
+            document.getElementById('s-taken').innerText = taken + " Strassen";
+            document.getElementById('s-mine').innerText = mine + " Strassen";
             document.getElementById('s-house').innerText = `${myHouses} / ${totalHouses}`;
         }
 

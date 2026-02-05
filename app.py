@@ -20,6 +20,68 @@ def save_data(data):
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, sort_keys=True, ensure_ascii=False)
 
+import shutil
+
+@app.route('/admin/publish', methods=['POST'])
+def publish_staging():
+    # Verify Access (simplified: check if UUID matches header or body)
+    req = request.json
+    uuid_in = req.get('uuid')
+    
+    if not os.path.exists('data/staging_access.json'):
+        return jsonify({"success": False, "msg": "No staging active"}), 404
+        
+    with open('data/staging_access.json', 'r') as f:
+        access = json.load(f)
+        
+    if access.get('uuid') != uuid_in:
+        return jsonify({"success": False, "msg": "Invalid UUID"}), 403
+        
+    # Promote Staging to Live
+    if os.path.exists('data/staging.json'):
+        # Backup old live
+        if os.path.exists(DATA_FILE):
+             ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+             shutil.copy2(DATA_FILE, f"data/backups/pre_publish_{ts}.json")
+             
+        shutil.copy2('data/staging.json', DATA_FILE)
+        
+        # Cleanup
+        os.remove('data/staging.json')
+        os.remove('data/staging_access.json')
+        
+        return jsonify({"success": True})
+    
+    return jsonify({"success": False, "msg": "Staging file missing"}), 404
+
+@app.route('/preview/<uuid>')
+def preview(uuid):
+    if not os.path.exists('data/staging_access.json'):
+        return "<h3>Keine Vorschau verfügbar (oder bereits veröffentlicht).</h3>", 404
+        
+    with open('data/staging_access.json', 'r') as f:
+        access = json.load(f)
+        
+    if access.get('uuid') != uuid:
+        return "<h3>Zugriff verweigert (Falsche UUID).</h3>", 403
+        
+    # Load Staging Data
+    if not os.path.exists('data/staging.json'):
+        return "Error: Staging data missing", 500
+        
+    with open('data/staging.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        
+    # Inject Preview Flags
+    days = data.get('metadata', {}).get('duration', 7)
+    
+    return render_template('index.html', 
+                           metadata=data['metadata'], 
+                           streets=data['streets'], 
+                           survey_days=days,
+                           is_preview=True,
+                           preview_uuid=uuid)
+
 @app.route('/')
 def index():
     data = load_data()

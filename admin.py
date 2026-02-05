@@ -303,6 +303,62 @@ def generate_multi_plan():
             except Exception as e:
                 print(f"⚠️ Merge-Fehler: {e}")
 
+import uuid
+
+def generate_multi_plan():
+    plz_liste = []
+    print("\n--- ADMIN TOOL (Präzise Hausnummernsuche) ---")
+    while True:
+        p = input("PLZ (oder '0' zum Starten): ").strip()
+        if p == '0': break
+        if len(p) == 5: plz_liste.append(p)
+
+    if not plz_liste: return
+    label = input("Anzeigename: ")
+    
+    # New: Ask for duration
+    default_days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
+    try:
+        dur_input = input(f"Dauer der Abfrage in Tagen (Default: {default_days}): ").strip()
+        survey_days = int(dur_input) if dur_input else default_days
+    except ValueError:
+        survey_days = default_days
+        print(f"⚠️ Ungültige Eingabe, nutze Default: {survey_days} Tage")
+
+    # New: Ask for Radius
+    try:
+        rad_input = input("Suchradius für Häuser (Meter) [Default: 45]: ").strip()
+        radius = int(rad_input) if rad_input else 45
+    except ValueError:
+        radius = 45
+        print(f"⚠️ Ungültige Eingabe, nutze Default: {radius}m")
+
+    streets_dict, coords_list = fetch_streets_multi_plz(plz_liste, radius)
+    if not streets_dict: return
+
+    # --- Merge Logic: Existing Data ---
+    if os.path.exists('data/streets_status.json'):
+        if input("🔄 Bestehende Daten (Status & manuelle Straßen) integrieren? (j/n): ").strip().lower() == 'j':
+            try:
+                with open('data/streets_status.json', 'r', encoding='utf-8') as f:
+                    old_data = json.load(f)
+                
+                merged, manual = 0, 0
+                for sid, sdata in old_data.get('streets', {}).items():
+                    # Status übernehmen
+                    if sid in streets_dict:
+                        if sdata.get('status') == 'taken':
+                            streets_dict[sid]['status'] = 'taken'
+                            streets_dict[sid]['user'] = sdata.get('user', '')
+                            merged += 1
+                    # Manuelle Straßen übernehmen
+                    elif '_manual_' in sid:
+                        streets_dict[sid] = sdata
+                        manual += 1
+                print(f"✅ Integriert: {merged} Status-Updates, {manual} manuelle Straßen.")
+            except Exception as e:
+                print(f"⚠️ Merge-Fehler: {e}")
+
     avg_lat = sum(c[0] for c in coords_list) / len(coords_list)
     avg_lon = sum(c[1] for c in coords_list) / len(coords_list)
 
@@ -319,26 +375,58 @@ def generate_multi_plan():
     }
     
     os.makedirs('data', exist_ok=True)
-    with open('data/streets_status.json', 'w', encoding='utf-8') as f:
-        json.dump(export_data, f, indent=2, sort_keys=True, ensure_ascii=False)
     
-    print(f"\n✅ Erfolgreich! Straßen: {len(streets_dict)}, Häuser: {sum(s['households'] for s in streets_dict.values())}")
+    # --- Staging Selection ---
+    print("\n--- 💾 SPEICHERN ---")
+    print("1. 🟢 LIVE: Direkt als 'streets_status.json' speichern (Live-Betrieb)")
+    print("2. 🟡 STAGING: Als Vorschau speichern (zum Testen/Absegnen)")
+    
+    mode = input("Auswahl (1/2) [Default: 2]: ").strip()
+    target_file = 'data/streets_status.json'
+    
+    if mode == '1':
+        print("💾 Speichere als LIVE Version...")
+        with open(target_file, 'w', encoding='utf-8') as f:
+            json.dump(export_data, f, indent=2, sort_keys=True, ensure_ascii=False)
+        print(f"\n✅ Erfolgreich! Straßen: {len(streets_dict)}")
+        
+        # Standard Push Logic for Live
+        if config and input("\n🚀 Änderungen jetzt zu GitHub pushen? (j/n): ").strip().lower() == 'j':
+             # ... existing git logic ...
+             pass # Will implement below to avoid duplication or keep it simple
+             
+    else: # Staging Default
+        staging_id = str(uuid.uuid4())
+        staging_file = 'data/staging.json'
+        
+        # Save Content
+        with open(staging_file, 'w', encoding='utf-8') as f:
+            json.dump(export_data, f, indent=2, sort_keys=True, ensure_ascii=False)
+            
+        # Save Meta Access
+        access_data = {"uuid": staging_id, "created": datetime.now().isoformat()}
+        with open('data/staging_access.json', 'w') as f:
+            json.dump(access_data, f)
+            
+        print(f"\n✅ STAGING Version erstellt!")
+        print(f"🔗 Vorschau-Link: /preview/{staging_id}")
+        print(f"   (z.B. https://flyerverteiler.de/preview/{staging_id})")
+        print("\nℹ️  Du kannst den Plan dort prüfen und per Knopfdruck live schalten.")
+        return # Skip Git Push for Staging locally (usually we want to push the staging file too if we deploy via git)
 
-    # Git Push Logic
-    if config:
+    # Git Push Logic (Only reached if Live chosen above or we duplicate logic? Let's restructure slightly)
+    # Re-using the git logic from original code but adapting flow.
+    
+    if mode == '1' and config:
         ask = input("\n🚀 Änderungen jetzt zu GitHub pushen? (j/n): ").strip().lower()
         if ask == 'j':
             try:
                 print("⏳ Führe Git-Operationen durch...")
-                subprocess.run(["git", "add", "data/streets_status.json"], check=True)
+                subprocess.run(["git", "add", target_file], check=True)
                 
-                # Check if there are changes to commit
-                # git diff --cached --quiet returns 0 if no changes, 1 if changes exist
                 if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 1:
                     msg = getattr(config, 'GIT_COMMIT_MESSAGE', f"Update Plan: {label}")
                     subprocess.run(["git", "commit", "-m", msg], check=True)
-                else:
-                    print("ℹ️ Keine Änderungen zum Committen.")
                 
                 remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
                 branch = getattr(config, 'GIT_BRANCH', 'main')
@@ -357,10 +445,6 @@ def generate_multi_plan():
 
             except subprocess.CalledProcessError as e:
                 print(f"❌ Fehler beim Git-Push: {e}")
-        else:
-            print("ℹ️ Kein Push durchgeführt.")
-    else:
-        print("⚠️ config.py fehlt. Git-Push übersprungen.")
 
 def start_vm():
     provider = getattr(config, 'CLOUD_PROVIDER', 'none')
