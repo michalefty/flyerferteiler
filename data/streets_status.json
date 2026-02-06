@@ -8932,8 +8932,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part3": {
       "coords": [
