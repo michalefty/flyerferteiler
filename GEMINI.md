@@ -27,6 +27,8 @@
 - [x] **Countdown:** Anzeige der verbleibenden Zeit für die aktuelle Abfrage/Session.
 - [x] **Admin-Übersicht:** Dashboard für Admins: Anzahl eingetragener Helfer/User anzeigen.
 - [x] **Sortierung nach Bereichen:** Straßenliste nach Nähe sortieren (Nachbarn zeigen), wenn eine Straße ausgewählt wird.
+- [x] **Stundenanzeige:** Die Stundenanzeige zeigt nun die gesamte verbleibende Laufzeit (Tage + Stunden) an.
+- [x] **Scroll-Verhalten:** Overlay ("Map Lock") hinzugefügt, um versehentliches Scrollen auf Mobilgeräten zu verhindern.
 
 ### 🛠️ Admin-CLI (`admin.py`) & Backend
 - [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
@@ -35,6 +37,8 @@
 - [x] **Restore-Logik:** Restore vom letzten Status und Abfrage geänderter Straßen trennen.
 - [x] **Server-Check:** Vor Neustart-Vorschlag prüfen, ob die Webseite tatsächlich nicht antwortet.
 - [x] **Passwort-Prompt:** Admin-Passwort interaktiv abfragen, auch wenn es in `config.py` steht.
+- [x] **VM-Start-Check:** `admin.py` prüft vor Aktionen, ob der Server läuft, und startet ihn bei Bedarf.
+- [x] **Shutdown/Index-Off:** `index_off.html` wird bei Ablauf der Zeit angezeigt; Server-Shutdown deaktiviert.
 
 ### 🗺️ Datenqualität & Algorithmus (Overpass/OSM)
 - [x] **Overpass-Optimierung:** GPS-Koordinaten-Abfrage in `admin.py` optimieren.
@@ -52,12 +56,4 @@
 ### 📚 Dokumentation & Sonstiges
 - [x] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
 - [x] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
-
-
-### Neue Ideen & Bugfix
-Die Stundenanzeige auf der Webseite zeigt nur die Zeit bis 0:00 an nicht die gesamte laufzeit - checken
-Lizenz muss auf EUPL EUROPÄISCHE UNION PUBLIC LICENCE v. 1.2 umgestellt werden und copyleft 
-
-- [ ] die index_off.html soll aufgerufen werden wenn die Umfrage ausgelaufen ist. Kontakt & Impressum oder wichtige sachen sollen erreichbar sein. Der Shutdown vom Server wird nicht mehr benötigt.
-
-- [ ] das scrollen ist schwierig wenn die Karte die volle Bildschirmbreite ausfüllt. 
+- [x] **Lizenz:** Projekt auf EUPL v1.2 umgestellt.
