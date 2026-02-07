@@ -7153,8 +7153,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "ringstraße": {
       "coords": [
@@ -7315,8 +7315,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "rosenweg": {
       "coords": [
@@ -9283,8 +9283,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sudetenstraße": {
       "coords": [
