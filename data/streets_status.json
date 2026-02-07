@@ -14,8 +14,8 @@
       49.912835472279184,
       9.166675212719118
     ],
-    "city": "Sulzbach",
-    "date": "05.02.2026",
+    "city": "Sulzbach am Main",
+    "date": "07.02.2026",
     "duration": 1,
     "plz": "63834",
     "total_streets": 147
@@ -2117,8 +2117,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "doktor-karl-reus-straße_part2": {
       "coords": [
@@ -2276,8 +2276,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "dorfstraße": {
       "coords": [
@@ -8089,8 +8089,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "sodentalstraße_part5": {
       "coords": [
@@ -8456,8 +8456,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "sodentalstraße_part8": {
       "coords": [
@@ -8932,8 +8932,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "spessartstraße_part3": {
       "coords": [
@@ -9745,8 +9745,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     }
   }
 }
