@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import json
 import os
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
 import math
 try:
@@ -118,6 +118,24 @@ def index():
     days = data.get('metadata', {}).get('duration')
     if days is None:
         days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7
+    
+    # Check Expiration
+    start_str = data.get('metadata', {}).get('date')
+    if start_str:
+        try:
+             # Parse DD.MM.YYYY
+             parts = start_str.split('.')
+             if len(parts) == 3:
+                start_date = datetime(int(parts[2]), int(parts[1]), int(parts[0]))
+                # End of the last day
+                expiration = start_date + timedelta(days=days)
+                expiration = expiration.replace(hour=23, minute=59, second=59)
+                
+                if datetime.now() > expiration:
+                    return render_template('index_off.html')
+        except (ValueError, IndexError):
+             pass 
+
     return render_template('index.html', metadata=data['metadata'], streets=data['streets'], survey_days=days)
 
 @app.route('/update', methods=['POST'])

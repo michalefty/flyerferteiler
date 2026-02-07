@@ -92,7 +92,12 @@
         Verzichte auf die Eingabe deines vollständigen Namens.
     </div>
 
-    <div id="map"></div>
+    <div style="position:relative;">
+        <div id="map"></div>
+        <div id="map-lock" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.05); z-index:1000; align-items:center; justify-content:center; cursor:pointer; border-radius:12px;" onclick="enableMapInteraction()">
+            <button style="background:var(--primary); color:var(--btn-text-on-primary); padding:10px 20px; border:none; border-radius:30px; font-size:1.1em; box-shadow:0 4px 15px rgba(0,0,0,0.3); pointer-events:none;">👆 Karte aktivieren</button>
+        </div>
+    </div>
 
     <div class="street-list">
         <h3>Alle Straßen</h3>
@@ -172,6 +177,26 @@
         // Initialize map (view will be updated in init)
         const map = L.map('map').setView([51.1657, 10.4515], 6); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        function enableMapInteraction() {
+            map.dragging.enable();
+            if (map.tap) map.tap.enable();
+            map.scrollWheelZoom.enable();
+            document.getElementById('map-lock').style.display = 'none';
+        }
+
+        // Mobile Scroll Protection
+        if (L.Browser.mobile) {
+            map.dragging.disable();
+            if (map.tap) map.tap.disable();
+            map.scrollWheelZoom.disable();
+            // Wait for DOM to be ready implicitly or just set it
+            // We need to ensure the element exists (it does, defined above)
+            setTimeout(() => {
+                 const lock = document.getElementById('map-lock');
+                 if(lock) lock.style.display = 'flex';
+            }, 100);
+        }
 
         // Legend
         const legend = L.control({position: 'bottomright'});
@@ -398,12 +423,12 @@
              const parts = startDateStr.split('.');
              if(parts.length !== 3) return;
              
-             const start = new Date(parts[2], parts[1]-1, parts[0]); 
-             const end = new Date(start);
-             end.setDate(end.getDate() + durationDays);
-             
-             const now = new Date();
-             const diff = end - now;
+                      const start = new Date(parts[2], parts[1]-1, parts[0]); 
+                      const end = new Date(start);
+                      end.setDate(end.getDate() + durationDays);
+                      end.setHours(23, 59, 59, 999);
+                      
+                      const now = new Date();             const diff = end - now;
              
              const el = document.getElementById('countdown');
              if (diff < 0) {

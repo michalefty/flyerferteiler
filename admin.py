@@ -471,10 +471,10 @@ def generate_multi_plan():
                 print("✅ Push erfolgreich!")
 
                 # VM Management
-                manage_vm = input("\n☁️  Soll die Cloud-VM jetzt gestartet und der Timer gesetzt werden? (j/n): ").strip().lower()
+                manage_vm = input("\n☁️  Soll die Cloud-VM jetzt gestartet werden? (j/n): ").strip().lower()
                 if manage_vm == 'j':
                     start_vm()
-                    schedule_stop_vm(survey_days)
+                    # schedule_stop_vm(survey_days) # Disabled per request
 
             except subprocess.CalledProcessError as e:
                 print(f"❌ Fehler beim Git-Push: {e}")
@@ -525,6 +525,11 @@ def start_vm():
     return True
 
 def schedule_stop_vm(days=None):
+    # Logic disabled: Server should keep running to show index_off.html
+    print(f"ℹ️  Shutdown-Timer deaktiviert. Server läuft weiter, um die 'Beendet'-Seite anzuzeigen.")
+    return
+
+    # Original Logic kept for reference:
     # Calculate minutes
     if days is None:
         days = getattr(config, 'SURVEY_DURATION_DAYS', 7) if config else 7

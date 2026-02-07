@@ -52,3 +52,12 @@
 ### 📚 Dokumentation & Sonstiges
 - [x] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
 - [x] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
+
+
+### Neue Ideen & Bugfix
+Die Stundenanzeige auf der Webseite zeigt nur die Zeit bis 0:00 an nicht die gesamte laufzeit - checken
+Lizenz muss auf EUPL EUROPÄISCHE UNION PUBLIC LICENCE v. 1.2 umgestellt werden und copyleft 
+
+- [ ] die index_off.html soll aufgerufen werden wenn die Umfrage ausgelaufen ist. Kontakt & Impressum oder wichtige sachen sollen erreichbar sein. Der Shutdown vom Server wird nicht mehr benötigt.
+
+- [ ] das scrollen ist schwierig wenn die Karte die volle Bildschirmbreite ausfüllt. 
