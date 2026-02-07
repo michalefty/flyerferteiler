@@ -7153,8 +7153,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "ringstraße": {
       "coords": [
@@ -7315,8 +7315,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "rosenweg": {
       "coords": [
@@ -9283,8 +9283,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "sudetenstraße": {
       "coords": [
@@ -9597,8 +9597,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "tulpenweg": {
       "coords": [
