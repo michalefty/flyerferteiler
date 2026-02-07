@@ -9597,8 +9597,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "tulpenweg": {
       "coords": [
