@@ -15,7 +15,7 @@
       9.166675212719118
     ],
     "city": "Sulzbach am Main",
-    "date": "07.02.2026",
+    "date": "08.02.2026",
     "duration": 1,
     "plz": "63834",
     "total_streets": 147
@@ -696,8 +696,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "amselweg": {
       "coords": [
@@ -2743,8 +2743,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "ebersbacher_straße_part1": {
       "coords": [
@@ -3247,8 +3247,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "franz-schüßler-straße": {
       "coords": [
@@ -3346,8 +3346,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "friedenstraße": {
       "coords": [
@@ -3535,8 +3535,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "grünewaldstraße_part1": {
       "coords": [
@@ -3604,8 +3604,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "grünewaldstraße_part2": {
       "coords": [
@@ -3669,8 +3669,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "hasenhecke_part1": {
       "coords": [
@@ -4392,8 +4392,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "holzwiesenweg": {
       "coords": [
@@ -4541,8 +4541,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "höhwaldweg_part1": {
       "coords": [
@@ -4654,8 +4654,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "höhwaldweg_part2": {
       "coords": [
@@ -4719,8 +4719,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "im_hag": {
       "coords": [
@@ -5647,8 +5647,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "kurmainzer_ring_part2": {
       "coords": [
@@ -5674,8 +5674,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "kurt-schumacher-straße": {
       "coords": [
@@ -7037,8 +7037,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "rainweg": {
       "coords": [
@@ -7498,8 +7498,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "schlesierstraße": {
       "coords": [
@@ -7645,8 +7645,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "schwalbenring": {
       "coords": [
@@ -8753,8 +8753,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "spessartstraße_part2": {
       "coords": [
@@ -9043,8 +9043,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "spessartstraße_part4": {
       "coords": [
@@ -9142,8 +9142,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "spessartstraße_part5": {
       "coords": [
@@ -9201,8 +9201,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "spessartstraße_part6": {
       "coords": [
