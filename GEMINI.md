@@ -57,3 +57,11 @@
 - [x] **Disclaimer:** In Doku und UI deutlich hinweisen: "Häuserzahlen sind Schätzungen".
 - [x] **Git-Workflow:** Nach Force-Push sicherstellen, dass Clients synchronisieren.
 - [x] **Lizenz:** Projekt auf EUPL v1.2 umgestellt.
+
+- [x] **API & Netcup:** API gegen netcup zur änderung wenn sich die öffentliche IP der VM ändert. ipadresse im DNS ändern hinweis das es länger dauert bis die DNS-änderung repliziert ist.
+- [x] **PDF Zoom:** Die Karte beim PDF braucht mehr ein-zoom auf den bbox von den gewählten Straßen sonst erkennt man auf dem Ausdruck nix
+- [x] **Map Width:** Die Karte nicht über die volle breite der Seite um ein besseres Scollen zu ermöglichen.
+- [x] **PDF Workflow:** check: Suggested Workflow For a quick, front-end solution, integrate leaflet-easyPrint... -> *Evaluated: Improved existing jsPDF solution.*
+- [x] **Admin Safety:** wir brauchen einen check im admin-py ob noch eine flyer-aktion aktuell läuft und wie lange mit rückmeldung zum user bevor wir updates einspielen.
+
+- [ ] nur vorerst eine idee: wie könnte man mehrere flyeraktion laufen lassen?

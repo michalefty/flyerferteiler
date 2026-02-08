@@ -2,7 +2,7 @@ import requests
 import json
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import subprocess
 
@@ -17,7 +17,42 @@ from admin_modules.vm import start_vm, schedule_stop_vm, get_vm_details
 from admin_modules.backups import restore_backup, cleanup_backups
 from admin_modules.users import anonymize_users
 
+def check_active_survey():
+    """Checks if a survey is currently running and warns the user."""
+    if not os.path.exists('data/streets_status.json'):
+        return True
+
+    try:
+        with open('data/streets_status.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            meta = data.get('metadata', {})
+            start_str = meta.get('date')
+            duration = int(meta.get('duration', 7))
+            
+            if not start_str: return True
+            
+            start_date = datetime.strptime(start_str, "%d.%m.%Y")
+            end_date = start_date + timedelta(days=duration)
+            
+            if datetime.now() < end_date:
+                remaining = (end_date - datetime.now()).days
+                print("\n⚠️  WARNUNG: Es läuft aktuell noch eine Flyer-Aktion!")
+                print(f"   Stadt: {meta.get('city', 'Unbekannt')}")
+                print(f"   Start: {start_str}")
+                print(f"   Dauer: {duration} Tage (bis {end_date.strftime('%d.%m.%Y')})")
+                print(f"   Verbleibend: ca. {remaining + 1} Tage")
+                
+                if input("\n🚨 Möchtest du die laufende Aktion wirklich ÜBERSCHREIBEN? (j/n): ").strip().lower() != 'j':
+                    print("❌ Abbruch.")
+                    return False
+    except Exception as e:
+        print(f"⚠️ Fehler beim Check der aktiven Aktion: {e}")
+    
+    return True
+
 def generate_multi_plan():
+    if not check_active_survey(): return
+
     plz_liste = []
     print("\n--- ADMIN TOOL (Präzise Hausnummernsuche) ---")
     while True:

@@ -5,6 +5,8 @@ try:
 except ImportError:
     config = None
 
+from admin_modules.netcup import update_dns_record
+
 def get_vm_details():
     """Returns (status, ip) or (None, None)"""
     provider = getattr(config, 'CLOUD_PROVIDER', 'none')
@@ -72,6 +74,12 @@ def start_vm():
         subprocess.run(cmd, check=True)
         print("✅ Startbefehl gesendet. Warte auf Boot (45s)...")
         time.sleep(45)
+        
+        # Check IP and update DNS
+        _, ip = get_vm_details()
+        if ip:
+            update_dns_record(ip)
+            
         return True
     except subprocess.CalledProcessError as e:
         print(f"❌ Start fehlgeschlagen: {e}")

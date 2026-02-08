@@ -22,6 +22,9 @@
         .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
         .stat-card { background: var(--card-bg); padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         #map { height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) {
+            #map { width: 90%; margin-left: auto; margin-right: auto; }
+        }
         /* Dark Mode Map Filter */
         [data-theme="dark"] .leaflet-layer { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
 
@@ -768,15 +771,43 @@
             doc.setFontSize(12);
             doc.text(`Gesamt: ${myStreets.length} Straßen | ${totalH} Haushalte | ca. ${Math.round(totalL/1000 * 10)/10} km`, 20, 55);
 
+            // Save current view
+            const originalCenter = map.getCenter();
+            const originalZoom = map.getZoom();
+
+            // Zoom to bounds of selected streets
+            const bounds = L.latLngBounds([]);
+            let hasBounds = false;
+            
+            myStreets.forEach(s => {
+                if (s.path) {
+                    s.path.forEach(segment => {
+                        segment.forEach(p => { bounds.extend(p); hasBounds = true; });
+                    });
+                } else if (s.coords) {
+                    bounds.extend(s.coords);
+                    hasBounds = true;
+                }
+            });
+
+            if (hasBounds) {
+                map.fitBounds(bounds, { padding: [50, 50] });
+                // Wait for zoom and tiles to load
+                await new Promise(resolve => setTimeout(resolve, 800));
+            }
+
             // Capture Map
             try {
                 const mapEl = document.getElementById('map');
-                const canvas = await html2canvas(mapEl, { useCORS: true, scale: 1.5 });
+                const canvas = await html2canvas(mapEl, { useCORS: true, scale: 2 });
                 const imgData = canvas.toDataURL('image/jpeg', 0.8);
                 doc.addImage(imgData, 'JPEG', 20, 65, 170, 90); 
             } catch(e) {
                 console.error(e);
                 doc.text("(Kartenfehler)", 105, 110, {align:'center'});
+            } finally {
+                // Restore view
+                map.setView(originalCenter, originalZoom);
             }
 
             let y = 165;
