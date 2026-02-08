@@ -66,3 +66,5 @@
 
 - [ ] nur vorerst eine idee: wie könnte man mehrere flyeraktion laufen lassen?
 - [x] der zoom auf die ausgewählten straßen funktioniert aber das overlay (die eingefärbten straßen) wird nach links verschoben dargestellt. und die Karte wird auch verzerrt dargestellt - gibt es keine vernünftige js lib die das besser kann? -> *Gelöst durch Integration von `leaflet-simple-map-screenshoter`.*
+- [ ] Einen switch in admin.py mit der man die aktuelle Planung abschalten kann und man die index_offline.html nur noch anzeigen kann. (alte Karten sind nicht mehr erreichbar nur noch offline-seite)
+- [ ] Weitere Ideen für offline-seite -> Film Matrix clone -> Hackercode der nach unten scrollt und immer zb als filename FlyerFerteiler sichtbar ist. überall muss natürlich das impressum sichtbar sein und datenschutz

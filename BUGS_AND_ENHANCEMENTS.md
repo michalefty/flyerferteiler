@@ -1,5 +1,10 @@
 # Bugs and Enhancements
 
-## Bugs
-- [x] Map Overlay Shift: When zooming to selected streets for PDF export, the colored street overlay is shifted to the left and the map appears distorted. (Fixed by switching to `leaflet-simple-map-screenshoter`)
-- [x] Regression: Map only shows Germany (default view), no overlays/streets are rendered. Likely JS error preventing `init()` from running. (Fixed: moved screenshoter script to load after Leaflet)
+## Planned Features (from GEMINI.md)
+
+- [ ] **Admin Switch for Offline Mode:** Add functionality in `admin.py` to "stop" the current survey, effectively putting the site into offline mode (`index_off.html`).
+- [ ] **Enhanced Offline Page:** Update `index_off.html` to include the "FlyerFerteiler" text within the Matrix rain effect, while ensuring Impressum and Datenschutz remain accessible.
+
+## Fixes
+
+- [ ] **`app.py` Robustness:** Ensure `app.py` gracefully handles the absence of `data/streets_status.json` by showing the offline page instead of crashing.

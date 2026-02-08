@@ -394,6 +394,46 @@ def print_help():
     print("   - Misst Antwortzeit.")
     input("\n(Drücke Enter um zurückzukehren)")
 
+def stop_survey():
+    if not os.path.exists('data/streets_status.json'):
+        print("\n⚠️  Keine aktive Flyer-Aktion gefunden.")
+        return
+
+    print("\n--- 🛑 AKTION BEENDEN (OFFLINE MODUS) ---")
+    print("Dies wird die aktuelle Planung beenden und die Webseite in den")
+    print("Offline-Modus versetzen (Matrix-Screen).")
+    
+    if input("Wirklich beenden? (j/n): ").strip().lower() != 'j':
+        return
+
+    # 1. Backup
+    print("📦 Erstelle Abschluss-Backup...")
+    ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    backup_path = f"data/backups/final_{ts}.json"
+    os.makedirs('data/backups', exist_ok=True)
+    
+    try:
+        os.rename('data/streets_status.json', backup_path)
+        print(f"✅ Datei archiviert nach: {backup_path}")
+    except OSError as e:
+        print(f"❌ Fehler beim Verschieben: {e}")
+        return
+
+    # 2. Git
+    if config:
+        if input("🚀 Änderungen zu GitHub pushen (Offline schalten)? (j/n): ").strip().lower() == 'j':
+            try:
+                subprocess.run(["git", "add", "data/streets_status.json", backup_path], check=True)
+                msg = getattr(config, 'GIT_COMMIT_MESSAGE', f"Stop Survey: {ts}")
+                subprocess.run(["git", "commit", "-m", msg], check=True)
+                
+                remote = getattr(config, 'GIT_REMOTE_URL', 'origin')
+                branch = getattr(config, 'GIT_BRANCH', 'main')
+                subprocess.run(["git", "push", remote, branch], check=True)
+                print("✅ Push erfolgreich! Seite sollte bald offline sein.")
+            except subprocess.CalledProcessError as e:
+                print(f"❌ Git-Fehler: {e}")
+
 def main_menu():
     while True:
         print("\n--- 🛠️ ADMIN TOOL ---")
@@ -403,9 +443,10 @@ def main_menu():
         print("4. ⏪ Restore Backup")
         print("5. 🏥 Server Status Check")
         print("6. ❓ Hilfe anzeigen")
+        print("7. 🛑 Aktion beenden (Offline-Modus)")
         print("0. ❌ Beenden")
         
-        choice = input("\nWähle eine Option (0-6): ").strip()
+        choice = input("\nWähle eine Option (0-7): ").strip()
         
         if choice == '1':
             generate_multi_plan()
@@ -419,6 +460,8 @@ def main_menu():
             check_server_status()
         elif choice == '6' or choice == '?' or choice.lower() == 'h':
             print_help()
+        elif choice == '7':
+            stop_survey()
         elif choice == '0':
             print("👋 Bye!")
             break
