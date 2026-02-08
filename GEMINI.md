@@ -65,3 +65,4 @@
 - [x] **Admin Safety:** wir brauchen einen check im admin-py ob noch eine flyer-aktion aktuell läuft und wie lange mit rückmeldung zum user bevor wir updates einspielen.
 
 - [ ] nur vorerst eine idee: wie könnte man mehrere flyeraktion laufen lassen?
+- [x] der zoom auf die ausgewählten straßen funktioniert aber das overlay (die eingefärbten straßen) wird nach links verschoben dargestellt. und die Karte wird auch verzerrt dargestellt - gibt es keine vernünftige js lib die das besser kann? -> *Gelöst durch Integration von `leaflet-simple-map-screenshoter`.*

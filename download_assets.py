@@ -14,7 +14,8 @@ ASSETS = {
     "images/marker-shadow.png": "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
     
     "jspdf.umd.min.js": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
-    "html2canvas.min.js": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    "html2canvas.min.js": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+    "leaflet-simple-map-screenshoter.js": "https://unpkg.com/leaflet-simple-map-screenshoter@0.5.0/dist/leaflet-simple-map-screenshoter.js"
 }
 
 DEST_MAP = {
@@ -27,7 +28,8 @@ DEST_MAP = {
     "images/marker-icon-2x.png": "static/lib/leaflet/images/marker-icon-2x.png",
     "images/marker-shadow.png": "static/lib/leaflet/images/marker-shadow.png",
     "jspdf.umd.min.js": "static/lib/jspdf/jspdf.umd.min.js",
-    "html2canvas.min.js": "static/lib/html2canvas/html2canvas.min.js"
+    "html2canvas.min.js": "static/lib/html2canvas/html2canvas.min.js",
+    "leaflet-simple-map-screenshoter.js": "static/lib/leaflet-screenshoter/leaflet-simple-map-screenshoter.js"
 }
 
 def download_assets():
