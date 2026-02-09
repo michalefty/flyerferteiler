@@ -3740,8 +3740,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "hasenhecke_part2": {
       "coords": [
@@ -3771,8 +3771,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "hauptstraße_part1": {
       "coords": [
@@ -5701,8 +5701,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "königsberger_straße_part1": {
       "coords": [
@@ -7700,8 +7700,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "sodentalstraße_part1": {
       "coords": [
