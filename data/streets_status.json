@@ -3740,8 +3740,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "hasenhecke_part2": {
       "coords": [
@@ -3771,8 +3771,8 @@
           ]
         ]
       ],
-      "status": "taken",
-      "user": "ml"
+      "status": "free",
+      "user": ""
     },
     "hauptstraße_part1": {
       "coords": [
@@ -5701,7 +5701,7 @@
           ]
         ]
       ],
-      "status": "taken",
+      "status": "done",
       "user": "ml"
     },
     "königsberger_straße_part1": {
