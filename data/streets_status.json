@@ -41,8 +41,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "akazienweg": {
       "coords": [
@@ -64,8 +64,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "alexandrastraße": {
       "coords": [
@@ -87,8 +87,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "alte_kleinwallstädter_straße": {
       "coords": [
@@ -207,8 +207,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "am_altenbach_part2": {
       "coords": [
@@ -230,8 +230,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "am_berg": {
       "coords": [
@@ -623,8 +623,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "am_weiher": {
       "coords": [
@@ -863,8 +863,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "asternweg": {
       "coords": [
@@ -1197,8 +1197,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "bahnhofstraße_part3": {
       "coords": [
@@ -1234,8 +1234,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "bergweg": {
       "coords": [
@@ -3095,8 +3095,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "fasanenweg": {
       "coords": [
@@ -4008,8 +4008,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "hintere_dorfstraße": {
       "coords": [
@@ -4754,8 +4754,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "im_steinetz": {
       "coords": [
@@ -4797,8 +4797,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "industriestraße_part1": {
       "coords": [
@@ -4876,8 +4876,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "industriestraße_part2": {
       "coords": [
@@ -4933,8 +4933,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "jahnstraße": {
       "coords": [
@@ -5187,8 +5187,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "kirchgasse": {
       "coords": [
@@ -6185,8 +6185,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "margarethenstraße": {
       "coords": [
@@ -6280,8 +6280,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "marienstraße": {
       "coords": [
@@ -6329,8 +6329,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "meisenweg": {
       "coords": [
@@ -6748,8 +6748,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "niedernberger_straße_part2": {
       "coords": [
@@ -6839,8 +6839,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "ober_der_steinhohle": {
       "coords": [
@@ -7153,8 +7153,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "ringstraße": {
       "coords": [
@@ -7315,8 +7315,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "rosenweg": {
       "coords": [
@@ -9539,8 +9539,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "theodor-heuss-straße_part2": {
       "coords": [
@@ -9597,8 +9597,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "andy"
     },
     "tulpenweg": {
       "coords": [
