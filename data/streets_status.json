@@ -696,8 +696,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "amselweg": {
       "coords": [
@@ -1861,8 +1861,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "danziger_straße": {
       "coords": [
@@ -3346,8 +3346,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "friedenstraße": {
       "coords": [
@@ -5078,8 +5078,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "jägersgarten": {
       "coords": [
@@ -6939,8 +6939,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "pommernstraße": {
       "coords": [
@@ -7818,8 +7818,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part2": {
       "coords": [
@@ -8753,8 +8753,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part2": {
       "coords": [
@@ -9142,8 +9142,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part5": {
       "coords": [
@@ -9201,8 +9201,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part6": {
       "coords": [
