@@ -1989,8 +1989,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-albert-hoffa-straße_part2": {
       "coords": [
@@ -2070,8 +2070,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-karl-reus-straße_part1": {
       "coords": [
@@ -2862,8 +2862,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "ebersbacher_straße_part2": {
       "coords": [
@@ -2923,8 +2923,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "egerländer_straße": {
       "coords": [
@@ -7753,8 +7753,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part10": {
       "coords": [
@@ -8089,8 +8089,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part5": {
       "coords": [
@@ -8310,8 +8310,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part6": {
       "coords": [
@@ -8932,8 +8932,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part3": {
       "coords": [
@@ -9043,8 +9043,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part4": {
       "coords": [
@@ -9224,8 +9224,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "steinhohle": {
       "coords": [
