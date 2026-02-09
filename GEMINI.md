@@ -14,14 +14,13 @@
 ## 📜 Getroffene Entscheidungen
 - **GitOps:** GitHub dient als Zwischenspeicher und Historie.
 - **Backups:** VM erstellt vor jedem Pull ein Backup in `data/backups/`.
-- **Sektorisierung:** Admin-Skript berechnet Sektoren basierend auf Helferanzahl.
 
 ## 🔜 Roadmap & Offene Punkte
 
 ### 🖥️ Frontend & UX
 - [x] **Datenschutz-Hinweis:** Expliziter Hinweis im UI, nur Kürzel/Vornamen zu verwenden (DSGVO).
 - [x] **Daten: Überregionale Straßen (Backend):** Filter erweitert für Bundes-/Landesstraßen (primary/secondary).
-- [x] **Farbkontrast:** Reservierte Straßen kontrastreicher gestalten (nicht grün/ähnlich zu "frei").
+- [x] **Farbkontrast:** Reservierte Straßen kontrastreicher gestalten
 - [x] **Legende:** Farblegende für User/Status auf der Karte hinzufügen.
 - [x] **Dark Mode Fix:** Lesbarkeit des PDF-Export-Buttons im Dark Theme korrigieren.
 - [x] **Countdown:** Anzeige der verbleibenden Zeit für die aktuelle Abfrage/Session.
@@ -48,7 +47,6 @@
 - [x] **Radius-Justierung:** Option prüfen, den Erfassungsradius für Häuser pro Straße konfigurierbar zu machen.
 
 ### 💤 Backlog / Später
-- [ ] **Gebietssuche (Polygon):** Umstellung von reiner Straßensuche auf Polygon-Suche (besser für überregionale Straßen).
 
 ### 📄 PDF & Export
 - [x] **Rendering-Check:** Prüfen, ob Karten im PDF durch HTTPS-Umstellung korrekt dargestellt werden (kein Spiegeln mehr).
@@ -64,8 +62,5 @@
 - [x] **Map Width:** Die Karte nicht über die volle breite der Seite um ein besseres Scollen zu ermöglichen.
 - [x] **PDF Workflow:** check: Suggested Workflow For a quick, front-end solution, integrate leaflet-easyPrint... -> *Evaluated: Improved existing jsPDF solution.*
 - [x] **Admin Safety:** wir brauchen einen check im admin-py ob noch eine flyer-aktion aktuell läuft und wie lange mit rückmeldung zum user bevor wir updates einspielen.
-
-- [ ] nur vorerst eine idee: wie könnte man mehrere flyeraktion laufen lassen?
 - [x] der zoom auf die ausgewählten straßen funktioniert aber das overlay (die eingefärbten straßen) wird nach links verschoben dargestellt. und die Karte wird auch verzerrt dargestellt - gibt es keine vernünftige js lib die das besser kann? -> *Gelöst durch Integration von `leaflet-simple-map-screenshoter`.*
 - [x] Einen switch in admin.py mit der man die aktuelle Planung abschalten kann und man die index_offline.html nur noch anzeigen kann. (alte Karten sind nicht mehr erreichbar nur noch offline-seite)
-- [x] Weitere Ideen für offline-seite -> die alten ideen natürlich auch behalten (Pacman, ) Film Matrix clone -> Hackercode der nach unten scrollt und immer zb als filename FlyerFerteiler sichtbar ist. überall muss natürlich das impressum sichtbar sein und datenschutz

@@ -160,7 +160,7 @@
             <p>Bitte trage zu deiner eigenen Sicherheit nur deinen <b>Vornamen oder ein Kürzel</b> ein.</p>
             <p>Deine Daten (Name und gewählte Straßen) werden auf unserem Server gespeichert, damit andere sehen können, welche Gebiete bereits abgedeckt sind.</p>
             <p>Die Daten werden nach Abschluss der Aktion (ca. {{ survey_days }} Tage) <b>automatisch gelöscht</b>.</p>
-            <p>Wir verwenden LocalStorage in deinem Browser, um deinen Namen für deinen nächsten Besuch zu speichern.</p>
+            <p>Wir speichern keine Daten auf deinem Gerät (Cookies/LocalStorage).</p>
             <p><b>Technische Hinweise:</b><br>
             Alle verwendeten Programm-Bibliotheken (Karten-Darstellung, PDF-Erstellung) werden <b>lokal von unserem Server geladen</b>. Es finden keine Verbindungen zu Drittanbietern (CDNs) statt, um deine Privatsphäre zu schützen.</p>
             
@@ -234,7 +234,7 @@
         const durationDays = {{ survey_days }};
         const layers = {}; // Stores both marker and polyline
         const markerGroup = [];
-        let currentUser = localStorage.getItem('userName') || "";
+        let currentUser = "";
         let sortTargetId = null;
 
         function showRandomQuote() {
@@ -406,7 +406,7 @@
         function init() {
             if (!currentUser) {
                 currentUser = prompt("Willkommen! Bitte gib deinen Vornamen oder ein Kürzel ein:");
-                if (currentUser) localStorage.setItem('userName', currentUser);
+                // LocalStorage removed
             }
             document.getElementById('currentName').innerText = currentUser || "Nicht gesetzt";
             
@@ -415,8 +415,6 @@
             
             if (bbox) {
                  map.fitBounds(bbox, {padding: [50,50]});
-            } else if (localStorage.getItem('mapCenter')) {
-                map.setView(JSON.parse(localStorage.getItem('mapCenter')), localStorage.getItem('mapZoom'));
             } else {
                 // Fallback: Calculate bounds client-side
                 Object.values(streets).forEach(s => markerGroup.push(s.coords));
@@ -430,10 +428,8 @@
             updateCountdown();
             showRandomQuote();
             
-            if (!localStorage.getItem('helpSeen')) {
-                openModal('helpModal');
-                localStorage.setItem('helpSeen', 'true');
-            }
+            // Always show help on load
+            openModal('helpModal');
         }
 
         // Modal Logic
@@ -707,8 +703,7 @@
             // But we need to ensure highlights update if status changed colors? 
             // renderMap calls updateHighlights at the end.
 
-            localStorage.setItem('mapCenter', JSON.stringify(map.getCenter()));
-            localStorage.setItem('mapZoom', map.getZoom());
+            // localStorage removed
             
             fetch('/update', {
                 method: 'POST',
@@ -906,7 +901,7 @@
                 if (n.toLowerCase() === 'ferteiler') {
                     alert("🐰 Easter Egg gefunden!\n\nWarum 'Ferteiler'?\nWeil wir Flyer so schnell verteilen, dass für Rechtschreibung keine Zeit blieb! 🏃💨");
                 }
-                localStorage.setItem('userName', n); 
+                // localStorage removed
                 currentUser = n; 
                 document.getElementById('currentName').innerText = n;
                 renderMap(); renderList(); 

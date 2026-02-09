@@ -1,0 +1,24 @@
+# Konfiguration für Flyer-Planer
+
+# Admin Passwort für den Zugang zum Admin-Bereich
+ADMIN_PASSWORD = "DeinSicheresPasswort123"
+
+# Laufzeit der Umfrage in Tagen (wird im Frontend angezeigt und für VM-Stop genutzt)
+SURVEY_DURATION_DAYS = 7
+
+# Git Konfiguration
+GIT_COMMIT_MESSAGE = "Update Plan Data"
+GIT_REMOTE_URL = "origin"
+GIT_BRANCH = "main"
+
+# Overpass API URL
+OVERPASS_URL = "http://overpass-api.de/api/interpreter"
+
+# Cloud VM Konfiguration (für automatischen Start/Stop via admin.py)
+# Beispiel für Google Cloud Platform (GCP)
+CLOUD_PROVIDER = "gcloud" # oder "aws", "none"
+VM_INSTANCE_NAME = "flyer-server"
+VM_ZONE = "us-central1-a"
+VM_PROJECT = "your-gcp-project-id"
+
+NETCUP_API_PW = "your-netcup-api-password"
