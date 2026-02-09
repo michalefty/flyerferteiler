@@ -164,7 +164,7 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        const ANIMATIONS = ['matrix', 'pacman'];
+        const ANIMATIONS = ['matrix', 'pacman', 'frogger'];
 
         function init() {
             let selected = localStorage.getItem('ff_off_anim');
@@ -175,6 +175,7 @@
             
             if (selected === 'matrix') startMatrix();
             else if (selected === 'pacman') startPacman();
+            else if (selected === 'frogger') startFrogger();
         }
 
         function resetAnimation() {
@@ -188,26 +189,61 @@
             const alphabet = katakana.split('');
             const fontSize = 16;
             let columns = Math.floor(canvas.width / fontSize);
-            const drops = [];
-            for(let x = 0; x < columns; x++) drops[x] = 1;
+            
+            // State per column: { y: number, word: string|null, idx: number }
+            const drops = []; 
+            const keywords = ["FLYERFERTEILER", "DANKE", "ERLEDIGT", "FERTIG", "MISSION_COMPLETE", "SERVER_OFFLINE", "SYSTEM_HALTED"];
+
+            for(let x = 0; x < columns; x++) {
+                drops[x] = { y: 1, word: null, idx: 0 };
+            }
 
             function draw() {
                 // Resize handling
-                if(Math.floor(canvas.width/fontSize) !== columns) {
-                    columns = Math.floor(canvas.width/fontSize);
-                    while(drops.length < columns) drops.push(1);
+                const currentColumns = Math.floor(canvas.width/fontSize);
+                if(currentColumns !== columns) {
+                    columns = currentColumns;
+                    while(drops.length < columns) {
+                        drops.push({ y: 1, word: null, idx: 0 });
+                    }
                 }
 
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#0F0';
                 ctx.font = fontSize + 'px monospace';
 
                 for(let i = 0; i < drops.length; i++) {
-                    const text = alphabet[Math.floor(Math.random()*alphabet.length)];
-                    ctx.fillText(text, i*fontSize, drops[i]*fontSize);
-                    if(drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
+                    let text;
+                    const d = drops[i];
+
+                    // Logic to start a word
+                    if (!d.word && Math.random() > 0.998) {
+                        d.word = keywords[Math.floor(Math.random() * keywords.length)];
+                        d.idx = 0;
+                    }
+
+                    if (d.word) {
+                        text = d.word[d.idx];
+                        ctx.fillStyle = '#FFF'; // Highlight words in white
+                        d.idx++;
+                        if (d.idx >= d.word.length) {
+                            d.word = null; 
+                            d.idx = 0;
+                        }
+                    } else {
+                        text = alphabet[Math.floor(Math.random()*alphabet.length)];
+                        ctx.fillStyle = '#0F0';
+                    }
+                    
+                    ctx.fillText(text, i*fontSize, d.y*fontSize);
+                    
+                    // Reset
+                    if(d.y*fontSize > canvas.height && Math.random() > 0.975) {
+                        d.y = 0;
+                        d.word = null;
+                        d.idx = 0;
+                    }
+                    d.y++;
                 }
                 animationFrameId = requestAnimationFrame(draw);
             }
@@ -275,6 +311,108 @@
                 if (pacX > ffX) {
                     pacX = -50; // Reset
                 }
+
+                animationFrameId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        // --- 3. Simple Frogger ---
+        function startFrogger() {
+            const fontSize = 24;
+            const laneHeight = 40;
+            
+            // Entities
+            let frog = { x: canvas.width / 2, y: canvas.height - 50 };
+            const cars = [];
+            const logs = [];
+            let frame = 0;
+            
+            function draw() {
+                frame++;
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                const lanes = Math.floor(canvas.height / laneHeight);
+                
+                // Draw Lanes (Water / Road)
+                for (let i = 0; i < lanes; i++) {
+                    const y = i * laneHeight;
+                    if (i < lanes / 2) {
+                         // Water
+                         ctx.fillStyle = '#000033'; 
+                         ctx.fillRect(0, y, canvas.width, laneHeight);
+                    } else if (i < lanes - 2) {
+                         // Road
+                         ctx.fillStyle = '#222';
+                         ctx.fillRect(0, y, canvas.width, laneHeight);
+                         // Dashed lines
+                         if (i > lanes/2) {
+                             ctx.fillStyle = '#444';
+                             for(let j=0; j<canvas.width; j+=40) ctx.fillRect(j, y, 20, 2);
+                         }
+                    }
+                }
+
+                // Spawn Cars & Logs
+                if (frame % 60 === 0) {
+                     // Road Lane
+                     const roadLane = Math.floor(lanes/2) + Math.floor(Math.random() * (lanes/2 - 2));
+                     const speed = (Math.random() > 0.5 ? 2 : -2) * (Math.random() + 1);
+                     cars.push({
+                        x: speed > 0 ? -50 : canvas.width + 50,
+                        y: roadLane * laneHeight + 5,
+                        w: 40, h: 20, speed: speed, color: ['red', 'blue', 'yellow'][Math.floor(Math.random()*3)]
+                     });
+                     
+                     // Water Lane
+                     const waterLane = Math.floor(Math.random() * (lanes/2));
+                     const logSpeed = (Math.random() > 0.5 ? 1.5 : -1.5);
+                     logs.push({
+                         x: logSpeed > 0 ? -80 : canvas.width + 80,
+                         y: waterLane * laneHeight + 5,
+                         w: 80, h: 30, speed: logSpeed, color: '#654321'
+                     });
+                }
+
+                // Update & Draw Logs
+                for (let i = logs.length - 1; i >= 0; i--) {
+                    const l = logs[i];
+                    l.x += l.speed;
+                    ctx.fillStyle = l.color;
+                    ctx.fillRect(l.x, l.y, l.w, l.h);
+                    if (l.x < -100 || l.x > canvas.width + 100) logs.splice(i, 1);
+                }
+
+                // Update & Draw Cars
+                for (let i = cars.length - 1; i >= 0; i--) {
+                    const c = cars[i];
+                    c.x += c.speed;
+                    ctx.fillStyle = c.color;
+                    ctx.fillRect(c.x, c.y, c.w, c.h);
+                    // Wheels
+                    ctx.fillStyle = '#ccc';
+                    ctx.fillRect(c.x+5, c.y-2, 5, 4); ctx.fillRect(c.x+25, c.y-2, 5, 4);
+                    ctx.fillRect(c.x+5, c.y+c.h-2, 5, 4); ctx.fillRect(c.x+25, c.y+c.h-2, 5, 4);
+                    
+                    if (c.x < -100 || c.x > canvas.width + 100) cars.splice(i, 1);
+                }
+
+                // Auto-Frog Logic
+                if (frame % 30 === 0) {
+                     // Simple AI: Move forward if possible
+                     frog.y -= laneHeight;
+                     if (frog.y < 0) {
+                         // Reset / Win
+                         frog.y = canvas.height - 50;
+                         frog.x = Math.random() * canvas.width;
+                     }
+                }
+                
+                // Draw Frog
+                ctx.fillStyle = '#0F0';
+                ctx.font = '24px monospace';
+                ctx.fillText('🐸', frog.x, frog.y + 20);
 
                 animationFrameId = requestAnimationFrame(draw);
             }

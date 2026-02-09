@@ -29,6 +29,7 @@
 - [x] **Sortierung nach Bereichen:** Straßenliste nach Nähe sortieren (Nachbarn zeigen), wenn eine Straße ausgewählt wird.
 - [x] **Stundenanzeige:** Die Stundenanzeige zeigt nun die gesamte verbleibende Laufzeit (Tage + Stunden) an.
 - [x] **Scroll-Verhalten:** Overlay ("Map Lock") hinzugefügt, um versehentliches Scrollen auf Mobilgeräten zu verhindern.
+- [x] **Erledigt-Status:** Button im Popup ("Erledigt"), neuer Status "done" und lila Visualisierung.
 
 ### 🛠️ Admin-CLI (`admin.py`) & Backend
 - [x] **Anonymisierung:** Admin-Funktion zum Kürzen von Namen in der Datenbank (DSGVO).
@@ -66,5 +67,5 @@
 
 - [ ] nur vorerst eine idee: wie könnte man mehrere flyeraktion laufen lassen?
 - [x] der zoom auf die ausgewählten straßen funktioniert aber das overlay (die eingefärbten straßen) wird nach links verschoben dargestellt. und die Karte wird auch verzerrt dargestellt - gibt es keine vernünftige js lib die das besser kann? -> *Gelöst durch Integration von `leaflet-simple-map-screenshoter`.*
-- [ ] Einen switch in admin.py mit der man die aktuelle Planung abschalten kann und man die index_offline.html nur noch anzeigen kann. (alte Karten sind nicht mehr erreichbar nur noch offline-seite)
-- [ ] Weitere Ideen für offline-seite -> die alten ideen natürlich auch behalten (Pacman, ) Film Matrix clone -> Hackercode der nach unten scrollt und immer zb als filename FlyerFerteiler sichtbar ist. überall muss natürlich das impressum sichtbar sein und datenschutz
+- [x] Einen switch in admin.py mit der man die aktuelle Planung abschalten kann und man die index_offline.html nur noch anzeigen kann. (alte Karten sind nicht mehr erreichbar nur noch offline-seite)
+- [x] Weitere Ideen für offline-seite -> die alten ideen natürlich auch behalten (Pacman, ) Film Matrix clone -> Hackercode der nach unten scrollt und immer zb als filename FlyerFerteiler sichtbar ist. überall muss natürlich das impressum sichtbar sein und datenschutz

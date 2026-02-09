@@ -1,10 +1,12 @@
 # Bugs and Enhancements
 
-## Planned Features (from GEMINI.md)
+This file tracks changes, fixes, and enhancements for the Flyer-Planer project.
 
-- [ ] **Admin Switch for Offline Mode:** Add functionality in `admin.py` to "stop" the current survey, effectively putting the site into offline mode (`index_off.html`).
-- [ ] **Enhanced Offline Page:** Update `index_off.html` to include the "FlyerFerteiler" text within the Matrix rain effect, while ensuring Impressum and Datenschutz remain accessible.
+## Active Tasks
+- [ ] Investigate "Polygon Search" (Backlog).
 
-## Fixes
-
-- [ ] **`app.py` Robustness:** Ensure `app.py` gracefully handles the absence of `data/streets_status.json` by showing the offline page instead of crashing.
+## Completed Tasks
+- [x] Implement "Frogger" animation for `index_off.html` to rotate with Matrix/Pacman.
+- [x] Add "Erledigt" button to street popup and handle 'done' status.
+- [x] Implement a switch in `admin.py` to disable the current planning and show `index_offline.html`. (Found existing implementation in `admin.py`)
+- [x] Enhance Matrix animation in `index_off.html` to include specific keywords (e.g., "FlyerFerteiler").

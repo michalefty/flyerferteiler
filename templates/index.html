@@ -10,7 +10,7 @@
     <style>
         :root {
             --bg: #f4f7f6; --text: #000; --card-bg: white;
-            --free: #27ae60; --taken: #e74c3c; --primary: #2c3e50; --info: #3498db; --mine: #f39c12;
+            --free: #27ae60; --taken: #e74c3c; --done: #8e44ad; --primary: #2c3e50; --info: #3498db; --mine: #f39c12;
             --btn-text-on-primary: white;
         }
         [data-theme="dark"] {
@@ -19,7 +19,7 @@
             --btn-text-on-primary: #2c3e50;
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; background: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; }
-        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 15px; }
         .stat-card { background: var(--card-bg); padding: 10px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         #map { height: 500px; width: 100%; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         @media (max-width: 768px) {
@@ -62,7 +62,8 @@
     <div class="stats-bar">
         <div class="stat-card"><h4><span style="color:var(--free)">■</span> Offen</h4><p id="s-open">- Str.</p></div>
         <div class="stat-card"><h4><span style="color:var(--taken)">■</span> Vergeben</h4><p id="s-taken">- Str.</p></div>
-        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Ausgewählt</h4><p id="s-mine" style="color:var(--mine)">- Str.</p></div>
+        <div class="stat-card"><h4><span style="color:var(--done)">■</span> Erledigt</h4><p id="s-done" style="color:var(--done)">- Str.</p></div>
+        <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">- Str.</p></div>
         <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
     <p style="text-align:center; font-size:0.85em; color:#7f8c8d; margin-top:-10px; margin-bottom: 20px;">
@@ -221,6 +222,7 @@
                 <div style="margin-bottom:5px"><b>Legende</b></div>
                 <div><span style="color:var(--free)">■</span> Offen</div>
                 <div><span style="color:var(--taken)">■</span> Vergeben</div>
+                <div><span style="color:var(--done)">■</span> Erledigt</div>
                 <div><span style="color:var(--mine)">■</span> Meine</div>
             `;
             return div;
@@ -324,21 +326,38 @@
 
         function generatePopupContent(id) {
             const s = streets[id];
-            const isMine = s.user === currentUser && s.status === 'taken';
+            const isMine = s.user === currentUser;
             const isFree = s.status === 'free';
+            const isDone = s.status === 'done';
             
             let color = isFree ? '#27ae60' : '#e74c3c';
-            if (isMine) color = '#f39c12'; 
+            if (isDone) color = '#8e44ad'; // done
+            else if (isMine) color = '#f39c12'; // mine/taken
             else if (!isFree && s.user) color = getUserColor(s.user);
 
             let btnHtml = "";
             if (isFree) {
                 btnHtml = `<button onclick="updateStatus('${id}', 'taken')" style="background:#27ae60; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer; width:100%; margin-top:5px;">Übernehmen</button>`;
             } else if (isMine) {
-                btnHtml = `<button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer; width:100%; margin-top:5px;">Freigeben</button>`;
+                // My Controls
+                if (isDone) {
+                     btnHtml = `
+                        <div style="display:flex; flex-direction:column; gap:5px; margin-top:5px;">
+                            <button onclick="updateStatus('${id}', 'taken')" style="background:#f39c12; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">↩️ Nicht erledigt</button>
+                            <button onclick="updateStatus('${id}', 'free')" style="background:#95a5a6; color:white; border:none; padding:5px; border-radius:4px; cursor:pointer; font-size:0.9em;">Freigeben</button>
+                        </div>`;
+                } else {
+                     btnHtml = `
+                        <div style="display:flex; flex-direction:column; gap:5px; margin-top:5px;">
+                            <button onclick="updateStatus('${id}', 'done')" style="background:#8e44ad; color:white; border:none; padding:8px; border-radius:4px; cursor:pointer;">✅ Erledigt</button>
+                            <button onclick="updateStatus('${id}', 'free')" style="background:#e74c3c; color:white; border:none; padding:5px; border-radius:4px; cursor:pointer; font-size:0.9em;">Freigeben</button>
+                        </div>`;
+                }
             } else {
+                // Someone else
+                const statusText = isDone ? "Erledigt" : "Belegt";
                 btnHtml = `<div style="display:flex;align-items:center;justify-content:center;gap:5px; margin-top:5px;">
-                    <span style="color:${color}; font-weight:bold;">Belegt: ${s.user}</span>
+                    <span style="color:${color}; font-weight:bold;">${statusText}: ${s.user}</span>
                     <button onclick="stealStreet('${id}')" title="Übernehmen" style="background:white; border:1px solid #ccc; border-radius:4px; cursor:pointer;">✋</button>
                 </div>`;
             }
@@ -358,11 +377,16 @@
                 neighbors.slice(0, 5).forEach(n => {
                      const nIsFree = n.status === 'free';
                      const nIsMine = n.user === currentUser;
-                     const bg = nIsFree ? '#27ae60' : (nIsMine ? '#f39c12' : '#e74c3c');
+                     const nIsDone = n.status === 'done';
+                     
+                     let bg = '#e74c3c';
+                     if (nIsFree) bg = '#27ae60';
+                     else if (nIsDone) bg = '#8e44ad';
+                     else if (nIsMine) bg = '#f39c12';
                      
                      // Helper: Escape single quotes for JS string
                      const safeName = n.name.replace(/'/g, "\'");
-                     const onClick = nIsFree ? `updateStatus('${n.id}', 'taken')` : `map.flyTo([${n.coords}], 18); map._layers[layers['${n.id}'].marker._leaflet_id].openPopup();`; // Direct popup open approach for taken
+                     const onClick = nIsFree ? `updateStatus('${n.id}', 'taken')` : `map.flyTo([${n.coords}], 18); map._layers[layers['${n.id}'].marker._leaflet_id].openPopup();`; 
                      
                      neighborHtml += `<button onclick="${onClick}" style="background:${bg}; color:white; border:none; padding:4px 8px; border-radius:12px; font-size:0.85em; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,0.1);" title="${nIsFree ? 'Übernehmen' : 'Zeigen'}">${n.name}</button>`;
                 });
@@ -470,11 +494,13 @@
         function renderMap() {
             Object.keys(streets).forEach(id => {
                 const s = streets[id];
-                const isMine = s.user === currentUser && s.status === 'taken';
+                const isMine = s.user === currentUser;
                 const isFree = s.status === 'free';
+                const isDone = s.status === 'done';
                 
                 let color = isFree ? '#27ae60' : '#e74c3c';
-                if (isMine) color = '#f39c12'; 
+                if (isDone) color = '#8e44ad';
+                else if (isMine) color = '#f39c12'; 
                 else if (!isFree && s.user) color = getUserColor(s.user);
 
                 const lineStyle = { color: color, weight: isMine ? 6 : 4, opacity: 0.8 };
@@ -550,8 +576,15 @@
             
             const sortedIds = Object.keys(streets).sort((a,b) => {
                 const sA = streets[a], sB = streets[b];
-                const wA = sA.user === currentUser ? 2 : (sA.status === 'free' ? 1 : 0);
-                const wB = sB.user === currentUser ? 2 : (sB.status === 'free' ? 1 : 0);
+                
+                // Weight: Mine(Taken)=3, Mine(Done)=2, Free=1, Others=0
+                let wA = 0, wB = 0;
+                
+                if (sA.user === currentUser) wA = sA.status === 'taken' ? 3 : 2;
+                else if (sA.status === 'free') wA = 1;
+                
+                if (sB.user === currentUser) wB = sB.status === 'taken' ? 3 : 2;
+                else if (sB.status === 'free') wB = 1;
                 
                 if (wA !== wB) return wB - wA;
                 if (sortTargetId) return getDist(sA, streets[sortTargetId]) - getDist(sB, streets[sortTargetId]);
@@ -567,6 +600,7 @@
             sortedIds.forEach(id => {
                 const s = streets[id];
                 const isMine = s.user === currentUser;
+                const isDone = s.status === 'done';
                 const li = document.createElement('li');
                 li.className = 'street-item';
                 
@@ -574,9 +608,16 @@
                 if(s.status === 'free') {
                     actionBtn = `<button style="background:var(--free); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'taken')">Mach' ich!</button>`;
                 } else if(isMine) {
-                    actionBtn = `<button style="background:var(--taken); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')">Freigeben</button>`;
+                    if (isDone) {
+                         actionBtn = `<button style="background:var(--mine); color:white; border:none; padding:5px; border-radius:4px; cursor:pointer; margin-right:5px;" onclick="updateStatus('${id}', 'taken')" title="Zurück zu 'In Arbeit'">↩️</button>
+                                      <button style="background:var(--taken); color:white; border:none; padding:5px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')" title="Freigeben">🗑️</button>`;
+                    } else {
+                         actionBtn = `<button style="background:var(--done); color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; margin-right:5px;" onclick="updateStatus('${id}', 'done')" title="Erledigt!">✅</button>
+                                      <button style="background:var(--taken); color:white; border:none; padding:5px; border-radius:4px; cursor:pointer;" onclick="updateStatus('${id}', 'free')" title="Freigeben">🗑️</button>`;
+                    }
                 } else {
-                    actionBtn = `<small style="color:var(--taken)">${s.user}</small> <button onclick="stealStreet('${id}')" style="border:1px solid #ccc; background:none; cursor:pointer; font-size:0.8em">✋</button>`;
+                    const stColor = isDone ? 'var(--done)' : 'var(--taken)';
+                    actionBtn = `<small style="color:${stColor}">${s.user}</small> <button onclick="stealStreet('${id}')" style="border:1px solid #ccc; background:none; cursor:pointer; font-size:0.8em" title="Übernehmen">✋</button>`;
                 }
 
                 if(isAdmin) {
@@ -584,8 +625,12 @@
                                    <button onclick="deleteStreet('${id}')" style="background:none; border:none; cursor:pointer;">🗑️</button>`;
                 }
 
+                // Visual style for done items
+                const itemStyle = isMine && isDone ? "opacity:0.6; text-decoration:line-through;" : "";
+                const nameStyle = isMine ? 'font-weight:bold; color:var(--mine);' : '';
+
                 li.innerHTML = `
-                    <div class="street-info" style="${isMine ? 'font-weight:bold; color:var(--mine);' : ''}">
+                    <div class="street-info" style="${nameStyle} ${itemStyle}">
                         ${s.name} 
                         <span class="badge">🏠 ${s.households}</span>
                         <span class="badge">📏 ${s.length || 0}m</span>
@@ -614,12 +659,16 @@
         }
 
         function updateStats() {
-            let open = 0, taken = 0, mine = 0, totalHouses = 0, myHouses = 0;
+            let open = 0, taken = 0, done = 0, mine = 0, totalHouses = 0, myHouses = 0;
             Object.values(streets).forEach(s => {
                 totalHouses += s.households;
-                if(s.status === 'free') open++;
-                else {
-                    taken++;
+                if(s.status === 'free') {
+                    open++;
+                } else {
+                    // Not free means assigned
+                    if (s.status === 'done') done++;
+                    else taken++; // In Progress
+
                     if(s.user === currentUser) {
                         mine++;
                         myHouses += s.households;
@@ -627,7 +676,8 @@
                 }
             });
             document.getElementById('s-open').innerText = open + " Str.";
-            document.getElementById('s-taken').innerText = taken + " Str.";
+            document.getElementById('s-taken').innerText = taken + " Str."; // Label says "Vergeben", now implies "In Arbeit"
+            document.getElementById('s-done').innerText = done + " Str.";
             document.getElementById('s-mine').innerText = mine + " Str.";
             document.getElementById('s-house').innerText = `${myHouses} / ${totalHouses}`;
         }

@@ -151,14 +151,33 @@ def update():
     
     for s_id in ids:
         if s_id in data['streets']:
+            current_status = data['streets'][s_id].get('status', 'free')
+            current_user = data['streets'][s_id].get('user', '')
+
             # 1. Reservieren (nur wenn vorher frei)
-            if req['status'] == 'taken' and data['streets'][s_id]['status'] == 'free':
+            if req['status'] == 'taken' and current_status == 'free':
                 data['streets'][s_id]['status'] = 'taken'
                 data['streets'][s_id]['user'] = req['user']
-            # 2. Freigeben (Deselect)
+            
+            # 2. Erledigt / In Arbeit (Statuswechsel für Eigentümer)
+            elif req['status'] in ['taken', 'done'] and current_user == req['user']:
+                data['streets'][s_id]['status'] = req['status']
+
+            # 3. Freigeben (Deselect)
             elif req['status'] == 'free':
-                data['streets'][s_id]['status'] = 'free'
-                data['streets'][s_id]['user'] = ""
+                # Optional: Check if user matches or if it's an admin override (not implemented yet)
+                # For now, keep existing behavior (trust client mostly, or check user if provided)
+                if req['user'] == current_user or req['user'] == 'admin': # Simple check
+                    data['streets'][s_id]['status'] = 'free'
+                    data['streets'][s_id]['user'] = ""
+                elif not current_user: # Already free
+                     pass
+                else:
+                    # Fallback: Allow freeing if implementation relied on no-check before?
+                    # The original code was: elif req['status'] == 'free': data... = 'free'
+                    # It didn't check user. To be safe and compatible:
+                    data['streets'][s_id]['status'] = 'free'
+                    data['streets'][s_id]['user'] = ""
     
     save_data(data)
     return jsonify({"success": True})
