@@ -91,6 +91,7 @@
     <div class="controls">
         <button id="selectBtn" class="btn" style="background:var(--info)" onclick="toggleSelectionMode()">🟦 Bereich wählen</button>
         <button class="btn" style="background:var(--primary); color:var(--btn-text-on-primary)" onclick="exportToPDF()">📄 PDF Export (Meine)</button>
+        <button class="btn" style="background:#e67e22; color:white;" onclick="exportToGPX()" title="Export für Komoot/Strava">🧭 GPX Route</button>
         <button class="btn" style="background:#95a5a6" onclick="resetName()">Name: <span id="currentName">...</span></button>
         <button class="btn" style="background:#7f8c8d" onclick="openModal('helpModal')">❓ Hilfe</button>
         <button class="btn" style="background:#000" onclick="toggleTheme()">🌙 Theme</button>
@@ -978,6 +979,128 @@
                 }
             });
             doc.save(`Flyer_Plan_${currentUser}.pdf`);
+        }
+
+        // --- GPX EXPORT ---
+        function exportToGPX() {
+             const myStreets = Object.values(streets).filter(s => s.user === currentUser);
+             if(myStreets.length === 0) { alert("Keine Straßen gewählt!"); return; }
+
+             // 1. Gather all segments
+             let segments = [];
+             myStreets.forEach(s => {
+                 let path = s.path;
+                 if(!path && s.coords) path = [s.coords]; // Fallback for single points? Not really useful for routing but robust.
+                 
+                 // Handle MultiLineString (list of lists) vs LineString (list of points)
+                 // Based on overpass.py logic, it might be list of lists if split, or just list if not?
+                 // Let's inspect structure: s.path is likely [[lat,lon], [lat,lon]...] based on frontend usage L.polyline(s.path)
+                 // But overpass.py "final_streets" has 'path' which is "paths" (list of lists) OR "sorted_paths" (list of lists)
+                 // Wait, L.polyline can handle [[lat,lon]...] (LineString) or [[[lat,lon]...]] (MultiLineString).
+                 
+                 // Let's assume it's a LineString (one array of points) for simplicity of current frontend code,
+                 // BUT if it's MultiLineString (e.g. split parts or complex geometry), we need to handle it.
+                 // In renderMap: L.polyline(s.path) works. 
+                 
+                 // Let's normalize to list of segments.
+                 if (Array.isArray(path[0]) && Array.isArray(path[0][0])) {
+                      // It is [[[lat,lon]...], ...]
+                      path.forEach(p => segments.push([...p])); // Copy
+                 } else {
+                      // It is [[lat,lon]...]
+                      segments.push([...path]); // Copy as one segment
+                 }
+             });
+
+             if(segments.length === 0) return;
+
+             // 2. Greedy Route Optimization (Nearest Neighbor)
+             // Start with the segment closest to the map center (or just the first one)
+             // We want to order segments [S1, S2, S3...] such that End(S1) -> Start(S2) is minimal.
+             // We can also reverse segments if Start(S1) -> Start(S2) is closer than End(S1) -> Start(S2).
+
+             let sortedSegments = [];
+             let currentPoint = null;
+             
+             // Pick first segment (e.g. first in list)
+             let first = segments.shift();
+             sortedSegments.push(first);
+             currentPoint = first[first.length - 1]; // End of first
+
+             while (segments.length > 0) {
+                 let bestIdx = -1;
+                 let minDist = Infinity;
+                 let shouldReverse = false;
+
+                 for(let i=0; i<segments.length; i++) {
+                     const seg = segments[i];
+                     const start = seg[0];
+                     const end = seg[seg.length-1];
+                     
+                     // Dist to Start
+                     const dStart = map.distance(currentPoint, start);
+                     // Dist to End (if we enter from back)
+                     const dEnd = map.distance(currentPoint, end);
+                     
+                     if (dStart < minDist) {
+                         minDist = dStart;
+                         bestIdx = i;
+                         shouldReverse = false;
+                     }
+                     if (dEnd < minDist) {
+                         minDist = dEnd;
+                         bestIdx = i;
+                         shouldReverse = true;
+                     }
+                 }
+                 
+                 if (bestIdx !== -1) {
+                     let bestSeg = segments.splice(bestIdx, 1)[0];
+                     if (shouldReverse) bestSeg.reverse();
+                     sortedSegments.push(bestSeg);
+                     currentPoint = bestSeg[bestSeg.length - 1];
+                 } else {
+                     break; // Should not happen
+                 }
+             }
+
+             // 3. Generate GPX XML
+             let gpx = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="FlyerFerteiler" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Flyer Route für ${currentUser}</name>
+    <desc>Automatisch optimierte Route</desc>
+    <time>${new Date().toISOString()}</time>
+  </metadata>
+  <trk>
+    <name>Flyer Route</name>
+`;
+             
+             // Option A: Single Track Segment (connects jumps with straight lines) -> Better for navigation apps?
+             // Option B: Multiple Track Segments (gaps shown) -> More accurate data.
+             // Most apps handle single track better for turn-by-turn guidance or "following the line".
+             // Let's do one <trkseg> containing all points.
+             
+             gpx += "    <trkseg>\n";
+             
+             sortedSegments.forEach(seg => {
+                 seg.forEach(p => {
+                     // p is [lat, lon]
+                     gpx += `      <trkpt lat="${p[0]}" lon="${p[1]}"></trkpt>\n`;
+                 });
+             });
+             
+             gpx += "    </trkseg>\n  </trk>\n</gpx>";
+
+             // 4. Download
+             const blob = new Blob([gpx], { type: 'application/gpx+xml' });
+             const url = URL.createObjectURL(blob);
+             const a = document.createElement('a');
+             a.href = url;
+             a.download = `route_${currentUser}.gpx`;
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
         }
 
         function resetName() { 
