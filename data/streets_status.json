@@ -126,8 +126,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Ml"
     },
     "am_altenbach_part1": {
       "coords": [
@@ -584,8 +584,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Ml"
     },
     "am_spottenberg": {
       "coords": [
@@ -696,8 +696,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Ml"
     },
     "amselweg": {
       "coords": [
@@ -6092,8 +6092,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Ml"
     },
     "lerchenweg": {
       "coords": [
@@ -8932,8 +8932,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "Ml"
     },
     "spessartstraße_part3": {
       "coords": [
