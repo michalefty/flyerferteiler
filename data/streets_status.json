@@ -3165,8 +3165,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "fliederweg": {
       "coords": [
@@ -6438,8 +6438,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "mühlweg_part1": {
       "coords": [
@@ -6624,8 +6624,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "nelkenweg": {
       "coords": [
@@ -8753,8 +8753,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part2": {
       "coords": [
@@ -9710,8 +9710,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "wingertstraße": {
       "coords": [
