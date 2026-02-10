@@ -329,8 +329,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_friedrichsberg": {
       "coords": [
@@ -378,8 +378,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_lenzengrund": {
       "coords": [
@@ -501,8 +501,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_sportplatz": {
       "coords": [
@@ -1989,8 +1989,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-albert-hoffa-straße_part2": {
       "coords": [
@@ -2070,8 +2070,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-karl-reus-straße_part1": {
       "coords": [
@@ -2117,8 +2117,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-karl-reus-straße_part2": {
       "coords": [
@@ -2276,8 +2276,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "dorfstraße": {
       "coords": [
@@ -2685,8 +2685,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "drosselweg": {
       "coords": [
@@ -4224,8 +4224,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "hohe-wart-straße_part2": {
       "coords": [
@@ -4321,8 +4321,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "hollerweg": {
       "coords": [
@@ -4453,8 +4453,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "höfchen": {
       "coords": [
@@ -7292,8 +7292,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "ritastraße": {
       "coords": [
@@ -7588,8 +7588,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "schulstraße": {
       "coords": [
@@ -7753,8 +7753,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part10": {
       "coords": [
@@ -7818,8 +7818,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part2": {
       "coords": [
@@ -7887,8 +7887,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part3": {
       "coords": [
@@ -7932,8 +7932,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part4": {
       "coords": [
@@ -8089,8 +8089,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part5": {
       "coords": [
@@ -8310,8 +8310,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part6": {
       "coords": [
@@ -8355,8 +8355,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part7": {
       "coords": [
@@ -8456,8 +8456,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part8": {
       "coords": [
@@ -8621,8 +8621,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "sodentalstraße_part9": {
       "coords": [
@@ -8686,8 +8686,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "spessartstraße_part1": {
       "coords": [
@@ -9745,8 +9745,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     }
   }
 }
