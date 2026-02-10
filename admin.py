@@ -434,6 +434,44 @@ def stop_survey():
             except subprocess.CalledProcessError as e:
                 print(f"❌ Git-Fehler: {e}")
 
+def ssh_to_vm():
+    print("\n--- 📟 SSH LOGIN ---")
+    provider = getattr(config, 'CLOUD_PROVIDER', 'none')
+    
+    cmd = []
+    
+    if provider == 'gcloud':
+        name = getattr(config, 'VM_INSTANCE_NAME', 'flyer-server')
+        zone = getattr(config, 'VM_ZONE', 'europe-west3-c')
+        project = getattr(config, 'VM_PROJECT', '')
+        print(f"☁️  Verbinde zu GCloud VM '{name}' ({zone})...")
+        cmd = ["gcloud", "compute", "ssh", name, "--zone", zone]
+        if project: cmd.extend(["--project", project])
+        
+    else:
+        # Generic Fallback
+        host = getattr(config, 'SSH_HOST', '')
+        user = getattr(config, 'SSH_USER', '')
+        key = getattr(config, 'SSH_KEY_PATH', '')
+        
+        if not host:
+            print("❌ Kein 'SSH_HOST' in config.py definiert.")
+            return
+
+        print(f"🔌 Verbinde zu {user}@{host}..." if user else f"🔌 Verbinde zu {host}...")
+        cmd = ["ssh"]
+        if key: cmd.extend(["-i", key])
+        if user: cmd.append(f"{user}@{host}")
+        else: cmd.append(host)
+
+    try:
+        # Use simple subprocess.call/run for interactive
+        subprocess.run(cmd) 
+    except FileNotFoundError:
+        print("❌ Befehl nicht gefunden (ssh/gcloud installiert?).")
+    except Exception as e:
+        print(f"❌ Fehler: {e}")
+
 def main_menu():
     while True:
         print("\n--- 🛠️ ADMIN TOOL ---")
@@ -444,9 +482,10 @@ def main_menu():
         print("5. 🏥 Server Status Check")
         print("6. ❓ Hilfe anzeigen")
         print("7. 🛑 Aktion beenden (Offline-Modus)")
+        print("8. 📟 SSH Login")
         print("0. ❌ Beenden")
         
-        choice = input("\nWähle eine Option (0-7): ").strip()
+        choice = input("\nWähle eine Option (0-8): ").strip()
         
         if choice == '1':
             generate_multi_plan()
@@ -462,6 +501,8 @@ def main_menu():
             print_help()
         elif choice == '7':
             stop_survey()
+        elif choice == '8':
+            ssh_to_vm()
         elif choice == '0':
             print("👋 Bye!")
             break

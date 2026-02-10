@@ -77,3 +77,4 @@
 - [x] Tabelle bricht immer noch um vielleicht doch 2 zeilig oben: Straßenname unten: infos + icon + bedienung
 - [x] Wenn eine aufgeteilte Straße ausgewählt wurde anbieten alle Straßenabschnitte mitzumachen
 - [x] GPX Export mit Routen-Optimierung für "Meine Straßen" (Navigation)
+- [x] Admin CLI: SSH Verbindung zur VM herstellen (Menüpunkt)
