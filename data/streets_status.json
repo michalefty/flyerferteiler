@@ -4500,8 +4500,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "at"
     },
     "höhfeldstraße": {
       "coords": [
@@ -5148,8 +5148,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "at"
     },
     "karolinenstraße": {
       "coords": [
@@ -5782,8 +5782,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "at"
     },
     "königsberger_straße_part2": {
       "coords": [
