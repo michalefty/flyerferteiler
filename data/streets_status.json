@@ -3470,8 +3470,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "goethestraße": {
       "coords": [
@@ -5299,8 +5299,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "kleewiesenweg_part2": {
       "coords": [
