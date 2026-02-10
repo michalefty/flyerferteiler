@@ -32,7 +32,7 @@
         .btn { border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; }
         .street-list { background: var(--card-bg); padding: 15px; border-radius: 12px; max-height: 400px; overflow-y: auto; }
         .street-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; align-items: center; }
-        .street-info { flex-grow: 1; }
+        .street-info { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.95em; padding-right: 10px; }
         .badge { font-size: 0.8em; padding: 2px 6px; border-radius: 4px; background: #eee; color: #555; margin-left: 5px; }
 
         /* Modal Styles */
@@ -626,7 +626,12 @@
             const sortedIds = Object.keys(streets).sort((a,b) => {
                 const sA = streets[a], sB = streets[b];
                 
-                // Weight: Mine(Taken)=3, Mine(Done)=2, Free=1, Others=0
+                // If filtering by proximity, Distance is KING.
+                if (sortTargetId) {
+                    return getDist(sA, streets[sortTargetId]) - getDist(sB, streets[sortTargetId]);
+                }
+
+                // Otherwise: Mine(Taken)=3, Mine(Done)=2, Free=1, Others=0
                 let wA = 0, wB = 0;
                 
                 if (sA.user === currentUser) wA = sA.status === 'taken' ? 3 : 2;
@@ -636,7 +641,6 @@
                 else if (sB.status === 'free') wB = 1;
                 
                 if (wA !== wB) return wB - wA;
-                if (sortTargetId) return getDist(sA, streets[sortTargetId]) - getDist(sB, streets[sortTargetId]);
                 return sA.name.localeCompare(sB.name);
             });
 

@@ -65,9 +65,12 @@
 - [x] der zoom auf die ausgewählten straßen funktioniert aber das overlay (die eingefärbten straßen) wird nach links verschoben dargestellt. und die Karte wird auch verzerrt dargestellt - gibt es keine vernünftige js lib die das besser kann? -> *Gelöst durch Integration von `leaflet-simple-map-screenshoter`.*
 - [x] Einen switch in admin.py mit der man die aktuelle Planung abschalten kann und man die index_offline.html nur noch anzeigen kann. (alte Karten sind nicht mehr erreichbar nur noch offline-seite)
 
-- [ ] Banner: Nicht in Briefkästen mit Aufkleber keine Werbung, keine kostenlose Zeitungen werfen!
-- [ ] Die Farben in der Legende sind nicht die die wir benutzten 
-- [ ] Algo verbessern: nur zusammenhängende Straßenabschnitte auswählen (keine Lücken) muss nicht gleiche anzahl an Häusern haben
-- [ ] können die erkannten häuser an der ausgewählten Straße markiert werden (um nicht erfasste zu erkennen)
-- [ ] Den Datenschutz-Hinweis (DSGVO) bitte nicht die ganze Zeit einblenden - nur bei Namensänderung (über Button)
-- [ ] können wir die Straßentabelle neben der Karte anordnen (bei breiten Bildschirmen) sonst wird sie übersehen
+- [x] Banner: Nicht in Briefkästen mit Aufkleber keine Werbung, keine kostenlose Zeitungen werfen!
+- [x] Die Farben in der Legende sind nicht die die wir benutzten 
+- [x] Algo verbessern: nur zusammenhängende Straßenabschnitte auswählen (keine Lücken) muss nicht gleiche anzahl an Häusern haben
+- [x] können die erkannten häuser an der ausgewählten Straße markiert werden (um nicht erfasste zu erkennen)
+- [x] Den Datenschutz-Hinweis (DSGVO) bitte nicht die ganze Zeit einblenden - nur bei Namensänderung (über Button)
+- [x] können wir die Straßentabelle neben der Karte anordnen (bei breiten Bildschirmen) sonst wird sie übersehen
+
+- [x] Tabelle rechts neben der Karte bricht bei längeren Namen um - lieber Schriftverkleinern eine Zeile
+- [x] Tabelle rechts wenn auf Straße in der Karte geklickt wird sortiert nicht die nächsten Straßen nach oben sondern die ausgwählten Straßen.
