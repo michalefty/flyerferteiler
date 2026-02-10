@@ -41,6 +41,17 @@
         .close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
         .footer-links { text-align: center; margin-top: 30px; font-size: 0.9em; opacity: 0.8; }
         .footer-links a { color: var(--info); margin: 0 10px; text-decoration: none; cursor: pointer; }
+
+        @media (min-width: 1000px) {
+            .main-content {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 20px;
+                align-items: start;
+            }
+            #map { height: 600px; }
+            .street-list { max-height: 600px; }
+        }
     </style>
 </head>
 <body>
@@ -66,6 +77,11 @@
         <div class="stat-card"><h4><span style="color:var(--mine)">■</span> Meine</h4><p id="s-mine" style="color:var(--mine)">- Str.</p></div>
         <div class="stat-card"><h4>🏠 Häuser (ca)</h4><p id="s-house" style="color:var(--info)">-</p></div>
     </div>
+    
+    <div style="background:#f39c12; color:white; padding:12px; text-align:center; border-radius:6px; margin-bottom:15px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+        🚫 Nicht in Briefkästen mit Aufkleber "Keine Werbung", "Keine kostenlose Zeitungen" werfen!
+    </div>
+
     <p style="text-align:center; font-size:0.85em; color:#7f8c8d; margin-top:-10px; margin-bottom: 20px;">
         ℹ️ Hinweis: Es müssen ggf. mehr, bei z.B. Mehrparteienhäusern, oder weniger, wegen "Keine Werbung"-Aufklebern, Flyer ausgeteilt werden.
     </p>
@@ -90,24 +106,20 @@
         <input type="text" id="searchBox" placeholder="Straßensuche..." onkeyup="filterList()" style="padding:10px; border:1px solid #ccc; border-radius:6px; width: 150px;">
     </div>
 
-    <div style="margin-bottom:15px; padding:10px; border:1px solid #e74c3c; border-left: 5px solid #e74c3c; background-color: rgba(231, 76, 60, 0.1); color:var(--text); border-radius: 4px;">
-        <strong style="color:#c0392b;">⚠️ Datenschutz-Hinweis (DSGVO):</strong><br>
-        Bitte verwende zu deiner eigenen Sicherheit und Datensparsamkeit <b>nur deinen Spitznamen oder ein Kürzel</b> (z.B. "Lefty" oder "ML")!<br>
-        Verzichte auf die Eingabe deines vollständigen Namens.
-    </div>
-
-    <div style="position:relative;">
-        <div id="map"></div>
-        <div id="map-lock" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.05); z-index:1000; align-items:center; justify-content:center; cursor:pointer; border-radius:12px;" onclick="enableMapInteraction()">
-            <button style="background:var(--primary); color:var(--btn-text-on-primary); padding:10px 20px; border:none; border-radius:30px; font-size:1.1em; box-shadow:0 4px 15px rgba(0,0,0,0.3); pointer-events:none;">👆 Karte aktivieren</button>
+    <div class="main-content">
+        <div style="position:relative;">
+            <div id="map"></div>
+            <div id="map-lock" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.05); z-index:1000; align-items:center; justify-content:center; cursor:pointer; border-radius:12px;" onclick="enableMapInteraction()">
+                <button style="background:var(--primary); color:var(--btn-text-on-primary); padding:10px 20px; border:none; border-radius:30px; font-size:1.1em; box-shadow:0 4px 15px rgba(0,0,0,0.3); pointer-events:none;">👆 Karte aktivieren</button>
+            </div>
         </div>
-    </div>
 
-    <div class="street-list">
-        <h3>Alle Straßen</h3>
-        <ul id="main-list" style="list-style:none; padding:0;">
-            <!-- Wird per JS gefüllt -->
-        </ul>
+        <div class="street-list">
+            <h3>Alle Straßen</h3>
+            <ul id="main-list" style="list-style:none; padding:0;">
+                <!-- Wird per JS gefüllt -->
+            </ul>
+        </div>
     </div>
 
     <div class="footer-links">
@@ -136,6 +148,23 @@
                 <li>Wenn du fertig bist, klicke auf <b>"PDF Export"</b>, um deine Liste zu drucken.</li>
             </ol>
             <p>Viel Erfolg beim Verteilen! 🏃💨</p>
+        </div>
+    </div>
+
+    <div id="nameModal" class="modal">
+        <div class="modal-content">
+            <!-- Close button optional depending on flow, but better safe -->
+            <span class="close" onclick="closeModal('nameModal')">&times;</span>
+            <h2>👤 Dein Name für die Liste</h2>
+            <div style="margin-bottom:15px; padding:10px; border:1px solid #e74c3c; border-left: 5px solid #e74c3c; background-color: rgba(231, 76, 60, 0.1); color:var(--text); border-radius: 4px; font-size:0.9em;">
+                <strong style="color:#c0392b;">⚠️ Datenschutz-Hinweis (DSGVO):</strong><br>
+                Bitte verwende zu deiner eigenen Sicherheit und Datensparsamkeit <b>nur deinen Spitznamen oder ein Kürzel</b> (z.B. "Lefty" oder "ML")!<br>
+                Verzichte auf die Eingabe deines vollständigen Namens.
+            </div>
+            
+            <p>Wie möchtest du genannt werden?</p>
+            <input type="text" id="nameInput" placeholder="Name/Kürzel" style="width:100%; padding:10px; font-size:1.1em; margin-bottom:15px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px;">
+            <button onclick="saveName()" class="btn" style="background:var(--info); width:100%; font-size:1.1em; padding:12px;">Speichern</button>
         </div>
     </div>
 
@@ -221,7 +250,7 @@
             div.innerHTML = `
                 <div style="margin-bottom:5px"><b>Legende</b></div>
                 <div><span style="color:var(--free)">■</span> Offen</div>
-                <div><span style="color:var(--taken)">■</span> Vergeben</div>
+                <div><span style="background: linear-gradient(90deg, #3498db, #9b59b6, #e74c3c); display:inline-block; width:10px; height:10px; margin-right:5px;"></span> Vergeben</div>
                 <div><span style="color:var(--done)">■</span> Erledigt</div>
                 <div><span style="color:var(--mine)">■</span> Meine</div>
             `;
@@ -405,8 +434,13 @@
 
         function init() {
             if (!currentUser) {
-                currentUser = prompt("Willkommen! Bitte gib deinen Vornamen oder ein Kürzel ein:");
-                // LocalStorage removed
+                // Show name modal instead of prompt
+                openModal('nameModal');
+                // Also show help? Maybe below? 
+                // If we show nameModal, helpModal is blocked/underneath.
+                // Let's just show nameModal. Help can be accessed via button.
+            } else {
+                openModal('helpModal');
             }
             document.getElementById('currentName').innerText = currentUser || "Nicht gesetzt";
             
@@ -486,9 +520,12 @@
         }
 
         const highlightGroup = L.layerGroup().addTo(map);
+        const houseGroup = L.layerGroup().addTo(map);
 
         function renderMap() {
             Object.keys(streets).forEach(id => {
+               // ... existing rendering code ...
+
                 const s = streets[id];
                 const isMine = s.user === currentUser;
                 const isFree = s.status === 'free';
@@ -527,6 +564,8 @@
 
         function updateHighlights() {
             highlightGroup.clearLayers();
+            houseGroup.clearLayers(); // Clear houses
+            
             if (!sortTargetId) return;
 
             Object.keys(streets).forEach(id => {
@@ -536,6 +575,20 @@
                 if (id === sortTargetId) {
                     // Highlight Target (thick transparent overlay)
                     L.polyline(s.path, { color: '#3498db', weight: 12, opacity: 0.3 }).addTo(highlightGroup);
+                    
+                    // Show Houses
+                    if (s.houses && s.houses.length > 0) {
+                        s.houses.forEach(h => {
+                             L.circleMarker([h.lat, h.lon], {
+                                 radius: 3 + (h.w > 1 ? 2 : 0), // Bigger for flats
+                                 color: '#2c3e50',
+                                 weight: 1,
+                                 fillColor: '#f1c40f',
+                                 fillOpacity: 0.8
+                             }).addTo(houseGroup)
+                             .bindTooltip(h.w > 1 ? `${h.w} Haushalte` : '1 Haushalt');
+                        });
+                    }
                 } else {
                     // Highlight Neighbors
                     const dist = map.distance(s.coords, streets[sortTargetId].coords);
@@ -896,16 +949,31 @@
         }
 
         function resetName() { 
-            const n = prompt("Neuer Name (Vorname/Kürzel):"); 
-            if(n) { 
+            openModal('nameModal');
+            document.getElementById('nameInput').focus();
+        }
+
+        function saveName() {
+            const n = document.getElementById('nameInput').value.trim();
+            if (n) {
                 if (n.toLowerCase() === 'ferteiler') {
                     alert("🐰 Easter Egg gefunden!\n\nWarum 'Ferteiler'?\nWeil wir Flyer so schnell verteilen, dass für Rechtschreibung keine Zeit blieb! 🏃💨");
                 }
-                // localStorage removed
-                currentUser = n; 
+                currentUser = n;
                 document.getElementById('currentName').innerText = n;
-                renderMap(); renderList(); 
-            } 
+                closeModal('nameModal');
+                
+                // If it was the first init, maybe we should re-render or just continue
+                renderMap(); 
+                renderList();
+                
+                // Show help after name if not shown yet?
+                // The init function showed helpModal immediately. 
+                // We might want to show helpModal only if name was already present?
+                // For now, simple logic.
+            } else {
+                alert("Bitte einen Namen eingeben!");
+            }
         }
 
         // --- Admin & Drawing Logic ---
