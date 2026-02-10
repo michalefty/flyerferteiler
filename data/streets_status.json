@@ -3985,8 +3985,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "helenenstraße": {
       "coords": [
