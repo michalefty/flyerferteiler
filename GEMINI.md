@@ -74,3 +74,5 @@
 
 - [x] Tabelle rechts neben der Karte bricht bei längeren Namen um - lieber Schriftverkleinern eine Zeile
 - [x] Tabelle rechts wenn auf Straße in der Karte geklickt wird sortiert nicht die nächsten Straßen nach oben sondern die ausgwählten Straßen.
+- [x] Tabelle bricht immer noch um vielleicht doch 2 zeilig oben: Straßenname unten: infos + icon + bedienung
+- [x] Wenn eine aufgeteilte Straße ausgewählt wurde anbieten alle Straßenabschnitte mitzumachen

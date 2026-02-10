@@ -4,6 +4,8 @@
 (No pending tasks)
 
 ## Completed
+- [x] Tabelle bricht immer noch um vielleicht doch 2 zeilig oben: Straßenname unten: infos + icon + bedienung
+- [x] Wenn eine aufgeteilte Straße ausgewählt wurde anbieten alle Straßenabschnitte mitzumachen
 - [x] Tabelle rechts neben der Karte bricht bei längeren Namen um - lieber Schriftverkleinern eine Zeile (CSS: white-space: nowrap)
 - [x] Tabelle rechts wenn auf Straße in der Karte geklickt wird sortiert nicht die nächsten Straßen nach oben sondern die ausgwählten Straßen (Prioritize Proximity Sorting)
 - [x] Algo verbessern: nur zusammenhängende Straßenabschnitte auswählen (keine Lücken) muss nicht gleiche anzahl an Häusern haben
