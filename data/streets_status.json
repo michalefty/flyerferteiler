@@ -3535,8 +3535,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "grünewaldstraße_part1": {
       "coords": [
@@ -5674,7 +5674,7 @@
           ]
         ]
       ],
-      "status": "taken",
+      "status": "done",
       "user": "ml"
     },
     "kurt-schumacher-straße": {
