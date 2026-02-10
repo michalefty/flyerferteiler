@@ -3247,8 +3247,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "franz-schüßler-straße": {
       "coords": [
@@ -4654,8 +4654,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "höhwaldweg_part2": {
       "coords": [
@@ -4719,8 +4719,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "im_hag": {
       "coords": [
@@ -5647,8 +5647,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "kurmainzer_ring_part2": {
       "coords": [
@@ -5674,8 +5674,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "kurt-schumacher-straße": {
       "coords": [
@@ -7037,8 +7037,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "rainweg": {
       "coords": [
@@ -7645,8 +7645,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "schwalbenring": {
       "coords": [
