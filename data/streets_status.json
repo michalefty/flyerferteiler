@@ -1108,8 +1108,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "tb"
     },
     "bahnhofstraße_part2": {
       "coords": [
