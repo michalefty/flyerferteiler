@@ -621,8 +621,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_friedrichsberg": {
       "coords": [
@@ -697,8 +697,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_lenzengrund": {
       "coords": [
@@ -932,8 +932,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "am_sportplatz": {
       "coords": [
@@ -4205,8 +4205,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-karl-reus-straße_part1": {
       "coords": [
@@ -4621,8 +4621,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "doktor-karl-reus-straße_part2": {
       "coords": [
@@ -5554,8 +5554,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "drosselweg": {
       "coords": [
@@ -8696,8 +8696,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "hohe-wart-straße_part2": {
       "coords": [
@@ -9099,8 +9099,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "höfchen": {
       "coords": [
@@ -15577,8 +15577,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "ritastraße": {
       "coords": [
@@ -16120,8 +16120,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     },
     "schulstraße": {
       "coords": [
@@ -20200,8 +20200,8 @@
           ]
         ]
       ],
-      "status": "free",
-      "user": ""
+      "status": "taken",
+      "user": "ml"
     }
   }
 }
