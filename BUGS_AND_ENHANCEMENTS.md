@@ -1,18 +1,7 @@
 # Bugs and Enhancements
 
-## Todo
-(No pending tasks)
-
-## Completed
-- [x] SSH Login Option im Admin-Menü (Verbindung zur VM)
-- [x] GPX Export mit Routen-Optimierung (Greedy Nearest Neighbor) für Navigations-Apps
-- [x] Tabelle bricht immer noch um vielleicht doch 2 zeilig oben: Straßenname unten: infos + icon + bedienung
-- [x] Wenn eine aufgeteilte Straße ausgewählt wurde anbieten alle Straßenabschnitte mitzumachen
-- [x] Tabelle rechts neben der Karte bricht bei längeren Namen um - lieber Schriftverkleinern eine Zeile (CSS: white-space: nowrap)
-- [x] Tabelle rechts wenn auf Straße in der Karte geklickt wird sortiert nicht die nächsten Straßen nach oben sondern die ausgwählten Straßen (Prioritize Proximity Sorting)
-- [x] Algo verbessern: nur zusammenhängende Straßenabschnitte auswählen (keine Lücken) muss nicht gleiche anzahl an Häusern haben
-- [x] können die erkannten häuser an der ausgewählten Straße markiert werden (um nicht erfasste zu erkennen)
-- [x] Banner: Nicht in Briefkästen mit Aufkleber keine Werbung, keine kostenlose Zeitungen werfen!
-- [x] Die Farben in der Legende sind nicht die die wir benutzten 
-- [x] Den Datenschutz-Hinweis (DSGVO) bitte nicht die ganze Zeit einblenden - nur bei Namensänderung (über Button)
-- [x] können wir die Straßentabelle neben der Karte anordnen (bei breiten Bildschirmen) sonst wird sie übersehen
+## Open
+- [x] Feature: Interactive House Assignment Stats & Radius Adjustment
+    - [x] Calculate total houses (from Overpass) vs assigned houses.
+    - [x] Display these stats to the user.
+    - [x] Allow increasing detection radius (e.g., +2m) and re-calculating assignment without re-fetching raw data.

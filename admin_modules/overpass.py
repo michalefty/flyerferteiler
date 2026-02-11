@@ -59,24 +59,26 @@ def dist_point_to_segments(lat, lon, paths):
     min_d = float('inf')
     for path in paths:
         # Check all points in path (simplified)
-        for p in path[::2]: # Check every 2nd node for speed
+        for p in path: # Check all nodes for accuracy
             d = (lat - p[0])**2 + (lon - p[1])**2 # Squared Euclidean (approx)
             if d < min_d: min_d = d
     return math.sqrt(min_d)
 
-def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
-    # --- Cache Check ---
+def get_overpass_data(plz_liste):
+    """Fetches raw data from Overpass or loads from raw cache."""
     cache_dir = "cache"
     os.makedirs(cache_dir, exist_ok=True)
     cache_key = "_".join(sorted(plz_liste))
-    cache_file = os.path.join(cache_dir, f"streets_{cache_key}_v2.json")
-    
-    if os.path.exists(cache_file):
-        if input(f"💾 Cache für {', '.join(plz_liste)} gefunden. Verwenden? (j/n): ").strip().lower() == 'j':
-            print("📂 Lade Daten aus Cache...")
-            with open(cache_file, 'r', encoding='utf-8') as f:
+    raw_cache_file = os.path.join(cache_dir, f"raw_{cache_key}.json")
+
+    if os.path.exists(raw_cache_file):
+        print(f"📂 Lade RAW-Daten aus Cache ({raw_cache_file})...")
+        try:
+            with open(raw_cache_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            return data['streets'], data['coords']
+            return data['streets'], data['houses']
+        except Exception as e:
+            print(f"⚠️ Fehler beim Laden des Raw-Cache: {e}")
 
     print(f"🔍 Suche ALLES: Straßen, Adresspunkte und Hausumrisse für {', '.join(plz_liste)}...")
     area_filters = "".join([f'area["postal_code"="{p}"];' for p in plz_liste])
@@ -90,9 +92,19 @@ def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
     data_s = fetch_overpass_data(q_streets)
     data_h = fetch_overpass_data(q_houses)
 
+    if data_s and data_h:
+        try:
+            with open(raw_cache_file, 'w', encoding='utf-8') as f:
+                json.dump({'streets': data_s, 'houses': data_h}, f)
+        except Exception as e:
+             print(f"⚠️ Fehler beim Speichern des Raw-Cache: {e}")
+
+    return data_s, data_h
+
+def process_streets(data_s, data_h, radius_threshold_m=45):
+    """Processes raw Overpass data and assigns houses to streets."""
     if not data_s or not data_h:
-        print("❌ Daten konnten nicht geladen werden.")
-        return {}, []
+        return {}, [], {}
 
     raw_streets = {} 
     coords_list = []
@@ -135,7 +147,12 @@ def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
             raw_streets[s_id_base]["paths"].append(nodes)
 
     # 2. Assign Households to Streets
-    print(f"🏠 Verarbeite {len(data_h.get('elements', []))} gefundene Adress-Objekte...")
+    elements = data_h.get('elements', [])
+    total_houses_found = len(elements)
+    assigned_houses_count = 0
+    
+    # print(f"🏠 Verarbeite {total_houses_found} gefundene Adress-Objekte...") # Moved to stats return
+    
     THRESHOLD = radius_threshold_m / 111320.0
     GRID_SIZE = 0.001 
     
@@ -149,7 +166,7 @@ def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
                 if key not in street_grid: street_grid[key] = set()
                 street_grid[key].add(s_id)
                 
-    for h in data_h.get('elements', []):
+    for h in elements:
         h_lat = h.get('lat') or h.get('center', {}).get('lat')
         h_lon = h.get('lon') or h.get('center', {}).get('lon')
         if not h_lat: continue
@@ -173,6 +190,7 @@ def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
                 best_id = s_id
         
         if best_id and min_d < THRESHOLD:
+            assigned_houses_count += 1
             weight = 1
             tags = h.get('tags', {})
             if 'addr:flats' in tags:
@@ -283,7 +301,20 @@ def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
             del data["house_coords"]
             final_streets[s_id] = data
 
-    with open(cache_file, 'w', encoding='utf-8') as f:
-        json.dump({'streets': final_streets, 'coords': coords_list}, f)
+    stats = {
+        'total_houses': total_houses_found,
+        'assigned_houses': assigned_houses_count,
+        'unassigned': total_houses_found - assigned_houses_count,
+        'radius': radius_threshold_m
+    }
+    return final_streets, coords_list, stats
 
-    return final_streets, coords_list
+def fetch_streets_multi_plz(plz_liste, radius_threshold_m=45):
+    # Compatibility Wrapper (simplified) or removed if admin.py is updated
+    # To keep compatibility while we update admin.py separately, we can leave a wrapper
+    # But I will update admin.py directly.
+    data_s, data_h = get_overpass_data(plz_liste)
+    if not data_s or not data_h: return {}, []
+    streets, coords, _ = process_streets(data_s, data_h, radius_threshold_m)
+    return streets, coords
+

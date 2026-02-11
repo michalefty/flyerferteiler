@@ -30,5 +30,3 @@ config.py
 pyvenv.cfg 
 scripts/
 sync.log
-
-BUGS_AND_ENHANCEMENTS.md

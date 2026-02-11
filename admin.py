@@ -12,7 +12,7 @@ except ImportError:
     config = None
 
 # Import modules
-from admin_modules.overpass import fetch_streets_multi_plz
+from admin_modules.overpass import fetch_streets_multi_plz, get_overpass_data, process_streets
 from admin_modules.vm import start_vm, schedule_stop_vm, get_vm_details
 from admin_modules.backups import restore_backup, cleanup_backups
 from admin_modules.users import anonymize_users
@@ -73,47 +73,43 @@ def generate_multi_plan():
         survey_days = default_days
         print(f"⚠️ Ungültige Eingabe, nutze Default: {survey_days} Tage")
 
-    # 2. Cache Check Strategy
-    cache_dir = "cache"
-    cache_key = "_".join(sorted(plz_liste))
-    cache_file = os.path.join(cache_dir, f"streets_{cache_key}.json")
-    
+    # 2. Fetch Raw Data (or load from raw cache)
+    data_s, data_h = get_overpass_data(plz_liste)
+    if not data_s or not data_h: return
+
+    # 3. Interactive Processing Loop
+    radius = 45 # Default
     streets_dict = None
     coords_list = None
-    radius = 45 # Default
-
-    if os.path.exists(cache_file):
-        if input(f"💾 Cache für {', '.join(plz_liste)} gefunden. Verwenden? (j/n): ").strip().lower() == 'j':
-            print("📂 Lade Daten aus Cache...")
-            try:
-                with open(cache_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                streets_dict = data['streets']
-                coords_list = data['coords']
-            except Exception as e:
-                print(f"❌ Fehler beim Laden des Cache: {e}")
-
-    # 3. Fetch if not from Cache
-    if not streets_dict:
-        try:
-            rad_input = input("Suchradius für Häuser (Meter) [Default: 45]: ").strip()
-            radius = int(rad_input) if rad_input else 45
-        except ValueError:
-            radius = 45
-            print(f"⚠️ Ungültige Eingabe, nutze Default: {radius}m")
-
-        # Note: fetch_streets_multi_plz also has a cache check.
-        # Since we already checked/rejected it (or file didn't exist), 
-        # it might prompt again if we created it in the meantime, but that's unlikely in single session.
-        # However, if we rejected it above, we probably want to force fetch.
-        # But fetch_streets_multi_plz doesn't have a "force" param.
-        # If user rejected cache above, they likely want to fetch new.
-        # If I call fetch_streets_multi_plz now, it sees the file and asks AGAIN.
-        # This is a small UX flaw, but acceptable for now or I'd need to modify overpass.py.
-        # To avoid double prompt, I could check if I rejected it.
-        # But for now, I will accept the potential double prompt if user says 'n' above.
+    
+    while True:
+        print(f"\n⚙️  Berechne Zuordnung (Radius: {radius}m)...")
+        streets_dict, coords_list, stats = process_streets(data_s, data_h, radius)
         
-        streets_dict, coords_list = fetch_streets_multi_plz(plz_liste, radius)
+        print(f"\n📊 Statistik:")
+        print(f"   🏠 Häuser gefunden (Overpass): {stats['total_houses']}")
+        print(f"   ✅ Zugeordnet zu Straßen:      {stats['assigned_houses']}")
+        print(f"   ❌ Nicht zugeordnet:           {stats['unassigned']} ({(stats['unassigned']/max(1,stats['total_houses'])*100):.1f}%)")
+        print(f"   📏 Aktueller Radius:           {stats['radius']} Meter")
+        
+        print("\nOptionen:")
+        print("1. ✅ Weiter (Ergebnis verwenden)")
+        print("2. ➕ Radius vergrößern (+2m)")
+        print("3. 🔧 Radius manuell setzen")
+        
+        opt = input("Auswahl (1-3): ").strip()
+        
+        if opt == '1':
+            break
+        elif opt == '2':
+            radius += 2
+        elif opt == '3':
+            try:
+                r = int(input("Neuer Radius (Meter): ").strip())
+                if r > 0: radius = r
+            except: print("Ungültige Eingabe.")
+        else:
+            print("Unbekannte Option.")
     
     if not streets_dict: return
 
@@ -166,13 +162,16 @@ def generate_multi_plan():
             except Exception as e:
                 print(f"⚠️ Merge-Fehler: {e}")
 
-    avg_lat = sum(c[0] for c in coords_list) / len(coords_list)
-    avg_lon = sum(c[1] for c in coords_list) / len(coords_list)
+    avg_lat = sum(c[0] for c in coords_list) / len(coords_list) if coords_list else 0
+    avg_lon = sum(c[1] for c in coords_list) / len(coords_list) if coords_list else 0
     
     # Calculate Bounding Box
-    lats = [c[0] for c in coords_list]
-    lons = [c[1] for c in coords_list]
-    bbox = [[min(lats), min(lons)], [max(lats), max(lons)]]
+    if coords_list:
+        lats = [c[0] for c in coords_list]
+        lons = [c[1] for c in coords_list]
+        bbox = [[min(lats), min(lons)], [max(lats), max(lons)]]
+    else:
+        bbox = [[0,0],[0,0]]
 
     export_data = {
         "metadata": {
